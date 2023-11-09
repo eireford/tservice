@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+package com.tservice;
+
+option java_multiple_files = true;
+option java_outer_classname = "BookAuthorProto";
+option java_package = "com.tservice.api";
+
+service BookAuthorService{
+  rpc getAuthor(AuthorRequest) returns (Author);
+  rpc getBook(BookRequest) returns (Book);
+}
+message AuthorRequest {
+  int32 author_id = 1;
+}
+
+message Author {
+  int32 author_id = 1;
+  string first_name = 2;
+  string last_name = 3;
+  string gender = 4;
+  int32 book_id = 5;
+}
+
+message BookRequest {
+  int32 book_id = 1;
+}
+message Book {
+  int32 book_id = 1;
+  string title = 2;
+  float price = 3;
+  int32 pages = 4;
+  int32 author_id = 5;
+}
