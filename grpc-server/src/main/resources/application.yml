@@ -1,0 +1,9 @@
+
+grpc:
+  server:
+    port: 8989
+management:
+  server:
+    port: 8084
+server:
+  port: 8083
