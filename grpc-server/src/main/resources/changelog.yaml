@@ -1,0 +1,161 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-uuid-ossp-extension
+      author: eireford
+      changes:
+        - sql:
+          - CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+  - changeSet:
+      id: create-bank-accounts-table
+      author: eireford
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  defaultValueComputed: uuid_generate_v4()
+                  name: bank_account_id
+                  type: UUID
+              - column:
+                  constraints:
+                    nullable: false
+                  name: first_name
+                  type: VARCHAR(60)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: last_name
+                  type: VARCHAR(60)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: email
+                  type: VARCHAR(60)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: address
+                  type: VARCHAR(500)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: phone
+                  type: VARCHAR(20)
+              - column:
+                  constraints:
+                    nullable: false
+                  defaultValueComputed: '0.00'
+                  name: balance
+                  type: numeric(16, 2)
+              - column:
+                  constraints:
+                    nullable: false
+                  defaultValue: USD
+                  name: currency
+                  type: VARCHAR(3)
+              - column:
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  name: created_at
+                  type: TIMESTAMP WITH TIME ZONE
+              - column:
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  name: updated_at
+                  type: TIMESTAMP WITH TIME ZONE
+            tableName: bank_accounts
+  - changeSet:
+      id: create-bank-account-email-index
+      author: eireford
+      changes:
+        - createIndex:
+            columns:
+              - column:
+                  name: email
+            indexName: bank_account_email_idx
+            tableName: bank_accounts
+  - changeSet:
+      id: create-users-table
+      author: eireford
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  defaultValueComputed: uuid_generate_v4()
+                  name: user_id
+                  type: UUID
+              - column:
+                  constraints:
+                    nullable: false
+                  name: key
+                  type: VARCHAR(60)
+              - column:
+                  name: username
+                  type: VARCHAR(256)
+              - column:
+                  name: email
+                  type: VARCHAR(256)
+              - column:
+                  name: first_name
+                  type: VARCHAR(256)
+              - column:
+                  name: last_name
+                  type: VARCHAR(60)
+            tableName: users
+  - changeSet:
+      id: create-user-email-index
+      author: eireford
+      changes:
+        - createIndex:
+            columns:
+              - column:
+                  name: email
+            indexName: user_email_idx
+            tableName: users
+  - changeSet:
+      id: create-tspoons-table
+      author: eireford
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  defaultValueComputed: uuid_generate_v4()
+                  name: tspoon_id
+                  type: UUID
+              - column:
+                  name: user_id
+                  type: UUID
+              - column:
+                  name: name
+                  type: VARCHAR(256)
+              - column:
+                  name: value
+                  type: VARCHAR(256)
+            tableName: tspoons
+  - changeSet:
+      id: create-tset-table
+      author: eireford
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  defaultValueComputed: uuid_generate_v4()
+                  constraints:
+                    nullable: false
+                  name: tset_id
+                  type: UUID
+              - column:
+                  name: tspoon_id
+                  type: UUID
+              - column:
+                  name: setting_id
+                  type: UUID
+              - column:
+                  name: context_id
+                  type: UUID
+              - column:
+                  name: name
+                  type: VARCHAR(256)
+
+              - column:
+                  name: value
+                  type: VARCHAR(256)
+            tableName: tset
+

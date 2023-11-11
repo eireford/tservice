@@ -1,0 +1,32 @@
+spring:
+  application:
+    name: grpc-server
+  r2dbc:
+    url: r2dbc:postgresql://localhost:5432/tservice
+    username: postgres
+    password: postgres
+    datasource:
+      url: jdbc:postgresql://localhost:5432/tservice
+      username: postgres
+      password: postgres
+      driver-class-name: org.postgresql.Driver
+    pool:
+      initial-size: 20
+      max-size: 30
+    repositories:
+      enabled: true
+  liquibase:
+    url: jdbc:postgresql://localhost:5432/tservice
+    user: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+    enabled: true
+    change-log: classpath:changelog.yaml
+grpc:
+  server:
+    port: 8989
+management:
+  server:
+    port: 8084
+server:
+  port: 8083
