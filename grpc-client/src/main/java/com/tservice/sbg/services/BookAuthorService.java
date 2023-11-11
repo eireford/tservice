@@ -1,4 +1,4 @@
-package com.tservice.sbg.service;
+package com.tservice.sbg.services;
 
 import com.tservice.api.Author;
 import com.tservice.api.AuthorRequest;
