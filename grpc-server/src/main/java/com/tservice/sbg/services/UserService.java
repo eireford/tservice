@@ -1,17 +1,21 @@
 package com.tservice.sbg.services;
 
 import com.tservice.api.CreateUserRequest;
+import com.tservice.api.GetUserByUserIdRequest;
 import com.tservice.sbg.domain.User;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
+import java.util.UUID;
+
+
 public interface UserService {
 
-    Mono<User> createUser(CreateUserRequest createUserRequest);
+    Mono<User> saveUser(CreateUserRequest createUserRequest);
 
 //    Mono<User> createUser(CreateUserRequest createUserRequest);
 //
-//    Mono<User> getUserByUserId(UUID id);
+    Mono<User> getUserByUserId(GetUserByUserIdRequest getUserByUserIdRequest);
 //
 //    Flux<User> findUsersByUsername(FindUsersByUsernameRequestStream findUsersByUsernameRequestStream);
 //

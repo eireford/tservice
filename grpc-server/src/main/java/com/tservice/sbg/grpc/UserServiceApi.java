@@ -6,7 +6,6 @@ import com.tservice.api.UserData;
 import com.tservice.api.UserServiceGrpc;
 import com.tservice.sbg.domain.User;
 import com.tservice.sbg.exception.StatusRuntimeExceptionBuilder;
-import com.tservice.sbg.services.UserService;
 import com.tservice.sbg.services.UserServiceImpl;
 import io.grpc.Status;
 import io.grpc.stub.StreamObserver;
@@ -24,7 +23,7 @@ public class UserServiceApi extends UserServiceGrpc.UserServiceImplBase{
 
     @Override
     public void createUser(CreateUserRequest createUserRequest, StreamObserver<CreateUserResponse> responseObserver){
-        Optional<User> User = userService.createUser(createUserRequest)
+        Optional<User> User = userService.saveUser(createUserRequest)
                 .blockOptional();
         UserData userData = UserData.newBuilder()
                 .setUserId(User.get().getUserId().toString())
