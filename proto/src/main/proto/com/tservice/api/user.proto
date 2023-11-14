@@ -10,7 +10,7 @@ service UserService {
   rpc createUser(CreateUserRequest) returns (CreateUserResponse);
 //  rpc updateUser(UpdateUserRequest) returns (UpdateUserResponse);
 //  rpc deleteUser(DeleteUserRequest) returns (DeleteUserResponse);
-//  rpc getUserByUserId(GetUserByUserIdRequest) returns (GetUserByUserIdResponse);
+  rpc getUserByUserId(GetUserByUserIdRequest) returns (GetUserByUserIdResponse);
 //  rpc getAllUsersStream(GetAllUsersRequestStream) returns (GetAllUsersResponseStream);
 //  rpc getAllUsersPage(GetAllUsersPageRequest) returns (GetAllUsersPageResponse);
 //  rpc findUsersByContextStream(FindUsersByContextRequestStream) returns (FindUsersByContextResponseStream);
@@ -71,16 +71,16 @@ message CreateUserResponse {
 //  string message = 2;
 //}
 //
-//message GetUserByUserIdRequest {
-//  string userId = 1;
-//}
-//
-//message GetUserByUserIdResponse {
-//  bool success = 1;
-//  string message = 2;
-//  UserData userData = 3;
-//}
-//
+message GetUserByUserIdRequest {
+  string userId = 1;
+}
+
+message GetUserByUserIdResponse {
+  bool success = 1;
+  string message = 2;
+  UserData userData = 3;
+}
+
 //message GetAllUsersRequestStream {}
 //
 //message GetAllUsersResponseStream {
