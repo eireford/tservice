@@ -1,0 +1,173 @@
+syntax = "proto3";
+
+package com.tservice.tservice.proto;
+
+option java_multiple_files = true;
+option java_package = "com.tservice.tservice";
+option java_outer_classname = "PlaceProto";
+
+service PlaceService {
+  rpc createPlace(createPlaceRequest) returns (createPlaceResponse);
+  rpc updatePlace(updatePlaceRequest) returns (updatePlaceResponse);
+  rpc deletePlace(deletePlaceRequest) returns (deletePlaceResponse);
+  rpc getPlaceById(getPlaceByIdRequest) returns (getPlaceByIdResponse);
+  rpc getAllPlacesStream(getAllPlacesRequestStream) returns (getAllPlacesResponseStream);
+  rpc getAllPlacesPage(getAllPlacesPageRequest) returns (getAllPlacesPageResponse);
+  rpc findPlacesByContextIdStream(FindPlacesByContextIdRequestSteam) returns (stream FindPlacesByContextIdResponseSteam);
+  rpc findPlacesByContextIdPage(FindPlacesByContextIdPageRequest) returns (FindPlacesByContextIdPageResponse);
+  rpc findPlacesByNameStream(FindPlacesByNameRequestSteam) returns (stream FindPlacesByNameResponseSteam);
+  rpc findPlacesByNamePage(FindPlacesByNamePageRequest) returns (FindPlacesByNamePageResponse);
+  rpc findPlacesByValueStream(FindPlacesByValueRequestSteam) returns (stream FindPlacesByValueResponseSteam);
+  rpc findPlacesByValuePage(FindPlacesByValuePageRequest) returns (FindPlacesByValuePageResponse);
+}
+
+message PlaceData {
+  string placeId = 1;
+  string contextId = 2;
+  string name = 3;
+  string value = 4;
+}
+
+message createPlaceRequest {
+  string contextId = 1;
+  string name = 2;
+  string value = 3;
+}
+
+message createPlaceResponse {
+  bool success = 1;
+  string message = 2;
+  PlaceData placeData = 3;
+}
+
+message updatePlaceRequest {
+  string placeId = 1;
+  string contextId = 2;
+  string name = 3;
+  string value = 4;
+}
+
+message updatePlaceResponse {
+  bool success = 1;
+  string message = 2;
+  repeated PlaceData placeData = 3;
+}
+
+message deletePlaceRequest {
+  string placeId = 1;
+}
+
+message deletePlaceResponse {
+  bool success = 1;
+  string message = 2;
+}
+
+message getPlaceByIdRequest {
+  string placeId = 1;
+}
+
+message getPlaceByIdResponse {
+  bool success = 1;
+  string message = 2;
+  repeated PlaceData placeData = 3;
+}
+
+message getAllPlacesRequestStream {}
+
+message getAllPlacesResponseStream {
+  bool success = 1;
+  string message = 2;
+  repeated PlaceData placeData = 3;
+}
+
+message getAllPlacesPageRequest {
+  int32 page = 1;
+  int32 size = 2;
+}
+
+message getAllPlacesPageResponse {
+  bool success = 1;
+  string message = 2;
+  int32 count = 3;
+  int32 page = 4;
+  int32 size = 5;
+  repeated PlaceData placeData = 6;
+}
+
+message FindPlacesByContextIdRequestSteam {
+  string contextId = 1;
+}
+
+message FindPlacesByContextIdResponseSteam {
+  bool success = 1;
+  string message = 2;
+  int32 count = 3;
+  repeated PlaceData placeData = 4;
+}
+
+message FindPlacesByContextIdPageRequest {
+  string contextId = 1;
+  int32 page = 2;
+  int32 size = 3;
+}
+
+message FindPlacesByContextIdPageResponse {
+  bool success = 1;
+  string message = 2;
+  int32 count = 3;
+  int32 page = 4;
+  int32 size = 5;
+  repeated PlaceData placeData = 6;
+}
+
+message FindPlacesByNameRequestSteam {
+  string name = 1;
+}
+
+message FindPlacesByNameResponseSteam {
+  bool success = 1;
+  string message = 2;
+  int32 count = 3;
+  repeated PlaceData placeData = 4;
+}
+
+message FindPlacesByNamePageRequest {
+  string name = 1;
+  int32 page = 2;
+  int32 size = 3;
+}
+
+message FindPlacesByNamePageResponse {
+  bool success = 1;
+  string message = 2;
+  int32 count = 3;
+  int32 page = 4;
+  int32 size = 5;
+  repeated PlaceData placeData = 6;
+}
+
+message FindPlacesByValueRequestSteam {
+  string value = 1;
+}
+
+message FindPlacesByValueResponseSteam {
+  bool success = 1;
+  string message = 2;
+  int32 count = 3;
+  repeated PlaceData placeData = 4;
+}
+
+message FindPlacesByValuePageRequest {
+  string value = 1;
+  int32 page = 2;
+  int32 size = 3;
+}
+
+message FindPlacesByValuePageResponse {
+  bool success = 1;
+  string message = 2;
+  int32 count = 3;
+  int32 page = 4;
+  int32 size = 5;
+  repeated PlaceData placeData = 6;
+}

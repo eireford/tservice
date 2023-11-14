@@ -1,0 +1,150 @@
+syntax = "proto3";
+
+package com.tservice.tservice.proto;
+
+option java_multiple_files = true;
+option java_package = "com.tservice.tservice";
+option java_outer_classname = "ContextProto";
+
+service ContextService {
+  rpc createContext(createContextRequest) returns (createContextResponse);
+  rpc updateContext(updateContextRequest) returns (updateContextResponse);
+  rpc deleteContext(deleteContextRequest) returns (deleteContextResponse);
+  rpc getContextByContextId(getContextByContextIdRequest) returns (getContextByContextIdResponse);
+  rpc getAllContextsStream(getAllContextsRequestStream) returns (getAllContextsResponseStream);
+  rpc getAllContextsPage(getAllContextsRequestPage) returns (getAllContextsResponsePage);
+  rpc findContextsByNameStream(FindContextsByNameRequestStream) returns (stream FindContextsByNameResponseStream);
+  rpc findContextsByNamePage(FindContextsByNameRequestPage) returns (FindContextsByNameResponsePage);
+  rpc findContextsByValueStream(FindContextsByValueRequestStream) returns (stream FindContextsByValueResponseStream);
+  rpc findContextsByValuePage(FindContextsByValueRequestPage) returns (FindContextsByValueResponsePage);
+}
+
+message ContextData {
+  string contextId = 1;
+  string name = 2;
+  string value = 3;
+}
+
+message createContextRequest {
+  string name = 1;
+  string value = 2;
+}
+
+message createContextResponse {
+  bool success = 1;
+  string message = 2;
+  ContextData data = 3;
+}
+
+message updateContextRequest {
+  string contextId = 1;
+  string name = 2;
+  string value = 3;
+}
+
+message updateContextResponse {
+  bool success = 1;
+  string message = 2;
+  ContextData data = 3;
+}
+
+message deleteContextRequest {
+  string contextId = 1;
+}
+
+message deleteContextResponse {
+  bool success = 1;
+  string message = 2;
+}
+
+message getContextByContextIdRequest {
+  string contextId = 1;
+}
+
+message getContextByContextIdResponse {
+  bool success = 1;
+  string message = 2;
+  ContextData data = 3;
+}
+
+message getAllContextsRequestStream {
+  int32 page = 1;
+  int32 size = 2;
+}
+
+message getAllContextsResponseStream {
+  bool success = 1;
+  string message = 2;
+  int32 count = 3;
+  repeated ContextData data = 4;
+}
+
+message getAllContextsRequestPage {
+  int32 page = 1;
+  int32 size = 2;
+}
+
+message getAllContextsResponsePage {
+  bool success = 1;
+  string message = 2;
+  int32 count = 3;
+  int32 page = 4;
+  int32 size = 5;
+  repeated ContextData data = 6;
+}
+
+message FindContextsByNameRequestStream {
+  string name = 1;
+  int32 page = 2;
+  int32 size = 3;
+}
+
+message FindContextsByNameResponseStream {
+  bool success = 1;
+  string message = 2;
+  int32 count = 3;
+  repeated ContextData data = 4;
+}
+
+message FindContextsByNameRequestPage {
+  string name = 1;
+  int32 page = 2;
+  int32 size = 3;
+}
+
+message FindContextsByNameResponsePage {
+  bool success = 1;
+  string message = 2;
+  int32 count = 3;
+  int32 page = 4;
+  int32 size = 5;
+  repeated ContextData data = 6;
+}
+
+message FindContextsByValueRequestStream {
+  string value = 1;
+  int32 page = 2;
+  int32 size = 3;
+}
+
+message FindContextsByValueResponseStream {
+  bool success = 1;
+  string message = 2;
+  int32 count = 3;
+  repeated ContextData data = 4;
+}
+
+message FindContextsByValueRequestPage {
+  string value = 1;
+  int32 page = 2;
+  int32 size = 3;
+}
+
+message FindContextsByValueResponsePage {
+  bool success = 1;
+  string message = 2;
+  int32 count = 3;
+  int32 page = 4;
+  int32 size = 5;
+  repeated ContextData data = 6;
+}

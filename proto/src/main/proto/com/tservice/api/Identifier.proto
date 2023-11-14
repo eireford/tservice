@@ -1,0 +1,208 @@
+syntax = "proto3";
+
+package com.tservice.tservice.proto;
+
+option java_multiple_files = true;
+option java_package = "com.tservice.tservice";
+option java_outer_classname = "IdentifierProto";
+
+service IdentifierService {
+    rpc createIdentifier(CreateIdentifierRequest) returns (CreateIdentifierResponse);
+    rpc updateIdentifier(UpdateIdentifierRequest) returns (UpdateIdentifierResponse);
+    rpc deleteIdentifier(DeleteIdentifierRequest) returns (DeleteIdentifierResponse);
+    rpc getIdentifierById(GetIdentifierByIdRequest) returns (GetIdentifierByIdResponse);
+    rpc getAllIdentifiersStream(GetAllIdentifiersRequestStream) returns (GetAllIdentifiersResponseStream);
+    rpc getAllIdentifiersPage(GetAllIdentifiersRequestPage) returns (GetAllIdentifiersResponsePage);
+    rpc findIdentifiersByContextIdStream(FindIdentifiersByContextIdRequestStream) returns (FindIdentifiersByContextIdResponseStream);
+    rpc findIdentifiersByContextIdPage(FindIdentifiersByContextIdRequestPage) returns (FindIdentifiersByContextIdResponsePage);
+    rpc findIdentifiersByUserIdStream(FindIdentifiersByUserIdRequestStream) returns (FindIdentifiersByUserIdResponseStream);
+    rpc findIdentifiersByUserIdPage(FindIdentifiersByUserIdRequestPage) returns (FindIdentifiersByUserIdResponsePage);
+    rpc findIdentifiersByNameStream(FindIdentifiersByNameRequestStream) returns (FindIdentifiersByNameResponseStream);
+    rpc findIdentifiersByNamePage(FindIdentifiersByNameRequestPage) returns (FindIdentifiersByNameResponsePage);
+    rpc findIdentifiersByValueStream(FindIdentifiersByValueRequestStream) returns (FindIdentifiersByValueResponseStream);
+    rpc findIdentifiersByValuePage(FindIdentifiersByValueRequestPage) returns (FindIdentifiersByValueResponsePage);
+}
+
+message IdentifierData {
+    string identifierId = 1;
+    string contextId = 2;
+    string userId = 3;
+    string name = 4;
+    string value = 5;
+}
+
+message CreateIdentifierRequest {
+    string identifierId = 1;
+    string contextId = 2;
+    string userId = 3;
+    string name = 4;
+    string value = 5;
+}
+
+message CreateIdentifierResponse {
+    bool success = 1;
+    string message = 2;
+    IdentifierData data = 3;
+}
+
+message UpdateIdentifierRequest {
+    string identifierId = 1;
+    string contextId = 2;
+    string userId = 3;
+    string name = 4;
+    string value = 5;
+}
+
+message UpdateIdentifierResponse {
+    bool success = 1;
+    string message = 2;
+    IdentifierData data = 3;
+}
+
+message DeleteIdentifierRequest {
+    string identifierId = 1;
+}
+
+message DeleteIdentifierResponse {
+    bool success = 1;
+    string message = 2;
+}
+
+message GetIdentifierByIdRequest {
+    string identifierId = 1;
+}
+
+message GetIdentifierByIdResponse {
+    bool success = 1;
+    string message = 2;
+    IdentifierData data = 3;
+}
+
+message GetAllIdentifiersRequestStream {
+    int32 size = 1;
+    int32 page = 2;
+}
+
+message GetAllIdentifiersResponseStream {
+    bool success = 1;
+    string message = 2;
+    int32 count = 3;
+    repeated IdentifierData data = 4;
+}
+
+message GetAllIdentifiersRequestPage {
+    int32 size = 1;
+    int32 page = 2;
+}
+
+message GetAllIdentifiersResponsePage {
+    bool success = 1;
+    string message = 2;
+    int32 count = 3;
+    repeated IdentifierData data = 4;
+}
+
+message FindIdentifiersByContextIdRequestStream {
+    string contextId = 1;
+    int32 size = 2;
+    int32 page = 3;
+}
+
+message FindIdentifiersByContextIdResponseStream {
+    bool success = 1;
+    string message = 2;
+    int32 count = 3;
+    repeated IdentifierData data = 4;
+}
+
+message FindIdentifiersByContextIdRequestPage {
+    string contextId = 1;
+    int32 size = 2;
+    int32 page = 3;
+}
+
+message FindIdentifiersByContextIdResponsePage {
+    bool success = 1;
+    string message = 2;
+    int32 count = 3;
+    repeated IdentifierData data = 4;
+}
+
+message FindIdentifiersByUserIdRequestStream {
+    string userId = 1;
+    int32 size = 2;
+    int32 page = 3;
+}
+
+message FindIdentifiersByUserIdResponseStream {
+    bool success = 1;
+    string message = 2;
+    int32 count = 3;
+    repeated IdentifierData data = 4;
+}
+
+message FindIdentifiersByUserIdRequestPage {
+    string userId = 1;
+    int32 size = 2;
+    int32 page = 3;
+}
+
+message FindIdentifiersByUserIdResponsePage {
+    bool success = 1;
+    string message = 2;
+    int32 count = 3;
+    repeated IdentifierData data = 4;
+}
+
+message FindIdentifiersByNameRequestStream {
+    string name = 1;
+    int32 size = 2;
+    int32 page = 3;
+}
+
+message FindIdentifiersByNameResponseStream {
+    bool success = 1;
+    string message = 2;
+    int32 count = 3;
+    repeated IdentifierData data = 4;
+}
+
+message FindIdentifiersByNameRequestPage {
+    string name = 1;
+    int32 size = 2;
+    int32 page = 3;
+}
+
+message FindIdentifiersByNameResponsePage {
+    bool success = 1;
+    string message = 2;
+    int32 count = 3;
+    repeated IdentifierData data = 4;
+}
+
+message FindIdentifiersByValueRequestStream {
+    string value = 1;
+    int32 size = 2;
+    int32 page = 3;
+}
+
+message FindIdentifiersByValueResponseStream {
+    bool success = 1;
+    string message = 2;
+    int32 count = 3;
+    repeated IdentifierData data = 4;
+}
+
+message FindIdentifiersByValueRequestPage {
+    string value = 1;
+    int32 size = 2;
+    int32 page = 3;
+}
+
+message FindIdentifiersByValueResponsePage {
+    bool success = 1;
+    string message = 2;
+    int32 count = 3;
+    repeated IdentifierData data = 4;
+}
+

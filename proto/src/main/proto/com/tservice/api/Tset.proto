@@ -1,0 +1,166 @@
+syntax = "proto3";
+
+package com.tservice.tservice.proto;
+
+option java_multiple_files = true;
+option java_package = "com.tservice.tservice";
+option java_outer_classname = "TsetProto";
+
+service TsetService {
+  rpc createTset(createTsetRequest) returns (createTsetResponse);
+  rpc updateTset(updateTsetRequest) returns (updateTsetResponse);
+  rpc DeleteTset(DeleteTsetRequest) returns (DeleteTsetResponse);
+  rpc getTsetById(getTsetByIdRequest) returns (getTsetByIdResponse);
+  rpc getAllTsetsStream(getAllTsetsRequestStream) returns (getAllTsetsResponseStream);
+  rpc getAllTsetsPage(getAllTsetsRequestPage) returns (getAllTsetsResponsePage);
+  rpc findTsetsByContextIdStream(FindTsetsByContextIdRequestStream) returns (stream FindTsetsByContextIdResponseStream);
+  rpc findTsetsByContextIdPage(FindTsetsByContextIdPageRequest) returns (FindTsetsByContextIdPageResponse);
+  rpc findTsetsByNameStream(FindTsetsByNameRequestStream) returns (stream FindTsetsByNameResponseStream);
+  rpc findTsetsByNamePage(FindTsetsByNamePageRequest) returns (FindTsetsByNamePageResponse);
+  rpc findTsetsByValueStream(FindTsetsByValueRequestStream) returns (stream FindTsetsByValueResponseStream);
+  rpc findTsetsByValuePage(FindTsetsByValuePageRequest) returns (FindTsetsByValuePageResponse);
+}
+
+message Tset {
+  string tsetId = 1;
+  string contextId = 2;
+  string name = 3;
+  string value = 4;
+}
+
+message createTsetRequest {
+  Tset tset = 1;
+}
+
+message createTsetResponse {
+  Tset tset = 1;
+}
+
+message updateTsetRequest {
+  Tset tset = 1;
+}
+
+message updateTsetResponse {
+  Tset tset = 1;
+}
+
+message DeleteTsetRequest {
+  string tsetId = 1;
+}
+
+message DeleteTsetResponse {
+  string tsetId = 1;
+}
+
+message getTsetByIdRequest {
+  string tsetId = 1;
+}
+
+message getTsetByIdResponse {
+  Tset tset = 1;
+}
+
+
+message getAllTsetsRequestStream {
+}
+
+message getAllTsetsResponseStream {
+  bool success = 1;
+  bool message = 2;
+  int32 count = 3;
+  repeated Tset tset = 4;
+}
+
+message getAllTsetsRequestPage {
+  int32 page = 1;
+  int32 size = 2;
+}
+
+message getAllTsetsResponsePage {
+  bool success = 1;
+  bool message = 2;
+  int32 count = 3;
+  int32 page = 4;
+  int32 size = 5;
+  repeated Tset tset = 6;
+}
+
+message FindTsetsByContextIdRequestStream {
+  string contextId = 1;
+}
+
+message FindTsetsByContextIdResponseStream {
+  bool success = 1;
+  bool message = 2;
+  int32 count = 3;
+  repeated Tset tset = 4;
+}
+
+message FindTsetsByContextIdPageRequest {
+  string contextId = 1;
+  int32 page = 2;
+  int32 size = 3;
+}
+
+message FindTsetsByContextIdPageResponse {
+  bool success = 1;
+  bool message = 2;
+  int32 count = 3;
+  int32 page = 4;
+  int32 size = 5;
+  repeated Tset tset = 6;
+}
+
+message FindTsetsByNameRequestStream {
+  string name = 1;
+}
+
+message FindTsetsByNameResponseStream {
+  bool success = 1;
+  bool message = 2;
+  int32 count = 3;
+  repeated Tset tset = 4;
+}
+
+message FindTsetsByNamePageRequest {
+  string name = 1;
+  int32 page = 2;
+  int32 size = 3;
+}
+
+message FindTsetsByNamePageResponse {
+  bool success = 1;
+  bool message = 2;
+  int32 count = 3;
+  int32 page = 4;
+  int32 size = 5;
+  repeated Tset tset = 6;
+}
+
+message FindTsetsByValueRequestStream {
+  string value = 1;
+}
+
+message FindTsetsByValueResponseStream {
+  bool success = 1;
+  bool message = 2;
+  int32 count = 3;
+  repeated Tset tset = 4;
+}
+
+message FindTsetsByValuePageRequest {
+  string value = 1;
+  int32 page = 2;
+  int32 size = 3;
+}
+
+message FindTsetsByValuePageResponse {
+  bool success = 1;
+  bool message = 2;
+  int32 count = 3;
+  int32 page = 4;
+  int32 size = 5;
+  repeated Tset tset = 6;
+}
+
+
