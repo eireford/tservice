@@ -1,10 +1,10 @@
-package com.tservice.sbg.services;
+package com.tservice.httpserver.services;
 
-import com.tservice.api.Author;
-import com.tservice.api.AuthorRequest;
-import com.tservice.api.BookAuthorServiceGrpc;
-import com.tservice.sbg.mapper.BookAuthorMapper;
-import com.tservice.sbg.model.AuthorModel;
+import com.tservice.proto.Author;
+import com.tservice.proto.AuthorRequest;
+import com.tservice.proto.BookAuthorServiceGrpc;
+import com.tservice.httpserver.mapper.BookAuthorMapper;
+import com.tservice.httpserver.model.AuthorModel;
 import io.grpc.StatusRuntimeException;
 import net.devh.boot.grpc.client.inject.GrpcClient;
 import org.slf4j.Logger;

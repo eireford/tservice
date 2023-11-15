@@ -10,7 +10,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>grpc-client</artifactId>
+    <artifactId>http-server</artifactId>
     <name>grpc-client</name>
     <description>grpc client</description>
 
@@ -51,6 +51,10 @@
             <artifactId>proto</artifactId>
             <version>1.0-SNAPSHOT</version>
             <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.projectreactor</groupId>
+            <artifactId>reactor-core</artifactId>
         </dependency>
     </dependencies>
     <build>

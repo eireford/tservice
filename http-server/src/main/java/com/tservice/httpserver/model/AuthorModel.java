@@ -1,4 +1,4 @@
-package com.tservice.sbg.model;
+package com.tservice.httpserver.model;
 
 import lombok.*;
 

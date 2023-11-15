@@ -1,7 +1,7 @@
-package com.tservice.sbg.mapper;
+package com.tservice.httpserver.mapper;
 
-import com.tservice.api.Author;
-import com.tservice.sbg.model.AuthorModel;
+import com.tservice.proto.Author;
+import com.tservice.httpserver.model.AuthorModel;
 import org.springframework.stereotype.Component;
 
 @Component

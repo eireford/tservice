@@ -1,6 +1,6 @@
-package com.tservice.sbg;
+package com.tservice.httpserver;
 
-import com.tservice.sbg.interceptor.StatusTraceInterceptor;
+import com.tservice.httpserver.interceptor.StatusTraceInterceptor;
 import datadog.trace.api.GlobalTracer;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

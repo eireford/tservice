@@ -1,8 +1,8 @@
-package com.tservice.sbg.controller;
+package com.tservice.httpserver.controller;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.tservice.sbg.model.AuthorModel;
-import com.tservice.sbg.services.BookAuthorService;
+import com.tservice.httpserver.model.AuthorModel;
+import com.tservice.httpserver.services.BookAuthorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

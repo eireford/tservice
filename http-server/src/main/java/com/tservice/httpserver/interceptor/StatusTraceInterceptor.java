@@ -1,4 +1,4 @@
-package com.tservice.sbg.interceptor;
+package com.tservice.httpserver.interceptor;
 
 import datadog.trace.api.interceptor.MutableSpan;
 import datadog.trace.api.interceptor.TraceInterceptor;
