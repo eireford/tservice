@@ -3,166 +3,58 @@ syntax = "proto3";
 package com.tservice.proto;
 
 option java_multiple_files = true;
-option java_package = "com.tservice.proto";
-option java_outer_classname = "TspoonProto";
+
+import "google/protobuf/empty.proto";
 
 service TspoonService {
-  rpc createTspoon(createTspoonRequest) returns (createTspoonResponse);
-  rpc updateTspoon(updateTspoonRequest) returns (updateTspoonResponse);
-  rpc deleteTspoon(deleteTspoonRequest) returns (deleteTspoonResponse);
-  rpc getById(GetTspoonByIdRequest) returns (GetTspoonByIdResponse);
-  rpc getAllStream(GetAllTspoonsRequestStream) returns (GetAllTspoonsResponseStream);
-  rpc getAllPage(GetAllTspoonsPageRequest) returns (GetAllTspoonsPageResponse);
-  rpc findTspoonsByContextStream(FindTspoonsByContextRequestStream) returns (FindTspoonsByContextResponseStream);
-  rpc findTspoonsByContextPage(FindTspoonsByContextPageRequest) returns (FindTspoonsByContextPageResponse);
-  rpc findTspoonsByNameStream(FindTspoonsByNameRequestStream) returns (FindTspoonsByNameResponseStream);
-  rpc findTspoonsByNamePage(FindTspoonsByNamePageRequest) returns (FindTspoonsByNamePageResponse);
-  rpc findTspoonsByValueStream(FindTspoonsByValueRequestStream) returns (FindTspoonsByValueResponseStream);
-  rpc findTspoonsByValuePage(FindTspoonsByValuePageRequest) returns (FindTspoonsByValuePageResponse);
+  rpc createTspoon(CreateTspoonProto) returns (TspoonProto);
+  rpc updateTspoon(UpdateTspoonProto) returns (TspoonProto);
+  rpc deleteTspoon(DeleteTspoonProto) returns (google.protobuf.Empty);
+  rpc getById(GetTspoonByIdProto) returns (TspoonProto);
+  rpc getAllStream(GetAllTspoonsProto) returns (TspoonProto);
+  rpc findTspoonsByContextStream(FindTspoonsByContextProto) returns (TspoonProto);
+  rpc findTspoonsByNameStream(FindTspoonsByNameProto) returns (TspoonProto);
+  rpc findTspoonsByValueStream(FindTspoonsByValueProto) returns (TspoonProto);
 }
 
-message TspoonData {
+message TspoonProto {
   string tspoonId = 1;
   string context = 2;
   string name = 3;
   string value = 4;
 }
 
-message createTspoonRequest {
-  TspoonData data = 1;
+message CreateTspoonProto {
+  string context = 2;
+  string name = 3;
+  string value = 4;
 }
 
-message createTspoonResponse {
-  bool success = 1;
-  string message = 2;
-  TspoonData data = 3;
+message UpdateTspoonProto {
+  string tspoonId = 1;
+  string context = 2;
+  string name = 3;
+  string value = 4;
 }
 
-message updateTspoonRequest {
-  TspoonData data = 1;
-}
-
-message updateTspoonResponse {
-  bool success = 1;
-  string message = 2;
-  TspoonData data = 3;
-}
-
-message deleteTspoonRequest {
+message DeleteTspoonProto {
   string tspoonId = 1;
 }
 
-message deleteTspoonResponse {
-  bool success = 1;
-  string message = 2;
-}
-
-message GetTspoonByIdRequest {
+message GetTspoonByIdProto {
   string tspoonId = 1;
 }
 
-message GetTspoonByIdResponse {
-  bool success = 1;
-  string message = 2;
-  TspoonData data = 3;
-}
+message GetAllTspoonsProto {}
 
-message GetAllTspoonsRequestStream {}
-
-message GetAllTspoonsResponseStream {
-  bool success = 1;
-  string message = 2;
-  repeated TspoonData data = 3;
-}
-
-message GetAllTspoonsPageRequest {
-  int32 page = 1;
-  int32 size = 2;
-}
-
-message GetAllTspoonsPageResponse {
-  bool success = 1;
-  string message = 2;
-  int32 count = 3;
-  int32 page = 4;
-  int32 size = 5;
-  repeated TspoonData data = 6;
-}
-
-message FindTspoonsByContextRequestStream {
+message FindTspoonsByContextProto {
   string context = 1;
 }
 
-message FindTspoonsByContextResponseStream {
-  bool success = 1;
-  string message = 2;
-  int32 count = 3;
-  repeated TspoonData data = 4;
-}
-
-message FindTspoonsByContextPageRequest {
-  string context = 1;
-  int32 page = 2;
-  int32 size = 3;
-}
-
-message FindTspoonsByContextPageResponse {
-  bool success = 1;
-  string message = 2;
-  int32 count = 3;
-  int32 page = 4;
-  int32 size = 5;
-  repeated TspoonData data = 6;
-}
-
-message FindTspoonsByNameRequestStream {
+message FindTspoonsByNameProto {
   string name = 1;
 }
 
-message FindTspoonsByNameResponseStream {
-  bool success = 1;
-  string message = 2;
-  int32 count = 3;
-  repeated TspoonData data = 4;
-}
-
-message FindTspoonsByNamePageRequest {
-  string name = 1;
-  int32 page = 2;
-  int32 size = 3;
-}
-
-message FindTspoonsByNamePageResponse {
-  bool success = 1;
-  string message = 2;
-  int32 count = 3;
-  int32 page = 4;
-  int32 size = 5;
-  repeated TspoonData data = 6;
-}
-
-message FindTspoonsByValueRequestStream {
+message FindTspoonsByValueProto {
   string value = 1;
-}
-
-message FindTspoonsByValueResponseStream {
-  bool success = 1;
-  string message = 2;
-  int32 count = 3;
-  repeated TspoonData data = 4;
-}
-
-message FindTspoonsByValuePageRequest {
-  string value = 1;
-  int32 page = 2;
-  int32 size = 3;
-}
-
-message FindTspoonsByValuePageResponse {
-  bool success = 1;
-  string message = 2;
-  int32 count = 3;
-  int32 page = 4;
-  int32 size = 5;
-  repeated TspoonData data = 6;
 }

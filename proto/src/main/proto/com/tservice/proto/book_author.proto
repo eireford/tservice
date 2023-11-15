@@ -3,13 +3,12 @@ syntax = "proto3";
 package com.tservice.proto;
 
 option java_multiple_files = true;
-option java_outer_classname = "BookAuthorProto";
-option java_package = "com.tservice.proto";
 
-service BookAuthorService{
+service BookAuthorService {
   rpc getAuthor(AuthorRequest) returns (Author);
   rpc getBook(BookRequest) returns (Book);
 }
+
 message AuthorRequest {
   int32 author_id = 1;
 }

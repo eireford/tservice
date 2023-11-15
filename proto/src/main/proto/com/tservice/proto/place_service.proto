@@ -3,171 +3,71 @@ syntax = "proto3";
 package com.tservice.proto;
 
 option java_multiple_files = true;
-option java_package = "com.tservice.proto";
-option java_outer_classname = "PlaceProto";
+
+import "google/protobuf/empty.proto";
 
 service PlaceService {
-  rpc createPlace(createPlaceRequest) returns (createPlaceResponse);
-  rpc updatePlace(updatePlaceRequest) returns (updatePlaceResponse);
-  rpc deletePlace(deletePlaceRequest) returns (deletePlaceResponse);
-  rpc getPlaceById(getPlaceByIdRequest) returns (getPlaceByIdResponse);
-  rpc getAllPlacesStream(getAllPlacesRequestStream) returns (getAllPlacesResponseStream);
-  rpc getAllPlacesPage(getAllPlacesPageRequest) returns (getAllPlacesPageResponse);
-  rpc findPlacesByContextIdStream(FindPlacesByContextIdRequestSteam) returns (stream FindPlacesByContextIdResponseSteam);
-  rpc findPlacesByContextIdPage(FindPlacesByContextIdPageRequest) returns (FindPlacesByContextIdPageResponse);
-  rpc findPlacesByNameStream(FindPlacesByNameRequestSteam) returns (stream FindPlacesByNameResponseSteam);
-  rpc findPlacesByNamePage(FindPlacesByNamePageRequest) returns (FindPlacesByNamePageResponse);
-  rpc findPlacesByValueStream(FindPlacesByValueRequestSteam) returns (stream FindPlacesByValueResponseSteam);
-  rpc findPlacesByValuePage(FindPlacesByValuePageRequest) returns (FindPlacesByValuePageResponse);
+  rpc createPlace(CreatePlaceProto) returns (PlaceProto);
+  rpc updatePlace(UpdatePlaceProto) returns (PlaceProto);
+  rpc deletePlace(DeletePlaceProto) returns (google.protobuf.Empty);
+  rpc getPlaceById(GetPlaceByIdProto) returns (PlaceProto);
+  rpc getAllPlaces(GetAllPlacesProto) returns (stream PlaceProto);
+  rpc findPlacesByContextId(FindPlacesByContextIdProto) returns (stream PlaceProto);
+  rpc findPlacesByName(FindPlacesByNameProto) returns (stream PlaceProto);
+  rpc findPlacesByValue(FindPlacesByValueProto) returns (stream PlaceProto);
+
 }
 
-message PlaceData {
+message PlaceProto {
   string placeId = 1;
   string contextId = 2;
   string name = 3;
   string value = 4;
 }
 
-message createPlaceRequest {
+message CreatePlaceProto {
   string contextId = 1;
   string name = 2;
   string value = 3;
 }
 
-message createPlaceResponse {
-  bool success = 1;
-  string message = 2;
-  PlaceData placeData = 3;
-}
-
-message updatePlaceRequest {
+message UpdatePlaceProto {
   string placeId = 1;
   string contextId = 2;
   string name = 3;
   string value = 4;
 }
 
-message updatePlaceResponse {
-  bool success = 1;
-  string message = 2;
-  repeated PlaceData placeData = 3;
-}
-
-message deletePlaceRequest {
+message DeletePlaceProto {
   string placeId = 1;
 }
 
-message deletePlaceResponse {
-  bool success = 1;
-  string message = 2;
-}
-
-message getPlaceByIdRequest {
+message GetPlaceByIdProto {
   string placeId = 1;
 }
 
-message getPlaceByIdResponse {
-  bool success = 1;
-  string message = 2;
-  repeated PlaceData placeData = 3;
-}
+message GetAllPlacesProto {}
 
-message getAllPlacesRequestStream {}
-
-message getAllPlacesResponseStream {
-  bool success = 1;
-  string message = 2;
-  repeated PlaceData placeData = 3;
-}
-
-message getAllPlacesPageRequest {
-  int32 page = 1;
-  int32 size = 2;
-}
-
-message getAllPlacesPageResponse {
-  bool success = 1;
-  string message = 2;
-  int32 count = 3;
-  int32 page = 4;
-  int32 size = 5;
-  repeated PlaceData placeData = 6;
-}
-
-message FindPlacesByContextIdRequestSteam {
+message FindPlacesByContextIdProto {
   string contextId = 1;
 }
 
-message FindPlacesByContextIdResponseSteam {
-  bool success = 1;
-  string message = 2;
-  int32 count = 3;
-  repeated PlaceData placeData = 4;
-}
-
-message FindPlacesByContextIdPageRequest {
+message FindPlacesByContextIdPageProto {
   string contextId = 1;
   int32 page = 2;
   int32 size = 3;
 }
 
-message FindPlacesByContextIdPageResponse {
-  bool success = 1;
-  string message = 2;
-  int32 count = 3;
-  int32 page = 4;
-  int32 size = 5;
-  repeated PlaceData placeData = 6;
-}
-
-message FindPlacesByNameRequestSteam {
+message FindPlacesByNameProto {
   string name = 1;
 }
 
-message FindPlacesByNameResponseSteam {
-  bool success = 1;
-  string message = 2;
-  int32 count = 3;
-  repeated PlaceData placeData = 4;
-}
-
-message FindPlacesByNamePageRequest {
+message FindPlacesByNamePageProto {
   string name = 1;
   int32 page = 2;
   int32 size = 3;
 }
 
-message FindPlacesByNamePageResponse {
-  bool success = 1;
-  string message = 2;
-  int32 count = 3;
-  int32 page = 4;
-  int32 size = 5;
-  repeated PlaceData placeData = 6;
-}
-
-message FindPlacesByValueRequestSteam {
+message FindPlacesByValueProto {
   string value = 1;
-}
-
-message FindPlacesByValueResponseSteam {
-  bool success = 1;
-  string message = 2;
-  int32 count = 3;
-  repeated PlaceData placeData = 4;
-}
-
-message FindPlacesByValuePageRequest {
-  string value = 1;
-  int32 page = 2;
-  int32 size = 3;
-}
-
-message FindPlacesByValuePageResponse {
-  bool success = 1;
-  string message = 2;
-  int32 count = 3;
-  int32 page = 4;
-  int32 size = 5;
-  repeated PlaceData placeData = 6;
 }

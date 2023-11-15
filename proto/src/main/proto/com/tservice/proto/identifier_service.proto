@@ -3,27 +3,22 @@ syntax = "proto3";
 package com.tservice.proto;
 
 option java_multiple_files = true;
-option java_package = "com.tservice.proto";
-option java_outer_classname = "IdentifierProto";
+
+import "google/protobuf/empty.proto";
 
 service IdentifierService {
-    rpc createIdentifier(CreateIdentifierRequest) returns (CreateIdentifierResponse);
-    rpc updateIdentifier(UpdateIdentifierRequest) returns (UpdateIdentifierResponse);
-    rpc deleteIdentifier(DeleteIdentifierRequest) returns (DeleteIdentifierResponse);
-    rpc getIdentifierById(GetIdentifierByIdRequest) returns (GetIdentifierByIdResponse);
-    rpc getAllIdentifiersStream(GetAllIdentifiersRequestStream) returns (GetAllIdentifiersResponseStream);
-    rpc getAllIdentifiersPage(GetAllIdentifiersRequestPage) returns (GetAllIdentifiersResponsePage);
-    rpc findIdentifiersByContextIdStream(FindIdentifiersByContextIdRequestStream) returns (FindIdentifiersByContextIdResponseStream);
-    rpc findIdentifiersByContextIdPage(FindIdentifiersByContextIdRequestPage) returns (FindIdentifiersByContextIdResponsePage);
-    rpc findIdentifiersByUserIdStream(FindIdentifiersByUserIdRequestStream) returns (FindIdentifiersByUserIdResponseStream);
-    rpc findIdentifiersByUserIdPage(FindIdentifiersByUserIdRequestPage) returns (FindIdentifiersByUserIdResponsePage);
-    rpc findIdentifiersByNameStream(FindIdentifiersByNameRequestStream) returns (FindIdentifiersByNameResponseStream);
-    rpc findIdentifiersByNamePage(FindIdentifiersByNameRequestPage) returns (FindIdentifiersByNameResponsePage);
-    rpc findIdentifiersByValueStream(FindIdentifiersByValueRequestStream) returns (FindIdentifiersByValueResponseStream);
-    rpc findIdentifiersByValuePage(FindIdentifiersByValueRequestPage) returns (FindIdentifiersByValueResponsePage);
+    rpc createIdentifier(CreateIdentifierProto) returns (IdentifierProto);
+    rpc updateIdentifier(UpdateIdentifierProto) returns (IdentifierProto);
+    rpc deleteIdentifier(DeleteIdentifierProto) returns (google.protobuf.Empty);
+    rpc getIdentifierById(GetIdentifierByIdProto) returns (IdentifierProto);
+    rpc getAllIdentifiers(GetAllIdentifiersProto) returns (stream IdentifierProto);
+    rpc findIdentifiersByContextId(FindIdentifiersByContextIdProto) returns (stream IdentifierProto);
+    rpc findIdentifiersByUserId(FindIdentifiersByUserIdProto) returns (stream IdentifierProto);
+    rpc findIdentifiersByName(FindIdentifiersByNameProto) returns (stream IdentifierProto);
+    rpc findIdentifiersByValue(FindIdentifiersByValueProto) returns (stream IdentifierProto);
 }
 
-message IdentifierData {
+message IdentifierProto {
     string identifierId = 1;
     string contextId = 2;
     string userId = 3;
@@ -31,7 +26,14 @@ message IdentifierData {
     string value = 5;
 }
 
-message CreateIdentifierRequest {
+message CreateIdentifierProto {
+    string contextId = 2;
+    string userId = 3;
+    string name = 4;
+    string value = 5;
+}
+
+message UpdateIdentifierProto {
     string identifierId = 1;
     string contextId = 2;
     string userId = 3;
@@ -39,170 +41,28 @@ message CreateIdentifierRequest {
     string value = 5;
 }
 
-message CreateIdentifierResponse {
-    bool success = 1;
-    string message = 2;
-    IdentifierData data = 3;
-}
-
-message UpdateIdentifierRequest {
-    string identifierId = 1;
-    string contextId = 2;
-    string userId = 3;
-    string name = 4;
-    string value = 5;
-}
-
-message UpdateIdentifierResponse {
-    bool success = 1;
-    string message = 2;
-    IdentifierData data = 3;
-}
-
-message DeleteIdentifierRequest {
+message DeleteIdentifierProto {
     string identifierId = 1;
 }
 
-message DeleteIdentifierResponse {
-    bool success = 1;
-    string message = 2;
-}
-
-message GetIdentifierByIdRequest {
+message GetIdentifierByIdProto {
     string identifierId = 1;
 }
 
-message GetIdentifierByIdResponse {
-    bool success = 1;
-    string message = 2;
-    IdentifierData data = 3;
-}
+message GetAllIdentifiersProto {}
 
-message GetAllIdentifiersRequestStream {
-    int32 size = 1;
-    int32 page = 2;
-}
-
-message GetAllIdentifiersResponseStream {
-    bool success = 1;
-    string message = 2;
-    int32 count = 3;
-    repeated IdentifierData data = 4;
-}
-
-message GetAllIdentifiersRequestPage {
-    int32 size = 1;
-    int32 page = 2;
-}
-
-message GetAllIdentifiersResponsePage {
-    bool success = 1;
-    string message = 2;
-    int32 count = 3;
-    repeated IdentifierData data = 4;
-}
-
-message FindIdentifiersByContextIdRequestStream {
+message FindIdentifiersByContextIdProto {
     string contextId = 1;
-    int32 size = 2;
-    int32 page = 3;
 }
 
-message FindIdentifiersByContextIdResponseStream {
-    bool success = 1;
-    string message = 2;
-    int32 count = 3;
-    repeated IdentifierData data = 4;
-}
-
-message FindIdentifiersByContextIdRequestPage {
-    string contextId = 1;
-    int32 size = 2;
-    int32 page = 3;
-}
-
-message FindIdentifiersByContextIdResponsePage {
-    bool success = 1;
-    string message = 2;
-    int32 count = 3;
-    repeated IdentifierData data = 4;
-}
-
-message FindIdentifiersByUserIdRequestStream {
+message FindIdentifiersByUserIdProto {
     string userId = 1;
-    int32 size = 2;
-    int32 page = 3;
 }
 
-message FindIdentifiersByUserIdResponseStream {
-    bool success = 1;
-    string message = 2;
-    int32 count = 3;
-    repeated IdentifierData data = 4;
-}
-
-message FindIdentifiersByUserIdRequestPage {
-    string userId = 1;
-    int32 size = 2;
-    int32 page = 3;
-}
-
-message FindIdentifiersByUserIdResponsePage {
-    bool success = 1;
-    string message = 2;
-    int32 count = 3;
-    repeated IdentifierData data = 4;
-}
-
-message FindIdentifiersByNameRequestStream {
+message FindIdentifiersByNameProto {
     string name = 1;
-    int32 size = 2;
-    int32 page = 3;
 }
 
-message FindIdentifiersByNameResponseStream {
-    bool success = 1;
-    string message = 2;
-    int32 count = 3;
-    repeated IdentifierData data = 4;
-}
-
-message FindIdentifiersByNameRequestPage {
-    string name = 1;
-    int32 size = 2;
-    int32 page = 3;
-}
-
-message FindIdentifiersByNameResponsePage {
-    bool success = 1;
-    string message = 2;
-    int32 count = 3;
-    repeated IdentifierData data = 4;
-}
-
-message FindIdentifiersByValueRequestStream {
+message FindIdentifiersByValueProto {
     string value = 1;
-    int32 size = 2;
-    int32 page = 3;
 }
-
-message FindIdentifiersByValueResponseStream {
-    bool success = 1;
-    string message = 2;
-    int32 count = 3;
-    repeated IdentifierData data = 4;
-}
-
-message FindIdentifiersByValueRequestPage {
-    string value = 1;
-    int32 size = 2;
-    int32 page = 3;
-}
-
-message FindIdentifiersByValueResponsePage {
-    bool success = 1;
-    string message = 2;
-    int32 count = 3;
-    repeated IdentifierData data = 4;
-}
-

@@ -3,29 +3,23 @@ syntax = "proto3";
 package com.tservice.proto;
 
 option java_multiple_files = true;
-option java_outer_classname = "UserProto";
-option java_package = "com.tservice.proto";
+
+import "google/protobuf/empty.proto";
 
 service UserService {
-  rpc createUser(CreateUserRequest) returns (CreateUserResponse);
-  rpc updateUser(UpdateUserRequest) returns (UpdateUserResponse);
-  rpc deleteUser(DeleteUserRequest) returns (DeleteUserResponse);
-  rpc getUserByUserId(GetUserByUserIdRequest) returns (UserData);
-  rpc getAllUsersStream(GetAllUsersRequestStream) returns (GetAllUsersResponseStream);
-  rpc getAllUsersPage(GetAllUsersPageRequest) returns (GetAllUsersPageResponse);
-  rpc findUsersByContextStream(FindUsersByContextRequestStream) returns (FindUsersByContextResponseStream);
-  rpc findUsersByContextPage(FindUsersByContextPageRequest) returns (FindUsersByContextPageResponse);
-  rpc findUsersByUsernameStream(FindUsersByUsernameRequestStream) returns (stream FindUsersByUsernameResponseStream);
-  rpc findUsersByUsernamePage(FindUsersByUsernamePageRequest) returns (FindUsersByUsernamePageResponse);
-  rpc findUsersByEmailStream(FindUsersByEmailRequestStream) returns (stream FindUsersByEmailResponseStream);
-  rpc findUsersByEmailPage(FindUsersByEmailPageRequest) returns (FindUsersByEmailPageResponse);
-  rpc findUsersByFirstNameStream(FindUsersByFirstNameRequestStream) returns (stream FindUsersByFirstNameResponseStream);
-  rpc findUsersByFirstNamePage(FindUsersByFirstNamePageRequest) returns (FindUsersByFirstNamePageResponse);
-  rpc findUsersByLastNameStream(FindUsersByLastNameRequestStream) returns (stream FindUsersByLastNameResponseStream);
-  rpc findUsersByLastNamePage(FindUsersByLastNamePageRequest) returns (FindUsersByLastNamePageResponse);
+  rpc createUser(CreateUserProto) returns (UserProto);
+  rpc updateUser(UpdateUserProto) returns (UserProto);
+  rpc deleteUser(DeleteUserProto) returns (google.protobuf.Empty);
+  rpc getUserByUserId(GetUserByUserIdProto) returns (stream UserProto);
+  rpc getAllUsers(GetAllUsersProto) returns (stream UserProto);
+  rpc findUsersByContext(FindUsersByContextProto) returns (stream UserProto);
+  rpc findUsersByUsername(FindUsersByUsernameProto) returns (stream UserProto);
+  rpc findUsersByEmail(FindUsersByEmailProto) returns (stream UserProto);
+  rpc findUsersByFirstName(FindUsersByFirstNameProto) returns (stream UserProto);
+  rpc findUsersByLastName(FindUsersByLastNameProto) returns (stream UserProto);
 }
 
-message UserData {
+message UserProto {
   string userId = 1;
   string key = 2;
   string username = 3;
@@ -34,20 +28,14 @@ message UserData {
   string lastName = 6;
 }
 
-message CreateUserRequest {
+message CreateUserProto {
   string username = 2;
   string email = 3;
   string firstName = 4;
   string lastName = 5;
 }
 
-message CreateUserResponse {
-  bool success = 2;
-  string message = 3;
-  UserData userData = 1;
-}
-
-message UpdateUserRequest {
+message UpdateUserProto {
   string userId = 1;
   string key = 2;
   string username = 3;
@@ -56,179 +44,32 @@ message UpdateUserRequest {
   string lastName = 6;
 }
 
-message UpdateUserResponse {
-  bool success = 1;
-  string message = 2;
-  UserData userData = 3;
-}
-
-message DeleteUserRequest {
+message DeleteUserProto {
   string userId = 1;
 }
 
-message DeleteUserResponse {
-  bool success = 1;
-  string message = 2;
-}
-
-message GetUserByUserIdRequest {
+message GetUserByUserIdProto {
   string userId = 1;
 }
 
-message GetUserByUserIdResponse {
-  bool success = 1;
-  string message = 2;
-  UserData userData = 3;
-}
+message GetAllUsersProto {}
 
-message GetAllUsersRequestStream {}
-
-message GetAllUsersResponseStream {
-  bool success = 1;
-  string message = 2;
-  repeated UserData userData = 3;
-}
-
-message GetAllUsersPageRequest {
-  int32 page = 1;
-  int32 size = 2;
-}
-
-message GetAllUsersPageResponse {
-  bool success = 1;
-  string message = 2;
-  int32 count = 3;
-  int32 page = 4;
-  int32 size = 5;
-  repeated UserData userData = 6;
-}
-
-message FindUsersByContextRequestStream {
+message FindUsersByContextProto {
   string context = 1;
 }
 
-message FindUsersByContextResponseStream {
-  bool success = 1;
-  string message = 2;
-  int32 count = 3;
-  repeated UserData userData = 4;
-}
-
-message FindUsersByContextPageRequest {
-  string context = 1;
-  int32 page = 2;
-  int32 size = 3;
-}
-
-message FindUsersByContextPageResponse {
-  bool success = 1;
-  string message = 2;
-  int32 count = 3;
-  int32 page = 4;
-  int32 size = 5;
-  repeated UserData userData = 6;
-}
-
-message FindUsersByUsernameRequestStream {
+message FindUsersByUsernameProto {
   string username = 1;
 }
 
-message FindUsersByUsernameResponseStream {
-  bool success = 1;
-  string message = 2;
-  int32 count = 3;
-  repeated UserData userData = 4;
-}
-
-message FindUsersByUsernamePageRequest {
-  string username = 1;
-  int32 page = 2;
-  int32 size = 3;
-}
-
-message FindUsersByUsernamePageResponse {
-  bool success = 1;
-  string message = 2;
-  int32 count = 3;
-  int32 page = 4;
-  int32 size = 5;
-  repeated UserData userData = 6;
-}
-
-message FindUsersByEmailRequestStream {
+message FindUsersByEmailProto {
   string email = 1;
 }
 
-message FindUsersByEmailResponseStream {
-  bool success = 1;
-  string message = 2;
-  int32 count = 3;
-  repeated UserData userData = 4;
-}
-
-message FindUsersByEmailPageRequest {
-  string email = 1;
-  int32 page = 2;
-  int32 size = 3;
-}
-
-message FindUsersByEmailPageResponse {
-  bool success = 1;
-  string message = 2;
-  int32 count = 3;
-  int32 page = 4;
-  int32 size = 5;
-  repeated UserData userData = 6;
-}
-
-message FindUsersByFirstNameRequestStream {
+message FindUsersByFirstNameProto {
   string firstName = 1;
 }
 
-message FindUsersByFirstNameResponseStream {
-  bool success = 1;
-  string message = 2;
-  int32 count = 3;
-  repeated UserData userData = 4;
-}
-
-message FindUsersByFirstNamePageRequest {
-  string firstName = 1;
-  int32 page = 2;
-  int32 size = 3;
-}
-
-message FindUsersByFirstNamePageResponse {
-  bool success = 1;
-  string message = 2;
-  int32 count = 3;
-  int32 page = 4;
-  int32 size = 5;
-  repeated UserData userData = 6;
-}
-
-message FindUsersByLastNameRequestStream {
+message FindUsersByLastNameProto {
   string lastName = 1;
-}
-
-message FindUsersByLastNameResponseStream {
-  bool success = 1;
-  string message = 2;
-  int32 count = 3;
-  repeated UserData userData = 4;
-}
-
-message FindUsersByLastNamePageRequest {
-  string lastName = 1;
-  int32 page = 2;
-  int32 size = 3;
-}
-
-message FindUsersByLastNamePageResponse {
-  bool success = 1;
-  string message = 2;
-  int32 count = 3;
-  int32 page = 4;
-  int32 size = 5;
-  repeated UserData userData = 6;
 }
