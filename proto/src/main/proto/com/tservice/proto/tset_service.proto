@@ -1,9 +1,9 @@
 syntax = "proto3";
 
-package com.tservice.tservice.proto;
+package com.tservice.proto;
 
 option java_multiple_files = true;
-option java_package = "com.tservice.tservice";
+option java_package = "com.tservice.proto";
 option java_outer_classname = "TsetProto";
 
 service TsetService {
