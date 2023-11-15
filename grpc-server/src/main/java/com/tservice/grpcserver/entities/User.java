@@ -1,4 +1,4 @@
-package com.tservice.sbg.domain;
+package com.tservice.grpcserver.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -22,8 +22,6 @@ public class User {
     @Column(USER_ID)
     private UUID userId;
 
-    @Pattern(regexp = "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
-            message = "The property 'contextID' must be a valid UUID.")
     @Column(CONTEXT_ID)
     private UUID contextId;
 

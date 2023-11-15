@@ -1,8 +1,6 @@
-package com.tservice.sbg.services;
+package com.tservice.grpcserver.services;
 
-import com.tservice.proto.CreateUserRequest;
-import com.tservice.proto.GetUserByUserIdRequest;
-import com.tservice.sbg.domain.User;
+import com.tservice.grpcserver.entities.User;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 

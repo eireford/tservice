@@ -1,6 +1,6 @@
-package com.tservice.sbg.mappers;
+package com.tservice.grpcserver.mappers;
 
-import com.tservice.sbg.domain.User;
+import com.tservice.grpcserver.entities.User;
 import com.tservice.proto.CreateUserRequest;
 import com.tservice.proto.GetUserByUserIdRequest;
 

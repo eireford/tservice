@@ -1,4 +1,4 @@
-package com.tservice.sbg.db;
+package com.tservice.grpcserver.db;
 
 import com.tservice.proto.Author;
 import com.tservice.proto.Book;

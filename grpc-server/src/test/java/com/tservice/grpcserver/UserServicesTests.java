@@ -1,7 +1,7 @@
 package com.tservice.grpcserver;
 
-import com.tservice.sbg.services.UserService;
-import com.tservice.sbg.services.UserServiceImpl;
+import com.tservice.grpcserver.services.UserService;
+import com.tservice.grpcserver.services.UserServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

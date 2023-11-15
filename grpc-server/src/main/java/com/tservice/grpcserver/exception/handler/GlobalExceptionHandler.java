@@ -1,4 +1,4 @@
-package com.tservice.sbg.exception.handler;
+package com.tservice.grpcserver.exception.handler;
 
 import io.grpc.Status;
 import io.grpc.StatusRuntimeException;

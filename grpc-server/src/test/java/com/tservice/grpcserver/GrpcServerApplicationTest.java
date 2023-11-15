@@ -1,6 +1,5 @@
 package com.tservice.grpcserver;
 
-import com.tservice.sbg.GrpcServerApplication;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 

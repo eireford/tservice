@@ -33,9 +33,9 @@ GRPC localhost:8989/com.tservice.proto.UserService/createUser
 }
 
 ###
-GRPC localhost:8989/com.tservice.UserService/getAllUsersStream
+GRPC localhost:8989/com.tservice.proto.UserService/getAllUsersStream
 
 ###
-GRPC localhost:8989/com.tservice.UserService/getUserByIdStream
+GRPC localhost:8989/com.tservice.proto.UserService/getUserByIdStream
 
-{"userId":"99e1a1ab-abca-4243-bbf3-520c55eca15f"}
+{"userId":"b0ccdd8f-b992-4dc8-8d2a-734c1420fa57"}

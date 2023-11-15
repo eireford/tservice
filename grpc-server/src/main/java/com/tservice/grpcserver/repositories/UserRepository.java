@@ -1,11 +1,8 @@
-package com.tservice.sbg.repositories;
+package com.tservice.grpcserver.repositories;
 
-import com.tservice.sbg.domain.User;
-import org.springframework.data.domain.Pageable;
+import com.tservice.grpcserver.entities.User;
 import org.springframework.data.repository.reactive.ReactiveSortingRepository;
 import org.springframework.stereotype.Repository;
-import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
 
 import java.util.UUID;
 

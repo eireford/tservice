@@ -1,4 +1,4 @@
-package com.tservice.sbg.exception;
+package com.tservice.grpcserver.exception;
 
 import com.google.protobuf.Any;
 import com.google.rpc.ErrorInfo;

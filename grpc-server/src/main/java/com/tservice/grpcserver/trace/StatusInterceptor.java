@@ -1,4 +1,4 @@
-package com.tservice.sbg.trace;
+package com.tservice.grpcserver.trace;
 
 import datadog.trace.api.interceptor.MutableSpan;
 import datadog.trace.api.interceptor.TraceInterceptor;

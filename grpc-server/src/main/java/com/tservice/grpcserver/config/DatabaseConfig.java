@@ -1,4 +1,4 @@
-package com.tservice.sbg.config;
+package com.tservice.grpcserver.config;
 
 import io.r2dbc.spi.ConnectionFactory;
 import org.springframework.context.annotation.Bean;

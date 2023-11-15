@@ -1,28 +1,22 @@
-package com.tservice.sbg.grpc;
+package com.tservice.grpcserver.grpc;
 
 import com.tservice.proto.CreateUserRequest;
 import com.tservice.proto.CreateUserResponse;
 import com.tservice.proto.UserData;
-import com.tservice.proto.UserServiceGrpc;
 import com.tservice.proto.GetUserByUserIdRequest;
 import com.tservice.proto.GetAllUsersRequestStream;
 import com.tservice.proto.GetAllUsersResponseStream;
-import com.tservice.proto.GetUserByUserIdResponse;
-import com.tservice.sbg.domain.User;
-import com.tservice.sbg.exception.StatusRuntimeExceptionBuilder;
-import com.tservice.sbg.mappers.UserMapper;
-import com.tservice.sbg.services.UserServiceImpl;
-import io.grpc.Status;
+import com.tservice.grpcserver.mappers.UserMapper;
+import com.tservice.grpcserver.services.UserServiceImpl;
 import io.grpc.stub.StreamObserver;
 import lombok.RequiredArgsConstructor;
 import net.devh.boot.grpc.server.service.GrpcService;
 
 import javax.validation.constraints.NotNull;
-import java.util.Optional;
 
 @RequiredArgsConstructor
 @GrpcService
-public class UserServiceApi extends UserServiceGrpc.UserServiceImplBase{
+public class UserServiceGrpc extends com.tservice.proto.UserServiceGrpc.UserServiceImplBase {
 
     private final UserServiceImpl userService;
 

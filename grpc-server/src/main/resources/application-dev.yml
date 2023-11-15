@@ -27,9 +27,9 @@ grpc:
     port: 8989
 management:
   server:
-    port: 8084
+    port: 8082
 server:
-  port: 8083
+  port: 8081
   servlet:
     encoding:
       charset: UTF-8

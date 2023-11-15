@@ -1,14 +1,9 @@
-package com.tservice.sbg.controllers;
+package com.tservice.grpcserver.controllers;
 
-import com.tservice.sbg.domain.User;
-import com.tservice.sbg.mappers.UserMapper;
-import com.tservice.sbg.services.UserService;
-import com.tservice.proto.GetUserByUserIdRequest;
-import com.tservice.proto.CreateUserRequest;
+import com.tservice.grpcserver.entities.User;
+import com.tservice.grpcserver.services.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.web.servlet.server.Encoding;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
