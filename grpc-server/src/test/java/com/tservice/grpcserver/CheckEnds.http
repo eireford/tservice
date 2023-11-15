@@ -1,2 +1,41 @@
 GET http://localhost:8083/api/v1/users
 Accept: application/json
+
+
+###
+
+POST http://localhost:8083/api/v1/users/create
+Content-Type: application/json
+
+{"username":"Hello",
+  "contextId": "",
+  "email":"teste@email.com",
+  "firstName":"Hello",
+  "lastName":"Hello5"
+}
+
+
+###
+GET http://localhost:8083/api/v1/users
+Accept: application/json
+
+###
+GET http://localhost:8083/api/v1/users/99e1a1ab-abca-4243-bbf3-520c55eca15f
+Accept: application/json
+
+###
+GRPC localhost:8989/com.tservice.proto.UserService/createUser
+
+{"username":{{$random.alphabetic(10)}},
+ "email":{{$random.email}},
+ "firstName":{{$random.alphabetic(10)}},
+ "lastName":{{$random.alphabetic(10)}}
+}
+
+###
+GRPC localhost:8989/com.tservice.UserService/getAllUsersStream
+
+###
+GRPC localhost:8989/com.tservice.UserService/getUserByIdStream
+
+{"userId":"99e1a1ab-abca-4243-bbf3-520c55eca15f"}

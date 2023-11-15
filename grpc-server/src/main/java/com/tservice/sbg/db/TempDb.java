@@ -1,7 +1,7 @@
 package com.tservice.sbg.db;
 
-import com.tservice.api.Author;
-import com.tservice.api.Book;
+import com.tservice.proto.Author;
+import com.tservice.proto.Book;
 
 import java.util.ArrayList;
 import java.util.List;

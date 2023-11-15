@@ -1,35 +1,30 @@
 package com.tservice.sbg.services;
 
-import com.tservice.api.CreateUserRequest;
-import com.tservice.api.GetUserByUserIdRequest;
+import com.tservice.proto.CreateUserRequest;
+import com.tservice.proto.GetUserByUserIdRequest;
 import com.tservice.sbg.domain.User;
-import org.springframework.stereotype.Service;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Size;
 import java.util.UUID;
 
 
 public interface UserService {
 
-    Mono<User> saveUser(CreateUserRequest createUserRequest);
+    Mono<User> saveUser(User user);
 
-//    Mono<User> createUser(CreateUserRequest createUserRequest);
-//
-    Mono<User> getUserByUserId(GetUserByUserIdRequest getUserByUserIdRequest);
-//
-//    Flux<User> findUsersByUsername(FindUsersByUsernameRequestStream findUsersByUsernameRequestStream);
-//
-//    Flux<User> findUsersByUsername(FindUsersByUsernameRequestStream findUsersByUsernameRequestStream);
-//
-//    Mono<Page<User>> findUsersByUsernamePageableRequestDto(FindByUsernameRequestDto findByUsernameRequestDto);
-//    Flux<User> findByEmail(FindByEmailRequestDto findByEmailRequestDto);
-//
-//    Mono<Page<User>> findByUsernameAsPage(FindByUsernameRequestDto findByUsernameRequestDto);
-//
-//    Mono<Page<User>> findByEmailAsPage(FindByEmailRequestDto findByEmailRequestDto);
-//
-//    Mono<User> getUserByUserId(GetUserByUserIdRequest getUserByUserIdRequest);
-//
-//    Mono<User> getUserByUserId(GetUserByUserIdRequest getUserByUserIdRequest);
+    Mono<User> updateUser(User user);
+
+    Mono<Void> deleteUser(UUID userId);
+
+    Mono<User> getUserByUserId(UUID userId);
+
+    Flux<User> getAllUsers();
+
+    Mono<User> getUserByUsername(@Size(max = 256) String username);
+
+    Mono<User> getUserByEmail(@Email String email);
 }
 

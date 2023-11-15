@@ -1,8 +1,8 @@
 package com.tservice.sbg.grpc;
 
-import com.tservice.api.Author;
-import com.tservice.api.AuthorRequest;
-import com.tservice.api.BookAuthorServiceGrpc;
+import com.tservice.proto.Author;
+import com.tservice.proto.AuthorRequest;
+import com.tservice.proto.BookAuthorServiceGrpc;
 import com.tservice.sbg.db.TempDb;
 import com.tservice.sbg.exception.StatusRuntimeExceptionBuilder;
 import io.grpc.Status;
