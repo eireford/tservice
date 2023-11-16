@@ -12,7 +12,7 @@ service UserService {
   rpc deleteUser(DeleteUserProto) returns (google.protobuf.Empty);
   rpc getUserByUserId(GetUserByUserIdProto) returns (stream UserProto);
   rpc getAllUsers(GetAllUsersProto) returns (stream UserProto);
-  rpc findUsersByContext(FindUsersByContextProto) returns (stream UserProto);
+  rpc findUsersByContextId(FindUsersByContextIdProto) returns (stream UserProto);
   rpc findUsersByUsername(FindUsersByUsernameProto) returns (stream UserProto);
   rpc findUsersByEmail(FindUsersByEmailProto) returns (stream UserProto);
   rpc findUsersByFirstName(FindUsersByFirstNameProto) returns (stream UserProto);
@@ -54,8 +54,8 @@ message GetUserByUserIdProto {
 
 message GetAllUsersProto {}
 
-message FindUsersByContextProto {
-  string context = 1;
+message FindUsersByContextIdProto {
+  string contextId = 1;
 }
 
 message FindUsersByUsernameProto {

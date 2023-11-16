@@ -19,20 +19,20 @@ service TspoonService {
 
 message TspoonProto {
   string tspoonId = 1;
-  string context = 2;
+  string contextId = 2;
   string name = 3;
   string value = 4;
 }
 
 message CreateTspoonProto {
-  string context = 2;
+  string contextId = 2;
   string name = 3;
   string value = 4;
 }
 
 message UpdateTspoonProto {
   string tspoonId = 1;
-  string context = 2;
+  string contextId = 2;
   string name = 3;
   string value = 4;
 }
@@ -48,7 +48,7 @@ message GetTspoonByIdProto {
 message GetAllTspoonsProto {}
 
 message FindTspoonsByContextProto {
-  string context = 1;
+  string contextId = 1;
 }
 
 message FindTspoonsByNameProto {
