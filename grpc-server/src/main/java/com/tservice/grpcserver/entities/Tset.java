@@ -1,4 +1,4 @@
-package com.tservice.sbg.domain;
+package com.tservice.grpcserver.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -18,7 +18,7 @@ import java.util.UUID;
 public class Tset {
     @Id
     @Column(TSET_ID)
-    private UUID tspoonId;
+    private UUID tsetId;
 
     @Column(CONTEXT_ID)
     private UUID contextId;

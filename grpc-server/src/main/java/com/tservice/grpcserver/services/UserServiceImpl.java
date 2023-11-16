@@ -7,14 +7,12 @@ import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.Size;
 import java.time.Duration;
 import java.util.UUID;
 
 @AllArgsConstructor
 @Service
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
 
     private final Duration TIMEOUT = Duration.ofSeconds(5);
 
@@ -32,12 +30,13 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public Mono<User> updateUser(User user) {
-        return null;
+        // Assuming you have a proper implementation for updating a user
+        return userRepository.save(user).timeout(TIMEOUT);
     }
 
     @Override
     public Mono<Void> deleteUser(UUID userId) {
-        return null;
+        return userRepository.deleteById(userId).timeout(TIMEOUT);
     }
 
     @Override
@@ -46,14 +45,24 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public Mono<User> getUserByUsername(@Size(max = 256) String username) {
-        return null;
+    public Flux<User> findUserByUsername(String username) {
+        return userRepository.findByUsername(username).timeout(TIMEOUT);
     }
 
     @Override
-    public Mono<User> getUserByEmail(@Email String email) {
-        return null;
+    public Flux<User> findUserByEmail(String email) {
+        return userRepository.findByEmail(email).timeout(TIMEOUT);
     }
 
+    @Override
+    public Flux<User> findUserByFirstName(String firstName) {
+        return userRepository.findByFirstName(firstName).timeout(TIMEOUT);
+    }
+
+    @Override
+    public Flux<User> findUserByLastName(String lastName) {
+        return userRepository.findByLastName(lastName).timeout(TIMEOUT);
+    }
 
 }
+

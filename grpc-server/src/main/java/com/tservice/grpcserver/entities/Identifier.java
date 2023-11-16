@@ -1,12 +1,20 @@
-package com.tservice.sbg.domain;
+package com.tservice.grpcserver.entities;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Column;
+import org.springframework.data.relational.core.mapping.Table;
 
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.util.UUID;
 
+@AllArgsConstructor
+@Builder
+@Data
+@Table(schema = "public", name = "identifier")
 public class Identifier {
 
     @Id

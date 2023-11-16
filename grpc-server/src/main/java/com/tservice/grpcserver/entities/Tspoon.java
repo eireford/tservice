@@ -1,4 +1,4 @@
-package com.tservice.sbg.domain;
+package com.tservice.grpcserver.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

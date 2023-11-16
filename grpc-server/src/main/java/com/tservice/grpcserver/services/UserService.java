@@ -21,8 +21,12 @@ public interface UserService {
 
     Flux<User> getAllUsers();
 
-    Mono<User> getUserByUsername(@Size(max = 256) String username);
+    Flux<User> findUserByUsername(String username);
 
-    Mono<User> getUserByEmail(@Email String email);
+    Flux<User> findUserByEmail(String email);
+
+    Flux<User> findUserByFirstName(String email);
+
+    Flux<User> findUserByLastName(String email);
 }
 
