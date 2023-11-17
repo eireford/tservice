@@ -1,29 +1,25 @@
 package com.tservice.grpcserver.mappers;
 
-import com.tservice.grpcserver.entities.User;
-import com.tservice.proto.*;
+import com.tservice.grpcserver.entities.UserEntity;
+import com.tservice.proto.user.*;
 
 
 import java.util.UUID;
 
 public class UserMapper {
 
-    public static User createUserProtoToUser(CreateUserProto createUserProto) {
-        return null;
-    }
-
-    public static User userProtoToUserEntity(UserProto userProto) {
-        return User.builder()
-                .userId(UUID.fromString(userProto.getUserId()))
+    public static UserEntity protoToEntity(UserProto userProto) {
+        return UserEntity.builder()
+                .uuid(UUID.fromString(userProto.getId()))
                 .username(userProto.getUsername())
                 .email(userProto.getEmail())
                 .firstName(userProto.getFirstName())
                 .lastName(userProto.getLastName())
                 .build();
     }
-    public static UserProto UserEntityToUserProto(User userEntity) {
+    public static UserProto entityToProto(UserEntity userEntity) {
         return UserProto.newBuilder()
-                .setUserId(userEntity.getUserId().toString())
+                .setId(userEntity.getUuid().toString())
                 .setUsername(userEntity.getUsername())
                 .setEmail(userEntity.getEmail())
                 .setFirstName(userEntity.getFirstName())
@@ -31,18 +27,18 @@ public class UserMapper {
                 .build();
     }
 
-    public static User createUserProtoToUserEntity(CreateUserProto createUserProto) {
-        return User.builder()
-                .username(createUserProto.getUsername())
-                .email(createUserProto.getEmail())
-                .firstName(createUserProto.getFirstName())
-                .lastName(createUserProto.getLastName())
+    public static UserEntity createProtoToEntity(CreateProto createProto) {
+        return UserEntity.builder()
+                .username(createProto.getUsername())
+                .email(createProto.getEmail())
+                .firstName(createProto.getFirstName())
+                .lastName(createProto.getLastName())
                 .build();
     }
 
-    public static User updateUserProtoToUserEntity(UpdateUserProto updateUserProto) {
-        return User.builder()
-                .userId(UUID.fromString(updateUserProto.getUserId()))
+    public static UserEntity updateProtoToEntity(UpdateProto updateUserProto) {
+        return UserEntity.builder()
+                .uuid(UUID.fromString(updateUserProto.getId()))
                 .username(updateUserProto.getUsername())
                 .email(updateUserProto.getEmail())
                 .firstName(updateUserProto.getFirstName())
@@ -50,32 +46,28 @@ public class UserMapper {
                 .build();
     }
 
-    public static UUID deleteUserProtoToUUID(DeleteUserProto deleteUserProto) {
-        return UUID.fromString(deleteUserProto.getUserId());
+    public static UUID deleteProtoToUUID(DeleteProto deleteUserProto) {
+        return UUID.fromString(deleteUserProto.getId());
     }
 
-    public static UUID getUserByUserIdProtoToUUID(GetUserByUserIdProto getUserByUserIdProto) {
-        return UUID.fromString(getUserByUserIdProto.getUserId());
+    public static UUID getByIdProtoToUUID(FindByIdProto findByIdProto) {
+        return UUID.fromString(findByIdProto.getId());
     }
 
-    public static UUID findUsersByContextIdProtoToUUID(FindUsersByContextIdProto findUsersByContextIdProto) {
-        return UUID.fromString(findUsersByContextIdProto.getContextId());
+    public static String findByUsernameProtoToString(FindByUsernameProto findByUsernameProto) {
+        return findByUsernameProto.getUsername();
     }
 
-    public static String findUsersByUsernameProtoToString(FindUsersByUsernameProto findUsersByUsernameProto) {
-        return findUsersByUsernameProto.getUsername();
+    public static String findByEmailProtoToString(FindByEmailProto findByEmailProto) {
+        return findByEmailProto.getEmail();
     }
 
-    public static String findUsersByEmailProtoToString(FindUsersByEmailProto findUsersByEmailProto) {
-        return findUsersByEmailProto.getEmail();
+    public static String findByFirstNameProtoToString(FindByFirstNameProto findByFirstNameProto) {
+        return findByFirstNameProto.getFirstName();
     }
 
-    public static String findUsersByFirstNameProtoToString(FindUsersByFirstNameProto findUsersByFirstNameProto) {
-        return findUsersByFirstNameProto.getFirstName();
-    }
-
-    public static String findUsersByLastNameProtoToString(FindUsersByLastNameProto findUsersByLastNameProto) {
-        return findUsersByLastNameProto.getLastName();
+    public static String findByLastNameProtoToString(FindByLastNameProto findByLastNameProto) {
+        return findByLastNameProto.getLastName();
     }
 
 }

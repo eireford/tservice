@@ -1,65 +1,57 @@
 package com.tservice.grpcserver.mappers;
 
-import com.tservice.grpcserver.entities.Tset;
-import com.tservice.proto.TsetProto;
+import com.tservice.grpcserver.entities.TsetEntity;
+import com.tservice.proto.tset.*;
 
 import java.util.UUID;
 
 public class TsetMapper {
 
-    public static Tset tsetProtoToTsetEntity(TsetProto tsetProto){
-        return Tset.builder()
-                .tsetId(UUID.fromString(tsetProto.getTsetId()))
-                .contextId(UUID.fromString(tsetProto.getContextId()))
+    public static TsetEntity protoToEntity(TsetProto tsetProto){
+        return TsetEntity.builder()
+                .uuid(UUID.fromString(tsetProto.getId()))
                 .name(tsetProto.getName())
                 .value(tsetProto.getValue())
                 .build();
     }
 
-    public static TsetProto tsetEntityToTsetProto(Tset tsetEntity){
+    public static TsetProto entityToProto(TsetEntity tsetEntity){
         return TsetProto.newBuilder()
-                .setTsetId(tsetEntity.getTsetId().toString())
-                .setContextId(tsetEntity.getContextId().toString())
+                .setId(tsetEntity.getUuid().toString())
                 .setName(tsetEntity.getName())
                 .setValue(tsetEntity.getValue())
                 .build();
     }
 
-    public static Tset createTsetProtoToTsetEntity(TsetProto tsetProto){
-        return Tset.builder()
-                .contextId(UUID.fromString(tsetProto.getContextId()))
-                .name(tsetProto.getName())
-                .value(tsetProto.getValue())
+    public static TsetEntity createTsetProtoToEntity(CreateProto createProto){
+        return TsetEntity.builder()
+                .name(createProto.getName())
+                .value(createProto.getValue())
                 .build();
     }
 
-    public static Tset updateTsetProtoToTsetEntity(TsetProto tsetProto){
-        return Tset.builder()
-                .tsetId(UUID.fromString(tsetProto.getTsetId()))
-                .contextId(UUID.fromString(tsetProto.getContextId()))
-                .name(tsetProto.getName())
-                .value(tsetProto.getValue())
+    public static TsetEntity updateTsetProtoToEntity(UpdateProto updateProto){
+        return TsetEntity.builder()
+                .uuid(UUID.fromString(updateProto.getId()))
+                .name(updateProto.getName())
+                .value(updateProto.getValue())
                 .build();
     }
 
-    public static UUID deleteTsetProtoToUUID(TsetProto tsetProto){
-        return UUID.fromString(tsetProto.getTsetId());
+    public static UUID deleteTsetProtoToUUID(DeleteProto deleteProto){
+        return UUID.fromString(deleteProto.getId());
     }
 
-    public static UUID getTsetByTsetIdProtoToUUID(TsetProto tsetProto){
-        return UUID.fromString(tsetProto.getTsetId());
+    public static UUID findByIdProtoToUUID(FindByIdProto findByIdProto){
+        return UUID.fromString(findByIdProto.getId());
     }
 
-    public static UUID findTsetsByContextIdProtoToUUID(TsetProto tsetProto){
-        return UUID.fromString(tsetProto.getContextId());
+    public static String findByNameProtoToString(FindByNameProto findByNameProto){
+        return findByNameProto.getName();
     }
 
-    public static String findTsetsByNamesProtoToString(TsetProto tsetProto){
-        return tsetProto.getName();
-    }
-
-    public static String findTsetsByValueProtoToString(TsetProto tsetProto){
-        return tsetProto.getValue();
+    public static String findByValueProtoToString(FindByValueProto findByValueProto){
+        return findByValueProto.getValue();
     }
 
 }

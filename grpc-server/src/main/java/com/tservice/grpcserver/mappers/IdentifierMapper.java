@@ -1,68 +1,56 @@
 package com.tservice.grpcserver.mappers;
 
-import com.tservice.grpcserver.entities.Identifier;
-import com.tservice.proto.IdentifierProto;
+import com.tservice.grpcserver.entities.IdentifierEntity;
+import com.tservice.proto.identifier.*;
 
 import java.util.UUID;
 
 public class IdentifierMapper {
 
-    public static Identifier identifierProtoToIdentifierEntity(IdentifierProto identifierProto){
-        return Identifier.builder()
-                .identifierId(UUID.fromString(identifierProto.getIdentifierId()))
-                .contextId(UUID.fromString(identifierProto.getContextId()))
+    public static IdentifierEntity ProtoToEntity(IdentifierProto identifierProto){
+        return IdentifierEntity.builder()
+                .uuid(UUID.fromString(identifierProto.getId()))
                 .name(identifierProto.getName())
                 .value(identifierProto.getValue())
                 .build();
     }
 
-    public static IdentifierProto identifierEntityToIdentifierProto(Identifier identifierEntity){
+    public static IdentifierProto EntityToProto(IdentifierEntity identifierEntity){
         return IdentifierProto.newBuilder()
-                .setIdentifierId(identifierEntity.getIdentifierId().toString())
-                .setContextId(identifierEntity.getContextId().toString())
+                .setId(identifierEntity.getUuid().toString())
                 .setName(identifierEntity.getName())
                 .setValue(identifierEntity.getValue())
                 .build();
     }
 
-    public static Identifier createIdentifierProtoToIdentifierEntity(IdentifierProto identifierProto){
-        return Identifier.builder()
-                .contextId(UUID.fromString(identifierProto.getContextId()))
-                .name(identifierProto.getName())
-                .value(identifierProto.getValue())
+    public static IdentifierEntity createProtoToEntity(CreateProto createProto){
+        return IdentifierEntity.builder()
+                .name(createProto.getName())
+                .value(createProto.getValue())
                 .build();
     }
 
-    public static Identifier updateIdentifierProtoToIdentifierEntity(IdentifierProto identifierProto){
-        return Identifier.builder()
-                .identifierId(UUID.fromString(identifierProto.getIdentifierId()))
-                .contextId(UUID.fromString(identifierProto.getContextId()))
-                .name(identifierProto.getName())
-                .value(identifierProto.getValue())
+    public static IdentifierEntity updateProtoToEntity(UpdateProto updateProto){
+        return IdentifierEntity.builder()
+                .uuid(UUID.fromString(updateProto.getId()))
+                .name(updateProto.getName())
+                .value(updateProto.getValue())
                 .build();
     }
 
-    public static UUID deleteIdentifierProtoToUUID(IdentifierProto identifierProto){
-        return UUID.fromString(identifierProto.getIdentifierId());
+    public static UUID deleteProtoToUUID(DeleteProto deleteProto){
+        return UUID.fromString(deleteProto.getId());
     }
 
-    public static UUID getIdentifierByIdentifierIdProtoToUUID(IdentifierProto identifierProto){
-        return UUID.fromString(identifierProto.getIdentifierId());
+    public static UUID findByIdProtoToUUID(FindByIdProto findByIdProto){
+        return UUID.fromString(findByIdProto.getId());
     }
 
-    public static UUID findIdentifiersByContextIdProtoToUUID(IdentifierProto identifierProto){
-        return UUID.fromString(identifierProto.getContextId());
+    public static String findByNameProtoToString(FindByNameProto findByNameProto){
+        return findByNameProto.getName();
     }
 
-    public static UUID findIdentifiersByUserIdProtoToUUID(IdentifierProto identifierProto){
-        return UUID.fromString(identifierProto.getUserId());
-    }
-
-    public static String findIdentifiersByNamesProtoToString(IdentifierProto identifierProto){
-        return identifierProto.getName();
-    }
-
-    public static String findIdentifiersByValueProtoToString(IdentifierProto identifierProto){
-        return identifierProto.getValue();
+    public static String findIdsByValueProtoToString(FindByValueProto findByValueProto){
+        return findByValueProto.getValue();
     }
 }

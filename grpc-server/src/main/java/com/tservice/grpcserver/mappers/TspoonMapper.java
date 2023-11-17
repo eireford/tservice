@@ -1,69 +1,57 @@
 package com.tservice.grpcserver.mappers;
 
-import com.tservice.grpcserver.entities.Tspoon;
-import com.tservice.proto.TspoonProto;
+import com.tservice.grpcserver.entities.TspoonEntity;
+import com.tservice.proto.tspoon.*;
 
 import java.util.UUID;
 
 public class TspoonMapper {
     
-    public static Tspoon tspoonProtoToTspoonEntity(TspoonProto tspoonProto){
-        return Tspoon.builder()
-                .tspoonId(UUID.fromString(tspoonProto.getTspoonId()))
-                .contextId(UUID.fromString(tspoonProto.getContextId()))
+    public static TspoonEntity protoToEntity(TspoonProto tspoonProto){
+        return TspoonEntity.builder()
+                .uuid(UUID.fromString(tspoonProto.getId()))
                 .name(tspoonProto.getName())
                 .value(tspoonProto.getValue())
                 .build();
     }
 
-    public static TspoonProto tspoonEntityToTspoonProto(Tspoon tspoonEntity){
+    public static TspoonProto entityToProto(TspoonEntity tspoonEntity){
         return TspoonProto.newBuilder()
-                .setTspoonId(tspoonEntity.getTspoonId().toString())
-                .setContextId(tspoonEntity.getContextId().toString())
+                .setId(tspoonEntity.getUuid().toString())
                 .setName(tspoonEntity.getName())
                 .setValue(tspoonEntity.getValue())
                 .build();
     }
 
-    public static Tspoon createTspoonProtoToTspoonEntity(TspoonProto tspoonProto){
-        return Tspoon.builder()
-                .contextId(UUID.fromString(tspoonProto.getContextId()))
-                .name(tspoonProto.getName())
-                .value(tspoonProto.getValue())
+    public static TspoonEntity createProtoToEntity(CreateProto createProto){
+        return TspoonEntity.builder()
+                .name(createProto.getName())
+                .value(createProto.getValue())
                 .build();
     }
 
-    public static Tspoon updateTspoonProtoToTspoonEntity(TspoonProto tspoonProto){
-        return Tspoon.builder()
-                .tspoonId(UUID.fromString(tspoonProto.getTspoonId()))
-                .contextId(UUID.fromString(tspoonProto.getContextId()))
-                .name(tspoonProto.getName())
-                .value(tspoonProto.getValue())
+    public static TspoonEntity updateProtoToEntity(UpdateProto updateProto){
+        return TspoonEntity.builder()
+                .uuid(UUID.fromString(updateProto.getId()))
+                .name(updateProto.getName())
+                .value(updateProto.getValue())
                 .build();
     }
 
-    public static UUID deleteTspoonByTspoonIdProtoToUUID(TspoonProto tspoonProto){
-        return UUID.fromString(tspoonProto.getTspoonId());
+    public static UUID deleteProtoToUUID(DeleteProto deleteProto){
+        return UUID.fromString(deleteProto.getId());
     }
 
-    public static UUID getTspoonByTspoonIdProtoToUUID(TspoonProto tspoonProto){
-        return UUID.fromString(tspoonProto.getTspoonId());
+    public static UUID findByIdProtoToUUID(FindByIdProto findByIdProto){
+        return UUID.fromString(findByIdProto.getId());
     }
 
-    public static UUID findTspoonsByContextIdProtoToUUID(TspoonProto tspoonProto){
-        return UUID.fromString(tspoonProto.getContextId());
+    public static String findByNameProtoToString(FindByNameProto findByNameProto){
+        return findByNameProto.getName();
     }
 
-    public static UUID findTspoonsByContextIdAndNameProtoToUUID(TspoonProto tspoonProto){
-        return UUID.fromString(tspoonProto.getContextId());
+    public static String findByValueProtoToString(FindByValueProto findByValueProto){
+        return findByValueProto.getValue();
     }
 
-    public static String findTspoonsByNamesProtoToString(TspoonProto tspoonProto){
-        return tspoonProto.getName();
-    }
-
-    public static String findTspoonsByValueProtoToString(TspoonProto tspoonProto){
-        return tspoonProto.getValue();
-    }
-    
 }

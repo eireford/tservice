@@ -1,56 +1,62 @@
 package com.tservice.grpcserver.mappers;
 
-import com.tservice.grpcserver.entities.Context;
-import com.tservice.proto.ContextProto;
+import com.tservice.grpcserver.entities.ContextEntity;
+import com.tservice.proto.context.ContextProto;
+import com.tservice.proto.context.CreateProto;
+import com.tservice.proto.context.DeleteProto;
+import com.tservice.proto.context.UpdateProto;
+import com.tservice.proto.tspoon.FindByIdProto;
+import com.tservice.proto.tspoon.FindByNameProto;
+import com.tservice.proto.tspoon.FindByValueProto;
 
 import java.util.UUID;
 
 public class ContextMapper {
 
-    public static Context contextProtoToContextEntity(ContextProto contextProto){
-        return Context.builder()
-                .contextId(UUID.fromString(contextProto.getContextId()))
+    public static ContextEntity protoToEntity(ContextProto contextProto){
+        return ContextEntity.builder()
+                .uuid(UUID.fromString(contextProto.getId()))
                 .name(contextProto.getName())
                 .value(contextProto.getValue())
                 .build();
     }
 
-    public static ContextProto contextEntityToContextProto(Context contextEntity){
+    public static ContextProto entityToProto(ContextEntity contextEntity){
         return ContextProto.newBuilder()
-                .setContextId(contextEntity.getContextId().toString())
+                .setId(contextEntity.getUuid().toString())
                 .setName(contextEntity.getName())
                 .setValue(contextEntity.getValue())
                 .build();
     }
 
-    public static Context createContextProtoToContextEntity(ContextProto contextProto){
-        return Context.builder()
-                .name(contextProto.getName())
-                .value(contextProto.getValue())
+    public static ContextEntity createProtoToEntity(CreateProto createProto){
+        return ContextEntity.builder()
+                .name(createProto.getName())
+                .value(createProto.getValue())
                 .build();
     }
 
-    public static Context updateContextProtoToContextEntity(ContextProto contextProto){
-        return Context.builder()
-                .contextId(UUID.fromString(contextProto.getContextId()))
-                .name(contextProto.getName())
-                .value(contextProto.getValue())
+    public static ContextEntity updateContextProtoToContextEntity(UpdateProto updateProto){
+        return ContextEntity.builder()
+                .uuid(UUID.fromString(updateProto.getId()))
+                .name(updateProto.getName())
+                .value(updateProto.getValue())
                 .build();
     }
 
-    public static UUID deleteContextProtoToUUID(ContextProto contextProto){
-        return UUID.fromString(contextProto.getContextId());
+    public static UUID deleteContextProtoToUUID(DeleteProto deleteProto){
+        return UUID.fromString(deleteProto.getId());
     }
 
-    public static UUID getContextByContextIdProtoToUUID(ContextProto contextProto){
-        return UUID.fromString(contextProto.getContextId());
+    public static UUID findByIdProtoToUUID(FindByIdProto findByIdProto){
+        return UUID.fromString(findByIdProto.getId());
     }
 
-    public static String findContextsByNameProtoToString(ContextProto contextProto){
-        return contextProto.getName();
+    public static String findByNameProtoToString(FindByNameProto findByNameProto){
+        return findByNameProto.getName();
     }
 
-    public static String findContextsByValueProtoToString(ContextProto contextProto){
-        return contextProto.getValue();
+    public static String findByValueProtoToString(FindByValueProto findByValueProto){
+        return findByValueProto.getValue();
     }
 }
