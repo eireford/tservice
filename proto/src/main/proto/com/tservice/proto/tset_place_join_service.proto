@@ -1,0 +1,53 @@
+syntax = "proto3";
+
+package com.tservice.proto.tsetplace;
+
+option java_multiple_files = true;
+
+import "google/protobuf/empty.proto";
+
+service TsetPlaceService{
+  rpc create(CreateProto) returns (TsetPlaceProto);
+  rpc update(UpdateProto) returns (TsetPlaceProto);
+  rpc delete(DeleteProto) returns (google.protobuf.Empty);
+  rpc findById(FindByIdProto) returns (TsetPlaceProto);
+  rpc findAll(FindAllProto) returns (stream TsetPlaceProto);
+  rpc findByTsetID(FindByTsetIDProto) returns (stream TsetPlaceProto);
+  rpc findByPlaceID(FindByPlaceIDProto) returns (stream TsetPlaceProto);
+}
+
+message TsetPlaceProto{
+  string id = 1;
+  string tsetID = 2;
+  string placeID = 3;
+}
+
+message CreateProto{
+  string tsetID = 1;
+  string placeID = 2;
+}
+
+message UpdateProto{
+  string id = 1;
+  string tsetID = 2;
+  string placeID = 3;
+}
+
+message DeleteProto{
+  string id = 1;
+}
+
+message FindByIdProto{
+  string id = 1;
+}
+
+message FindAllProto{
+}
+
+message FindByTsetIDProto{
+  string tsetID = 1;
+}
+
+message FindByPlaceIDProto{
+  string placeID = 1;
+}

@@ -1,53 +1,53 @@
 syntax = "proto3";
 
-package com.tservice.proto;
+package com.tservice.proto.context;
 
 option java_multiple_files = true;
 
 import "google/protobuf/empty.proto";
 
 service ContextService {
-  rpc createContext(CreateContextProto) returns (ContextProto);
-  rpc updateContext(UpdateContextProto) returns (ContextProto);
-  rpc deleteContext(DeleteContextProto) returns (google.protobuf.Empty);
-  rpc getContextByContextId(GetContextByContextIdProto) returns (ContextProto);
-  rpc getAllContexts(GetAllContextsProto) returns (stream ContextProto);
-  rpc findContextsByName(FindContextsByNameProto) returns (stream ContextProto);
-  rpc findContextsByValue(FindContextsByValueProto) returns (stream ContextProto);
+  rpc create(CreateProto) returns (ContextProto);
+  rpc update(UpdateProto) returns (ContextProto);
+  rpc delete(DeleteProto) returns (google.protobuf.Empty);
+  rpc findById(FindByIdProto) returns (ContextProto);
+  rpc findAll(FindAllProto) returns (stream ContextProto);
+  rpc findByName(FindByNameProto) returns (stream ContextProto);
+  rpc findByValue(FindByValueProto) returns (stream ContextProto);
 }
 
 message ContextProto {
-  string contextId = 1;
+  string id = 1;
   string name = 2;
   string value = 3;
 }
 
-message CreateContextProto {
+message CreateProto {
   string name = 1;
   string value = 2;
 }
 
-message UpdateContextProto {
-  string contextId = 1;
+message UpdateProto {
+  string id = 1;
   string name = 2;
   string value = 3;
 }
 
-message DeleteContextProto {
-  string contextId = 1;
+message DeleteProto {
+  string id = 1;
 }
 
-message GetAllContextsProto {}
-
-message GetContextByContextIdProto {
-  string contextId = 1;
+message FindByIdProto {
+  string id = 1;
 }
 
-message FindContextsByNameProto {
+message FindAllProto {}
+
+message FindByNameProto {
   string name = 1;
 }
 
-message FindContextsByValueProto {
+message FindByValueProto {
   string value = 1;
 }
 

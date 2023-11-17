@@ -1,73 +1,62 @@
 syntax = "proto3";
 
-package com.tservice.proto;
+package com.tservice.proto.place;
 
 option java_multiple_files = true;
 
 import "google/protobuf/empty.proto";
 
 service PlaceService {
-  rpc createPlace(CreatePlaceProto) returns (PlaceProto);
-  rpc updatePlace(UpdatePlaceProto) returns (PlaceProto);
-  rpc deletePlace(DeletePlaceProto) returns (google.protobuf.Empty);
-  rpc getPlaceById(GetPlaceByIdProto) returns (PlaceProto);
-  rpc getAllPlaces(GetAllPlacesProto) returns (stream PlaceProto);
-  rpc findPlacesByContextId(FindPlacesByContextIdProto) returns (stream PlaceProto);
-  rpc findPlacesByName(FindPlacesByNameProto) returns (stream PlaceProto);
-  rpc findPlacesByValue(FindPlacesByValueProto) returns (stream PlaceProto);
+  rpc create(CreateProto) returns (PlaceProto);
+  rpc update(UpdateProto) returns (PlaceProto);
+  rpc delete(DeleteProto) returns (google.protobuf.Empty);
+  rpc findById(FindByIdProto) returns (PlaceProto);
+  rpc findAll(FindAllProto) returns (stream PlaceProto);
+  rpc findByName(FindByNameProto) returns (stream PlaceProto);
+  rpc findByValue(FindByValueProto) returns (stream PlaceProto);
 
 }
 
 message PlaceProto {
-  string placeId = 1;
+  string id = 1;
   string contextId = 2;
   string name = 3;
   string value = 4;
 }
 
-message CreatePlaceProto {
+message CreateProto {
   string contextId = 1;
   string name = 2;
   string value = 3;
 }
 
-message UpdatePlaceProto {
-  string placeId = 1;
+message UpdateProto {
+  string id = 1;
   string contextId = 2;
   string name = 3;
   string value = 4;
 }
 
-message DeletePlaceProto {
-  string placeId = 1;
+message DeleteProto {
+  string id = 1;
 }
 
-message GetPlaceByIdProto {
-  string placeId = 1;
+message FindByIdProto {
+  string id = 1;
 }
 
-message GetAllPlacesProto {}
+message FindAllProto {}
 
-message FindPlacesByContextIdProto {
-  string contextId = 1;
-}
-
-message FindPlacesByContextIdPageProto {
-  string contextId = 1;
-  int32 page = 2;
-  int32 size = 3;
-}
-
-message FindPlacesByNameProto {
+message FindByNameProto {
   string name = 1;
 }
 
-message FindPlacesByNamePageProto {
+message FindByNamePageProto {
   string name = 1;
   int32 page = 2;
   int32 size = 3;
 }
 
-message FindPlacesByValueProto {
+message FindByValueProto {
   string value = 1;
 }

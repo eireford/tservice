@@ -1,75 +1,68 @@
 syntax = "proto3";
 
-package com.tservice.proto;
+package com.tservice.proto.user;
 
 option java_multiple_files = true;
 
 import "google/protobuf/empty.proto";
 
 service UserService {
-  rpc createUser(CreateUserProto) returns (UserProto);
-  rpc updateUser(UpdateUserProto) returns (UserProto);
-  rpc deleteUser(DeleteUserProto) returns (google.protobuf.Empty);
-  rpc getUserByUserId(GetUserByUserIdProto) returns (stream UserProto);
-  rpc getAllUsers(GetAllUsersProto) returns (stream UserProto);
-  rpc findUsersByContextId(FindUsersByContextIdProto) returns (stream UserProto);
-  rpc findUsersByUsername(FindUsersByUsernameProto) returns (stream UserProto);
-  rpc findUsersByEmail(FindUsersByEmailProto) returns (stream UserProto);
-  rpc findUsersByFirstName(FindUsersByFirstNameProto) returns (stream UserProto);
-  rpc findUsersByLastName(FindUsersByLastNameProto) returns (stream UserProto);
+  rpc create(CreateProto) returns (UserProto);
+  rpc update(UpdateProto) returns (UserProto);
+  rpc delete(DeleteProto) returns (google.protobuf.Empty);
+  rpc findById(FindByIdProto) returns (UserProto);
+  rpc findAll(FindAllProto) returns (stream UserProto);
+  rpc findByUsername(FindByUsernameProto) returns (stream UserProto);
+  rpc findByEmail(FindByEmailProto) returns (stream UserProto);
+  rpc findByFirstName(FindByFirstNameProto) returns (stream UserProto);
+  rpc findByLastName(FindByLastNameProto) returns (stream UserProto);
 }
 
 message UserProto {
-  string userId = 1;
-  string key = 2;
-  string username = 3;
-  string email = 4;
-  string firstName = 5;
-  string lastName = 6;
-}
-
-message CreateUserProto {
+  string id = 1;
   string username = 2;
   string email = 3;
   string firstName = 4;
   string lastName = 5;
 }
 
-message UpdateUserProto {
-  string userId = 1;
-  string key = 2;
-  string username = 3;
-  string email = 4;
-  string firstName = 5;
-  string lastName = 6;
+message CreateProto {
+  string username = 1;
+  string email = 2;
+  string firstName = 3;
+  string lastName = 4;
 }
 
-message DeleteUserProto {
-  string userId = 1;
+message UpdateProto {
+  string id = 1;
+  string username = 2;
+  string email = 3;
+  string firstName = 4;
+  string lastName = 5;
 }
 
-message GetUserByUserIdProto {
-  string userId = 1;
+message DeleteProto {
+  string id = 1;
 }
 
-message GetAllUsersProto {}
-
-message FindUsersByContextIdProto {
-  string contextId = 1;
+message FindByIdProto {
+  string id = 1;
 }
 
-message FindUsersByUsernameProto {
+message FindAllProto {}
+
+message FindByUsernameProto {
   string username = 1;
 }
 
-message FindUsersByEmailProto {
+message FindByEmailProto {
   string email = 1;
 }
 
-message FindUsersByFirstNameProto {
+message FindByFirstNameProto {
   string firstName = 1;
 }
 
-message FindUsersByLastNameProto {
+message FindByLastNameProto {
   string lastName = 1;
 }

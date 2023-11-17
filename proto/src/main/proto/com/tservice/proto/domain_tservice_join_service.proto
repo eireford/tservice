@@ -1,0 +1,55 @@
+syntax = "proto3";
+
+package com.tservice.proto.domaintservice;
+
+option java_multiple_files = true;
+
+import "google/protobuf/empty.proto";
+
+service DomainTServiceService {
+  rpc createDomainTservice(CreateProto) returns (DomainTServiceProto);
+  rpc updateDomainTservice(UpdateProto) returns (DomainTServiceProto);
+  rpc deleteDomainTservice(DeleteProto) returns (google.protobuf.Empty);
+  rpc findById(FindByIdProto) returns (DomainTServiceProto);
+  rpc findAll(FindAllProto) returns (stream DomainTServiceProto);
+  rpc findByDomainId(FindByDomainIdProto) returns (stream DomainTServiceProto);
+  rpc findByTserviceId(FindByTserviceIdProto) returns (stream DomainTServiceProto);
+}
+
+message DomainTServiceProto {
+  string id = 1;
+  string domainId = 2;
+  string tserviceId = 3;
+}
+
+message CreateProto {
+  string domainId = 1;
+  string tserviceId = 2;
+}
+
+message UpdateProto {
+  string id = 1;
+  string domainId = 2;
+  string tserviceId = 3;
+}
+
+message DeleteProto {
+  string id = 1;
+}
+
+message FindByIdProto {
+  string id = 1;
+}
+
+message FindAllProto {
+}
+
+message FindByDomainIdProto {
+  string domainId = 1;
+}
+
+message FindByTserviceIdProto {
+  string tserviceId = 1;
+}
+
+

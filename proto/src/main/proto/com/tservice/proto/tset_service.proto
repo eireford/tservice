@@ -1,62 +1,57 @@
 syntax = "proto3";
 
-package com.tservice.proto;
+package com.tservice.proto.tset;
 
 option java_multiple_files = true;
 
 import "google/protobuf/empty.proto";
 
 service TsetService {
-  rpc createTset(CreateTsetProto) returns (TsetProto);
-  rpc updateTset(UpdateTsetProto) returns (TsetProto);
-  rpc DeleteTset(DeleteTsetProto) returns (google.protobuf.Empty);
-  rpc getTsetById(GetTsetByIdProto) returns (TsetProto);
-  rpc getAllTsets(GetAllTsetsProto) returns (stream TsetProto);
-  rpc findTsetsByContextId(FindTsetsByContextIdProto) returns (stream TsetProto);
-  rpc findTsetsByName(FindTsetsByNameProto) returns (stream TsetProto);
-  rpc findTsetsByValue(FindTsetsByValueProto) returns (stream TsetProto);
+  rpc create(CreateProto) returns (TsetProto);
+  rpc update(UpdateProto) returns (TsetProto);
+  rpc delete(DeleteProto) returns (google.protobuf.Empty);
+  rpc findById(FindByIdProto) returns (TsetProto);
+  rpc findAll(FindAllProto) returns (stream TsetProto);
+  rpc findByName(FindByNameProto) returns (stream TsetProto);
+  rpc findByValue(FindByValueProto) returns (stream TsetProto);
 }
 
 message TsetProto {
-  string tsetId = 1;
-  string contextId = 2;
-  string name = 3;
-  string value = 4;
-}
-
-message CreateTsetProto {
-  string contextId = 1;
+  string id = 1;
   string name = 2;
   string value = 3;
 }
 
-message UpdateTsetProto {
-  string tsetId = 1;
-  string contextId = 2;
-  string name = 3;
-  string value = 4;
+message CreateProto {
+  string name = 1;
+  string value = 2;
 }
 
-message DeleteTsetProto {
-  string tsetId = 1;
+message UpdateProto {
+  string id = 1;
+  string name = 2;
+  string value = 3;
 }
 
-message GetTsetByIdProto {
-  string tsetId = 1;
+message DeleteProto {
+  string id = 1;
 }
 
-message GetAllTsetsProto {
+message FindByIdProto {
+  string id = 1;
 }
 
-message FindTsetsByContextIdProto {
+message FindAllProto {}
+
+message FindByContextIdProto {
   string contextId = 1;
 }
 
-message FindTsetsByNameProto {
+message FindByNameProto {
   string name = 1;
 }
 
-message FindTsetsByValueProto {
+message FindByValueProto {
   string value = 1;
 }
 

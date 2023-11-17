@@ -1,31 +1,30 @@
 syntax = "proto3";
 
-package com.tservice.proto.identifier;
+package com.tservice.proto.domain;
 
 option java_multiple_files = true;
 
 import "google/protobuf/empty.proto";
 
-service IdentifierService {
-    rpc create(CreateProto) returns (IdentifierProto);
-    rpc update(UpdateProto) returns (IdentifierProto);
+service DomainService {
+    rpc create(CreateProto) returns (DomainProto);
+    rpc update(UpdateProto) returns (DomainProto);
     rpc delete(DeleteProto) returns (google.protobuf.Empty);
-    rpc findById(FindByIdProto) returns (IdentifierProto);
-    rpc findAll(FindAllProto) returns (stream IdentifierProto);
-    rpc findByName(FindByNameProto) returns (stream IdentifierProto);
-    rpc findByValue(FindByValueProto) returns (stream IdentifierProto);
+    rpc findById(FindByIdProto) returns (DomainProto);
+    rpc findAll(FindAllProto) returns (stream DomainProto);
+    rpc findByName(FindByNameProto) returns (stream DomainProto);
+    rpc findByValue(FindByValueProto) returns (stream DomainProto);
 }
 
-message IdentifierProto {
+message DomainProto {
     string id = 1;
     string name = 2;
     string value = 3;
 }
 
 message CreateProto {
-    string userId = 1;
-    string name = 2;
-    string value = 3;
+    string name = 1;
+    string value = 2;
 }
 
 message UpdateProto {

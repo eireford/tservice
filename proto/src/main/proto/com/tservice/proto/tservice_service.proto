@@ -1,22 +1,22 @@
 syntax = "proto3";
 
-package com.tservice.proto.tspoon;
+package com.tservice.proto.tservice;
 
 option java_multiple_files = true;
 
 import "google/protobuf/empty.proto";
 
-service TspoonService {
-  rpc create(CreateProto) returns (TspoonProto);
-  rpc update(UpdateProto) returns (TspoonProto);
+service TserviceService {
+  rpc create(CreateProto) returns (TserviceProto);
+  rpc update(UpdateProto) returns (TserviceProto);
   rpc delete(DeleteProto) returns (google.protobuf.Empty);
-  rpc findById(FindByIdProto) returns (TspoonProto);
-  rpc findAll(FindAllProto) returns (TspoonProto);
-  rpc findByName(FindByNameProto) returns (TspoonProto);
-  rpc findByValue(FindByValueProto) returns (TspoonProto);
+  rpc findById(FindByIdProto) returns (TserviceProto);
+  rpc findAll(FindAllProto) returns (stream TserviceProto);
+  rpc findByName(FindByNameProto) returns (stream TserviceProto);
+  rpc findByValue(FindByValueProto) returns (stream TserviceProto);
 }
 
-message TspoonProto {
+message TserviceProto {
   string id = 1;
   string name = 2;
   string value = 3;
@@ -41,7 +41,8 @@ message FindByIdProto {
   string id = 1;
 }
 
-message FindAllProto {}
+message FindAllProto {
+}
 
 message FindByNameProto {
   string name = 1;

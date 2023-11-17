@@ -1,0 +1,53 @@
+syntax = "proto3";
+
+package com.tservice.proto.useridentifier;
+
+option java_multiple_files = true;
+
+import "google/protobuf/empty.proto";
+
+service UserIdentifierService {
+  rpc create(CreateProto) returns (UserIdentifierProto);
+  rpc update(UpdateProto) returns (UserIdentifierProto);
+  rpc delete(DeleteProto) returns (google.protobuf.Empty);
+  rpc findById(FindByIdProto) returns (UserIdentifierProto);
+  rpc findAll(FindAllProto) returns (stream UserIdentifierProto);
+  rpc findByUserId(FindByUserIdProto) returns (stream UserIdentifierProto);
+  rpc findByIdentifierId(FindByIdentifierIdProto) returns (stream UserIdentifierProto);
+}
+
+message UserIdentifierProto {
+  string id = 1;
+  string userId = 2;
+  string identifierId = 3;
+}
+
+message CreateProto {
+  string userId = 1;
+  string identifierId = 2;
+}
+
+message UpdateProto {
+  string id = 1;
+  string userId = 2;
+  string identifierId = 3;
+}
+
+message DeleteProto {
+  string id = 1;
+}
+
+message FindByIdProto {
+  string id = 1;
+}
+
+message FindAllProto {
+}
+
+message FindByUserIdProto {
+  string userId = 1;
+}
+
+message FindByIdentifierIdProto {
+  string identifierId = 1;
+}
