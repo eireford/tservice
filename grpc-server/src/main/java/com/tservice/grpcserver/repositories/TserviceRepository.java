@@ -13,7 +13,7 @@ public interface TserviceRepository extends ReactiveSortingRepository<TserviceEn
 
     Mono<TserviceEntity> update(TserviceEntity tservice);
 
-    Mono<Void> delete(UUID id);
+    Mono<Void> delete(UUID uuid);
 
     Flux<TserviceEntity> findByName(String name);
 

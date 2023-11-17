@@ -14,7 +14,7 @@ public interface UserRepository extends ReactiveSortingRepository<UserEntity, UU
 
     Mono<UserEntity> update(UserEntity user);
 
-    Mono<Void> delete(UUID id);
+    Mono<Void> delete(UUID uuid);
 
     Flux<UserEntity> findByUsername(String username);
 

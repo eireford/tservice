@@ -13,7 +13,7 @@ public interface DomainTserviceRepository extends ReactiveSortingRepository<Doma
 
     Mono<DomainTserviceEntity> update(DomainTserviceEntity domainTservice);
 
-    Mono<Void> delete(UUID id);
+    Mono<Void> delete(UUID uuid);
 
     Flux<DomainTserviceEntity> findByDomainId(UUID domainId);
 

@@ -11,7 +11,7 @@ import java.util.UUID;
 public interface TsetRepository extends ReactiveSortingRepository<TsetEntity, UUID> {
     Mono<TsetEntity> updateById(TsetEntity tset);
 
-    Mono<Void> deleteById(UUID id);
+    Mono<Void> deleteById(UUID uuid);
 
     Flux<TsetEntity> findByName(String name);
 

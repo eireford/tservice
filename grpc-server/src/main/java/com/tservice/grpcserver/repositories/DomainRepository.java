@@ -13,7 +13,7 @@ public interface DomainRepository extends ReactiveSortingRepository<DomainEntity
 
     Mono<DomainEntity> update(DomainEntity domain);
 
-    Mono<Void> delete(UUID id);
+    Mono<Void> delete(UUID uuid);
 
     Flux<DomainEntity> findByName(String name);
 

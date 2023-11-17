@@ -3,6 +3,7 @@ package com.tservice.grpcserver.repositories;
 import com.tservice.grpcserver.entities.UserContextEntity;
 import org.springframework.data.repository.reactive.ReactiveSortingRepository;
 import org.springframework.stereotype.Repository;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.util.UUID;
@@ -10,9 +11,9 @@ import java.util.UUID;
 public interface UserContextRepository extends ReactiveSortingRepository<UserContextEntity, UUID> {
     Mono<UserContextEntity> update(UserContextEntity userContext);
 
-    Mono<Void> delete(UUID id);
+    Mono<Void> delete(UUID uuid);
 
-    Mono<UserContextEntity> findByUserId(UUID userId);
+    Flux<UserContextEntity> findByUserId(UUID userId);
 
-    Mono<UserContextEntity> findByContextId(UUID contextId);
+    Flux<UserContextEntity> findByContextId(UUID contextId);
 }

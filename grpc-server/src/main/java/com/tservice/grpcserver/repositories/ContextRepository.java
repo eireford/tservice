@@ -12,7 +12,7 @@ import java.util.UUID;
 public interface ContextRepository extends ReactiveSortingRepository<ContextEntity, UUID> {
     Mono<ContextEntity> update(ContextEntity context);
 
-    Mono<Void> delete(UUID id);
+    Mono<Void> delete(UUID uuid);
 
     Flux<ContextEntity> findByName(String name);
 

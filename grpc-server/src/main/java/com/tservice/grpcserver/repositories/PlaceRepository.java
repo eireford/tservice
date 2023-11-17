@@ -12,7 +12,7 @@ public interface PlaceRepository extends ReactiveSortingRepository<PlaceEntity, 
 
     Mono<PlaceEntity> update(PlaceEntity place);
 
-    Mono<Void> delete(UUID id);
+    Mono<Void> delete(UUID uuid);
 
     Flux<PlaceEntity> findByName(String name);
 
