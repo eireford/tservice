@@ -1,32 +1,30 @@
 package com.tservice.grpcserver.services;
 
-import com.tservice.grpcserver.entities.User;
+import com.tservice.grpcserver.entities.UserEntity;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.Size;
 import java.util.UUID;
 
 
 public interface UserService {
 
-    Mono<User> saveUser(User user);
+    Mono<UserEntity> save(UserEntity user);
 
-    Mono<User> updateUser(User user);
+    Mono<UserEntity> update(UserEntity user);
 
-    Mono<Void> deleteUser(UUID userId);
+    Mono<Void> delete(UUID uuid);
 
-    Mono<User> getUserByUserId(UUID userId);
+    Mono<UserEntity> findById(UUID uuid);
 
-    Flux<User> getAllUsers();
+    Flux<UserEntity> findAll();
 
-    Flux<User> findUserByUsername(String username);
+    Flux<UserEntity> findByUsername(String username);
 
-    Flux<User> findUserByEmail(String email);
+    Flux<UserEntity> findByEmail(String email);
 
-    Flux<User> findUserByFirstName(String email);
+    Flux<UserEntity> findByFirstName(String firstName);
 
-    Flux<User> findUserByLastName(String email);
+    Flux<UserEntity> findByLastName(String lastName);
 }
 

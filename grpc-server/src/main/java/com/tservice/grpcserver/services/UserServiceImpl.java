@@ -1,6 +1,6 @@
 package com.tservice.grpcserver.services;
 
-import com.tservice.grpcserver.entities.User;
+import com.tservice.grpcserver.entities.UserEntity;
 import com.tservice.grpcserver.repositories.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,48 +19,47 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
 
     @Override
-    public Mono<User> saveUser(User user) {
+    public Mono<UserEntity> save(UserEntity userEntity) {
+        return userRepository.save(userEntity).timeout(TIMEOUT);
+    }
+
+    @Override
+    public Mono<UserEntity> update(UserEntity user) {
         return userRepository.save(user).timeout(TIMEOUT);
     }
 
     @Override
-    public Mono<User> getUserByUserId(UUID userId) {
-        return userRepository.findById(userId).timeout(TIMEOUT);
-    }
-
-    @Override
-    public Mono<User> updateUser(User user) {
-        // Assuming you have a proper implementation for updating a user
-        return userRepository.save(user).timeout(TIMEOUT);
-    }
-
-    @Override
-    public Mono<Void> deleteUser(UUID userId) {
+    public Mono<Void> delete(UUID userId) {
         return userRepository.deleteById(userId).timeout(TIMEOUT);
     }
 
     @Override
-    public Flux<User> getAllUsers() {
+    public Mono<UserEntity> findById(UUID userId) {
+        return userRepository.findById(userId).timeout(TIMEOUT);
+    }
+
+    @Override
+    public Flux<UserEntity> findAll() {
         return userRepository.findAll().timeout(TIMEOUT);
     }
 
     @Override
-    public Flux<User> findUserByUsername(String username) {
+    public Flux<UserEntity> findByUsername(String username) {
         return userRepository.findByUsername(username).timeout(TIMEOUT);
     }
 
     @Override
-    public Flux<User> findUserByEmail(String email) {
+    public Flux<UserEntity> findByEmail(String email) {
         return userRepository.findByEmail(email).timeout(TIMEOUT);
     }
 
     @Override
-    public Flux<User> findUserByFirstName(String firstName) {
+    public Flux<UserEntity> findByFirstName(String firstName) {
         return userRepository.findByFirstName(firstName).timeout(TIMEOUT);
     }
 
     @Override
-    public Flux<User> findUserByLastName(String lastName) {
+    public Flux<UserEntity> findByLastName(String lastName) {
         return userRepository.findByLastName(lastName).timeout(TIMEOUT);
     }
 
