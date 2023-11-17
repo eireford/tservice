@@ -7,7 +7,6 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 
-import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.util.UUID;
 
@@ -15,10 +14,10 @@ import java.util.UUID;
 @Builder
 @Data
 @Table(schema = "public", name = "tset")
-public class Tset {
+public class TsetEntity {
     @Id
-    @Column(TSET_ID)
-    private UUID tsetId;
+    @Column(ID)
+    private UUID id;
 
     @Column(CONTEXT_ID)
     private UUID contextId;
@@ -31,7 +30,7 @@ public class Tset {
     @Column(VALUE)
     private String value;
 
-    public static final String TSET_ID = "tset_id";
+    public static final String ID = "tset_id";
     public static final String CONTEXT_ID = "context_id";
     public static final String NAME = "name";
     public static final String VALUE = "value";

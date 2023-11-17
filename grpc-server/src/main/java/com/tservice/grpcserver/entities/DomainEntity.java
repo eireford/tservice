@@ -13,12 +13,12 @@ import java.util.UUID;
 @AllArgsConstructor
 @Builder
 @Data
-@Table(schema = "public", name = "context")
-public class Context {
+@Table(schema = "public", name = "domains")
+public class DomainEntity {
 
     @Id
-    @Column(CONTEXT_ID)
-    private UUID contextId;
+    @Column(ID)
+    private UUID id;
 
     @Size(max = 256, message = "The property 'name' must not exceed 256 characters.")
     @Column(NAME)
@@ -28,7 +28,7 @@ public class Context {
     @Column(VALUE)
     private String value;
 
-    public static final String CONTEXT_ID = "context_id";
+    public static final String ID = "id";
     public static final String NAME = "name";
     public static final String VALUE = "value";
 }

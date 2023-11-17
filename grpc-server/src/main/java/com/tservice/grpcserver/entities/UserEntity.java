@@ -8,7 +8,6 @@ import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 
 import javax.validation.constraints.Email;
-import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.util.UUID;
 
@@ -16,11 +15,11 @@ import java.util.UUID;
 @Builder
 @Data
 @Table(schema = "public", name = "users")
-public class User {
+public class UserEntity {
 
     @Id
-    @Column(USER_ID)
-    private UUID userId;
+    @Column(ID)
+    private UUID id;
 
     @Column(CONTEXT_ID)
     private UUID contextId;
@@ -41,7 +40,7 @@ public class User {
     @Column(LAST_NAME)
     private String lastName;
 
-    public static final String USER_ID = "user_id";
+    public static final String ID = "user_id";
     public static final String CONTEXT_ID = "context_id";
     public static final String USERNAME = "username";
     public static final String EMAIL = "email";
