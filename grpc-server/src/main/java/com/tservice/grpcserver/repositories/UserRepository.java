@@ -1,30 +1,28 @@
 package com.tservice.grpcserver.repositories;
 
-import com.tservice.grpcserver.entities.User;
-import org.springframework.data.domain.Pageable;
+import com.tservice.grpcserver.entities.UserEntity;
 import org.springframework.data.repository.reactive.ReactiveSortingRepository;
-import org.springframework.lang.NonNull;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
-import java.util.Collection;
-import java.util.List;
 import java.util.UUID;
-import java.util.concurrent.Future;
 
 
 @Repository
-public interface UserRepository extends ReactiveSortingRepository<User, UUID>
-{
-    Flux<User> findByUsername(String username);
+public interface UserRepository extends ReactiveSortingRepository<UserEntity, UUID> {
 
-    Flux<User> findByEmail(String email);
+    Mono<UserEntity> update(UserEntity user);
 
-    Flux<User> findByFirstName(String firstName);
+    Mono<Void> delete(UUID id);
 
-    Flux<User> findByLastName(String lastName);
+    Flux<UserEntity> findByUsername(String username);
 
-    @Async
-    Future<List<User>> findDistinctByUserIdInAndContextIdAndUsernameAndEmailAndFirstNameAndLastNameOrderByUsernameAscEmailAscLastNameAsc(@NonNull Collection<UUID> userIds, UUID contextId, String username, String email, String firstName, String lastName, Pageable pageable);
+    Flux<UserEntity> findByEmail(String email);
+
+    Flux<UserEntity> findByFirstName(String firstName);
+
+    Flux<UserEntity> findByLastName(String lastName);
+
+
 }
