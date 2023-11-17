@@ -17,13 +17,13 @@ public class UserIdentifierEntity {
 
     @Id
     @Column(ID)
-    private UUID id;
+    private UUID uuid;
 
     @Column(USER_ID)
     private UUID userId;
 
     @Column(IDENTIFIER_ID)
-    private UUID identifierId;
+    private UUID uuidentifierId;
 
     public static final String ID = "id";
     public static final String USER_ID = "user_id";

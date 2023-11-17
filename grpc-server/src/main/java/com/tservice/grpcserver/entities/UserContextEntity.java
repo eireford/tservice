@@ -17,7 +17,7 @@ public class UserContextEntity {
 
     @Id
     @Column(ID)
-    private UUID id;
+    private UUID uuid;
 
     @Column(USER_ID)
     private UUID userId;

@@ -3,7 +3,7 @@ package com.tservice.grpcserver.grpc;
 import com.google.protobuf.Empty;
 import com.tservice.grpcserver.mappers.UserMapper;
 import com.tservice.grpcserver.services.UserServiceImpl;
-import com.tservice.proto.*;
+import com.tservice.proto.user.*;
 import io.grpc.Status;
 import io.grpc.stub.StreamObserver;
 import lombok.RequiredArgsConstructor;
@@ -19,13 +19,11 @@ public class UserServiceGrpcServer extends UserServiceGrpc.UserServiceImplBase {
 
     private final UserServiceImpl userService;
 
-
-
     @Override
-    public void createUser(CreateUserProto createUserProto, StreamObserver<UserProto> streamObserver) {
+    public void create(CreateProto createProto, StreamObserver<UserProto> streamObserver) {
         try {
-            userService.saveUser(UserMapper.createUserProtoToUser(createUserProto))
-                    .map(UserMapper::UserEntityToUserProto)
+            userService.save(UserMapper.createProtoToEntity(createProto))
+                    .map(UserMapper::entityToProto)
                     .doOnSuccess(userProto -> {
                         log.info("User created successfully");
                         streamObserver.onNext(userProto);
@@ -36,7 +34,7 @@ public class UserServiceGrpcServer extends UserServiceGrpc.UserServiceImplBase {
                         streamObserver.onError(Status.INTERNAL
                                 .withDescription("Internal Server Error")
                                 .augmentDescription(error.getMessage())
-                                .asRuntimeException());
+                                    .asRuntimeException());
                     })
                     .subscribe();
         } catch (Exception e) {
@@ -49,10 +47,10 @@ public class UserServiceGrpcServer extends UserServiceGrpc.UserServiceImplBase {
     }
 
     @Override
-    public void updateUser(UpdateUserProto updateUserProto, StreamObserver<UserProto> streamObserver) {
+    public void update(UpdateProto updateProto, StreamObserver<UserProto> streamObserver) {
         try {
-            userService.updateUser(UserMapper.updateUserProtoToUserEntity(updateUserProto))
-                    .map(UserMapper::UserEntityToUserProto)
+            userService.update(UserMapper.updateProtoToEntity(updateProto))
+                    .map(UserMapper::entityToProto)
                     .doOnSuccess(userProto -> {
                         log.info("User updated successfully");
                         streamObserver.onNext(userProto);
@@ -76,12 +74,12 @@ public class UserServiceGrpcServer extends UserServiceGrpc.UserServiceImplBase {
     }
 
     @Override
-    public void deleteUser(DeleteUserProto deleteUserProto, StreamObserver<Empty> streamObserver) {
+    public void delete(DeleteProto deleteProto, StreamObserver<Empty> streamObserver) {
         try {
-            UUID userId = UUID.fromString(deleteUserProto.getUserId());
+            UUID userId = UUID.fromString(deleteProto.getId());
 
-            userService.deleteUser(userId)
-                    .doOnSuccess(user -> {
+            userService.delete(userId)
+                    .doOnSuccess(__ -> {
                         log.info("User with ID {} deleted successfully", userId);
                         streamObserver.onNext(Empty.newBuilder().build());
                         streamObserver.onCompleted();
@@ -95,7 +93,7 @@ public class UserServiceGrpcServer extends UserServiceGrpc.UserServiceImplBase {
                     })
                     .subscribe();
         } catch (IllegalArgumentException e) {
-            log.error("Invalid UUID format in deleteUserProto.getUserId(): {}", deleteUserProto.getUserId());
+            log.error("Invalid UUID format in deleteProto.getId(): {}", deleteProto.getId());
             streamObserver.onError(Status.INVALID_ARGUMENT
                     .withDescription("Invalid UUID format")
                     .augmentDescription(e.getMessage())
@@ -111,12 +109,12 @@ public class UserServiceGrpcServer extends UserServiceGrpc.UserServiceImplBase {
 
 
     @Override
-    public void getUserByUserId(GetUserByUserIdProto getUserByUserIdProto, StreamObserver<UserProto> responseObserver) {
+    public void findById(FindByIdProto findByIdProto, StreamObserver<UserProto> responseObserver) {
         try {
-            UUID userId = UUID.fromString(getUserByUserIdProto.getUserId());
+            UUID userId = UUID.fromString(findByIdProto.getId());
 
-            userService.getUserByUserId(userId)
-                    .map(UserMapper::UserEntityToUserProto)
+            userService.findById(userId)
+                    .map(UserMapper::entityToProto)
                     .doOnSuccess(userProto -> {
                         log.info("User with ID {} found successfully", userId);
                         responseObserver.onNext(userProto);
@@ -131,7 +129,7 @@ public class UserServiceGrpcServer extends UserServiceGrpc.UserServiceImplBase {
                     })
                     .subscribe();
         } catch (IllegalArgumentException e) {
-            log.error("Invalid UUID format in getUserByUserIdProto.getUserId(): {}", getUserByUserIdProto.getUserId());
+            log.error("Invalid UUID format in getByIdProto.getId(): {}", findByIdProto.getId());
             responseObserver.onError(Status.INVALID_ARGUMENT
                     .withDescription("Invalid UUID format")
                     .augmentDescription(e.getMessage())
@@ -146,10 +144,10 @@ public class UserServiceGrpcServer extends UserServiceGrpc.UserServiceImplBase {
     }
 
     @Override
-    public void getAllUsers(GetAllUsersProto getAllUsersProto, StreamObserver<UserProto> responseObserver) {
+    public void findAll(FindAllProto findAllProto, StreamObserver<UserProto> responseObserver) {
         try {
-            userService.getAllUsers()
-                    .map(UserMapper::UserEntityToUserProto)
+            userService.findAll()
+                    .map(UserMapper::entityToProto)
                     .doOnNext(userProto -> {
                         log.info("User found successfully");
                         responseObserver.onNext(userProto);
@@ -176,10 +174,10 @@ public class UserServiceGrpcServer extends UserServiceGrpc.UserServiceImplBase {
     }
 
     @Override
-    public void findUsersByUsername(FindUsersByUsernameProto findUsersByUsernameProto, StreamObserver<UserProto> responseObserver) {
+    public void findByUsername(FindByUsernameProto findByUsernameProto, StreamObserver<UserProto> responseObserver) {
         try {
-            userService.findUserByUsername(findUsersByUsernameProto.getUsername())
-                    .map(UserMapper::UserEntityToUserProto)
+            userService.findByUsername(findByUsernameProto.getUsername())
+                    .map(UserMapper::entityToProto)
                     .doOnNext(userProto -> {
                         log.info("User found successfully");
                         responseObserver.onNext(userProto);
@@ -206,10 +204,10 @@ public class UserServiceGrpcServer extends UserServiceGrpc.UserServiceImplBase {
     }
 
     @Override
-    public void findUsersByEmail(FindUsersByEmailProto findUsersByEmailProto, StreamObserver<UserProto> responseObserver) {
+    public void findByEmail(FindByEmailProto findByEmailProto, StreamObserver<UserProto> responseObserver) {
         try {
-            userService.findUserByEmail(findUsersByEmailProto.getEmail())
-                    .map(UserMapper::UserEntityToUserProto)
+            userService.findByEmail(findByEmailProto.getEmail())
+                    .map(UserMapper::entityToProto)
                     .doOnNext(userProto -> {
                         log.info("User found successfully");
                         responseObserver.onNext(userProto);
@@ -236,10 +234,10 @@ public class UserServiceGrpcServer extends UserServiceGrpc.UserServiceImplBase {
     }
 
     @Override
-    public void findUsersByFirstName(FindUsersByFirstNameProto findUsersByFirstNameProto, StreamObserver<UserProto> responseObserver) {
+    public void findByFirstName(FindByFirstNameProto findByFirstNameProto, StreamObserver<UserProto> responseObserver) {
         try {
-            userService.findUserByFirstName(findUsersByFirstNameProto.getFirstName())
-                    .map(UserMapper::UserEntityToUserProto)
+            userService.findByFirstName(findByFirstNameProto.getFirstName())
+                    .map(UserMapper::entityToProto)
                     .doOnNext(userProto -> {
                         log.info("User found successfully");
                         responseObserver.onNext(userProto);
@@ -266,10 +264,10 @@ public class UserServiceGrpcServer extends UserServiceGrpc.UserServiceImplBase {
     }
 
     @Override
-    public void findUsersByLastName(FindUsersByLastNameProto findUsersByLastNameProto, StreamObserver<UserProto> responseObserver) {
+    public void findByLastName(FindByLastNameProto findByLastNameProto, StreamObserver<UserProto> responseObserver) {
         try {
-            userService.findUserByLastName(findUsersByLastNameProto.getLastName())
-                    .map(UserMapper::UserEntityToUserProto)
+            userService.findByLastName(findByLastNameProto.getLastName())
+                    .map(UserMapper::entityToProto)
                     .doOnNext(userProto -> {
                         log.info("User found successfully");
                         responseObserver.onNext(userProto);

@@ -18,7 +18,7 @@ public class TspoonEntity {
 
     @Id
     @Column(ID)
-    private UUID id;
+    private UUID uuid;
 
     @Size(max = 256, message = "The property 'name' must not exceed 256 characters.")
     @Column(NAME)
@@ -29,7 +29,6 @@ public class TspoonEntity {
     private String value;
 
     public static final String ID = "tspoon_id";
-    public static final String CONTEXT_ID = "context_id";
     public static final String NAME = "name";
     public static final String VALUE = "value";
 }

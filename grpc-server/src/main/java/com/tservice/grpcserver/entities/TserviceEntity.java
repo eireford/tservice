@@ -19,7 +19,7 @@ public class TserviceEntity {
 
     @Id
     @Column(ID)
-    private UUID id;
+    private UUID uuid;
 
     @Size(max = 256, message = "The property 'name' must not exceed 256 characters.")
     @Column(NAME)

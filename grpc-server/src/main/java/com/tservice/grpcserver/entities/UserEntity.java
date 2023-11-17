@@ -19,10 +19,7 @@ public class UserEntity {
 
     @Id
     @Column(ID)
-    private UUID id;
-
-    @Column(CONTEXT_ID)
-    private UUID contextId;
+    private UUID uuid;
 
     @Size(max = 256, message = "The property 'username' must not exceed 256 characters.")
     @Column(USERNAME)
@@ -41,7 +38,6 @@ public class UserEntity {
     private String lastName;
 
     public static final String ID = "user_id";
-    public static final String CONTEXT_ID = "context_id";
     public static final String USERNAME = "username";
     public static final String EMAIL = "email";
     public static final String FIRST_NAME = "first_name";

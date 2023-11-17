@@ -18,10 +18,7 @@ public class IdentifierEntity {
 
     @Id
     @Column(ID)
-    private UUID id;
-
-    @Column(USER_ID)
-    private UUID userId;
+    private UUID uuid;
 
     @Size(max = 256, message = "The property 'name' must not exceed 256 characters.")
     @Column(NAME)
@@ -32,7 +29,6 @@ public class IdentifierEntity {
     private String value;
 
     public static final String ID = "id";
-    public static final String USER_ID = "user_id";
     public static final String NAME = "name";
     public static final String VALUE = "value";
 

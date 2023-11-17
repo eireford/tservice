@@ -17,7 +17,7 @@ public class DomainTserviceEntity {
 
     @Id
     @Column(ID)
-    private UUID id;
+    private UUID uuid;
 
     @Column(DOMAIN_ID)
     private UUID domainId;

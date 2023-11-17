@@ -17,10 +17,7 @@ import java.util.UUID;
 public class TsetEntity {
     @Id
     @Column(ID)
-    private UUID id;
-
-    @Column(CONTEXT_ID)
-    private UUID contextId;
+    private UUID uuid;
 
     @Size(max = 256, message = "The property 'name' must not exceed 256 characters.")
     @Column(NAME)
@@ -31,7 +28,6 @@ public class TsetEntity {
     private String value;
 
     public static final String ID = "tset_id";
-    public static final String CONTEXT_ID = "context_id";
     public static final String NAME = "name";
     public static final String VALUE = "value";
 }
