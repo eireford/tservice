@@ -14,27 +14,29 @@ service PlaceService {
   rpc findAll(FindAllProto) returns (stream PlaceProto);
   rpc findByName(FindByNameProto) returns (stream PlaceProto);
   rpc findByValue(FindByValueProto) returns (stream PlaceProto);
-
 }
 
 message PlaceProto {
   string id = 1;
-  string contextId = 2;
-  string name = 3;
-  string value = 4;
+  string name = 2;
+  string value = 3;
+  int32 row = 4;
+  int32 column = 5;
 }
 
 message CreateProto {
-  string contextId = 1;
-  string name = 2;
-  string value = 3;
+  string name = 1;
+  string value = 2;
+  int32 row = 3;
+  int32 column = 4;
 }
 
 message UpdateProto {
   string id = 1;
-  string contextId = 2;
-  string name = 3;
-  string value = 4;
+  string name = 2;
+  string value = 3;
+  int32 row = 4;
+  int32 column = 5;
 }
 
 message DeleteProto {
@@ -51,12 +53,10 @@ message FindByNameProto {
   string name = 1;
 }
 
-message FindByNamePageProto {
-  string name = 1;
-  int32 page = 2;
-  int32 size = 3;
-}
-
 message FindByValueProto {
   string value = 1;
+}
+
+message FindByRowProto {
+  int32 row = 1;
 }

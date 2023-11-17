@@ -43,10 +43,6 @@ message FindByIdProto {
 
 message FindAllProto {}
 
-message FindByContextIdProto {
-  string contextId = 1;
-}
-
 message FindByNameProto {
   string name = 1;
 }
