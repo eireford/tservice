@@ -1,43 +1,44 @@
 package com.tservice.grpcserver.mappers;
 
-import com.tservice.grpcserver.entities.ContextEntity;
-import com.tservice.proto.context.ContextProto;
-import com.tservice.proto.context.CreateProto;
-import com.tservice.proto.context.DeleteProto;
-import com.tservice.proto.context.UpdateProto;
+import com.tservice.grpcserver.entities.DomainEntity;
+import com.tservice.proto.domain.DomainProto;
+import com.tservice.proto.domain.CreateProto;
+import com.tservice.proto.domain.DeleteProto;
+import com.tservice.proto.domain.UpdateProto;
 import com.tservice.proto.tspoon.FindByIdProto;
 import com.tservice.proto.tspoon.FindByNameProto;
 import com.tservice.proto.tspoon.FindByValueProto;
 
+
 import java.util.UUID;
 
-public class ContextMapper {
+public class DomainMapper {
 
-    public static ContextEntity protoToEntity(ContextProto contextProto){
-        return ContextEntity.builder()
-                .uuid(UUID.fromString(contextProto.getId()))
-                .name(contextProto.getName())
-                .value(contextProto.getValue())
+    public static DomainEntity protoToEntity(DomainProto domainProto){
+        return DomainEntity.builder()
+                .uuid(UUID.fromString(domainProto.getId()))
+                .name(domainProto.getName())
+                .value(domainProto.getValue())
                 .build();
     }
 
-    public static ContextProto entityToProto(ContextEntity contextEntity){
-        return ContextProto.newBuilder()
-                .setId(contextEntity.getUuid().toString())
-                .setName(contextEntity.getName())
-                .setValue(contextEntity.getValue())
+    public static DomainProto entityToProto(DomainEntity domainEntity){
+        return DomainProto.newBuilder()
+                .setId(domainEntity.getUuid().toString())
+                .setName(domainEntity.getName())
+                .setValue(domainEntity.getValue())
                 .build();
     }
 
-    public static ContextEntity createProtoToEntity(CreateProto createProto){
-        return ContextEntity.builder()
+    public static DomainEntity createProtoToEntity(CreateProto createProto){
+        return DomainEntity.builder()
                 .name(createProto.getName())
                 .value(createProto.getValue())
                 .build();
     }
 
-    public static ContextEntity updateProtoToEntity(UpdateProto updateProto){
-        return ContextEntity.builder()
+    public static DomainEntity updateProtoToEntity(UpdateProto updateProto){
+        return DomainEntity.builder()
                 .uuid(UUID.fromString(updateProto.getId()))
                 .name(updateProto.getName())
                 .value(updateProto.getValue())

@@ -23,14 +23,14 @@ public class PlaceMapper {
                 .build();
     }
 
-    public static PlaceEntity createPlaceProtoToEntity(CreateProto createProto){
+    public static PlaceEntity createProtoToEntity(CreateProto createProto){
         return PlaceEntity.builder()
                 .name(createProto.getName())
                 .value(createProto.getValue())
                 .build();
     }
 
-    public static PlaceEntity updatePlaceProtoToEntity(UpdateProto updateProto){
+    public static PlaceEntity updateProtoToEntity(UpdateProto updateProto){
         return PlaceEntity.builder()
                 .uuid(UUID.fromString(updateProto.getId()))
                 .name(updateProto.getName())
@@ -38,7 +38,7 @@ public class PlaceMapper {
                 .build();
     }
 
-    public static UUID deletePlaceProtoToUUID(DeleteProto deleteProto){
+    public static UUID deleteProtoToUUID(DeleteProto deleteProto){
         return UUID.fromString(deleteProto.getId());
     }
 

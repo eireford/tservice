@@ -30,7 +30,7 @@ public class TsetMapper {
                 .build();
     }
 
-    public static TsetEntity updateTsetProtoToEntity(UpdateProto updateProto){
+    public static TsetEntity updateProtoToEntity(UpdateProto updateProto){
         return TsetEntity.builder()
                 .uuid(UUID.fromString(updateProto.getId()))
                 .name(updateProto.getName())
@@ -38,7 +38,7 @@ public class TsetMapper {
                 .build();
     }
 
-    public static UUID deleteTsetProtoToUUID(DeleteProto deleteProto){
+    public static UUID deleteProtoToUUID(DeleteProto deleteProto){
         return UUID.fromString(deleteProto.getId());
     }
 
