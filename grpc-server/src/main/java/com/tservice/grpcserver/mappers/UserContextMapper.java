@@ -1,7 +1,7 @@
 package com.tservice.grpcserver.mappers;
 
 import com.tservice.grpcserver.entities.UserContextEntity;
-import com.tservice.proto.usercontext.UserContextProto;
+import com.tservice.proto.usercontext.*;
 
 import java.util.UUID;
 
@@ -23,34 +23,34 @@ public class UserContextMapper {
                 .build();
     }
 
-    public static UserContextEntity createProtoToEntity(UserContextProto userContextProto){
+    public static UserContextEntity createProtoToEntity(CreateProto createProto){
         return UserContextEntity.builder()
-                .userId(UUID.fromString(userContextProto.getUserId()))
-                .contextId(UUID.fromString(userContextProto.getContextId()))
+                .userId(UUID.fromString(createProto.getUserId()))
+                .contextId(UUID.fromString(createProto.getContextId()))
                 .build();
     }
 
-    public static UserContextEntity updateProtoToEntity(UserContextProto userContextProto){
+    public static UserContextEntity updateProtoToEntity(UpdateProto updateProto){
         return UserContextEntity.builder()
-                .uuid(UUID.fromString(userContextProto.getId()))
-                .userId(UUID.fromString(userContextProto.getUserId()))
-                .contextId(UUID.fromString(userContextProto.getContextId()))
+                .uuid(UUID.fromString(updateProto.getId()))
+                .userId(UUID.fromString(updateProto.getUserId()))
+                .contextId(UUID.fromString(updateProto.getContextId()))
                 .build();
     }
 
-    public static UUID deleteProtoToUUID(UserContextProto userContextProto){
-        return UUID.fromString(userContextProto.getId());
+    public static UUID deleteProtoToUUID(DeleteProto deleteProto){
+        return UUID.fromString(deleteProto.getId());
     }
 
-    public static UUID findByIdProtoToUUID(UserContextProto userContextProto){
-        return UUID.fromString(userContextProto.getId());
+    public static UUID findByIdProtoToUUID(FindByIdProto findByIdProto){
+        return UUID.fromString(findByIdProto.getId());
     }
 
-    public static UUID findByUserIdProtoToUUID(UserContextProto userContextProto){
-        return UUID.fromString(userContextProto.getUserId());
+    public static UUID findByUserIdProtoToUUID(FindByUserIdProto findByUserIdProto){
+        return UUID.fromString(findByUserIdProto.getUserId());
     }
 
-    public static UUID findByContextIdProtoToUUID(UserContextProto userContextProto){
+    public static UUID findByContextIdProtoToUUID(FindByContextIdProto userContextProto){
         return UUID.fromString(userContextProto.getContextId());
     }
 }

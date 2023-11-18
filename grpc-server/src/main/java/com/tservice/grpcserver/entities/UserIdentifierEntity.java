@@ -23,7 +23,7 @@ public class UserIdentifierEntity {
     private UUID userId;
 
     @Column(IDENTIFIER_ID)
-    private UUID uuidentifierId;
+    private UUID identifierId;
 
     public static final String ID = "id";
     public static final String USER_ID = "user_id";

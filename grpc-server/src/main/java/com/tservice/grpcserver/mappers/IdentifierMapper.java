@@ -7,7 +7,7 @@ import java.util.UUID;
 
 public class IdentifierMapper {
 
-    public static IdentifierEntity ProtoToEntity(IdentifierProto identifierProto){
+    public static IdentifierEntity protoToEntity(IdentifierProto identifierProto){
         return IdentifierEntity.builder()
                 .uuid(UUID.fromString(identifierProto.getId()))
                 .name(identifierProto.getName())
@@ -15,7 +15,7 @@ public class IdentifierMapper {
                 .build();
     }
 
-    public static IdentifierProto EntityToProto(IdentifierEntity identifierEntity){
+    public static IdentifierProto entityToProto(IdentifierEntity identifierEntity){
         return IdentifierProto.newBuilder()
                 .setId(identifierEntity.getUuid().toString())
                 .setName(identifierEntity.getName())

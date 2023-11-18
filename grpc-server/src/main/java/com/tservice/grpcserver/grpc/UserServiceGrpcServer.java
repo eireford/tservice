@@ -2,6 +2,7 @@ package com.tservice.grpcserver.grpc;
 
 import com.google.protobuf.Empty;
 import com.tservice.grpcserver.mappers.UserMapper;
+import com.tservice.grpcserver.services.UserService;
 import com.tservice.grpcserver.services.UserServiceImpl;
 import com.tservice.proto.user.*;
 import io.grpc.Status;
@@ -76,16 +77,15 @@ public class UserServiceGrpcServer extends UserServiceGrpc.UserServiceImplBase {
     @Override
     public void delete(DeleteProto deleteProto, StreamObserver<Empty> streamObserver) {
         try {
-            UUID userId = UUID.fromString(deleteProto.getId());
 
-            userService.delete(userId)
+            userService.delete(UserMapper.deleteProtoToUUID(deleteProto))
                     .doOnSuccess(__ -> {
-                        log.info("User with ID {} deleted successfully", userId);
+                        log.info("User with Id {} deleted successfully", UserMapper.deleteProtoToUUID(deleteProto));
                         streamObserver.onNext(Empty.newBuilder().build());
                         streamObserver.onCompleted();
                     })
                     .doOnError(error -> {
-                        log.error("Error while deleting user with ID {}: {}", userId, error.getMessage());
+                        log.error("Error while deleting user with Id {}: {}", UserMapper.deleteProtoToUUID(deleteProto), error.getMessage());
                         streamObserver.onError(Status.INTERNAL
                                 .withDescription("Internal Server Error")
                                 .augmentDescription(error.getMessage())
@@ -116,12 +116,12 @@ public class UserServiceGrpcServer extends UserServiceGrpc.UserServiceImplBase {
             userService.findById(userId)
                     .map(UserMapper::entityToProto)
                     .doOnSuccess(userProto -> {
-                        log.info("User with ID {} found successfully", userId);
+                        log.info("User with Id {} found successfully", userId);
                         responseObserver.onNext(userProto);
                         responseObserver.onCompleted();
                     })
                     .doOnError(error -> {
-                        log.error("Error while getting user with ID {}: {}", userId, error.getMessage());
+                        log.error("Error while getting user with Id {}: {}", userId, error.getMessage());
                         responseObserver.onError(Status.INTERNAL
                                 .withDescription("Internal Server Error")
                                 .augmentDescription(error.getMessage())

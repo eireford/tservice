@@ -2,8 +2,6 @@ package com.tservice.grpcserver.mappers;
 
 import com.tservice.grpcserver.entities.TserviceEntity;
 import com.tservice.proto.tservice.*;
-import com.tservice.proto.tspoon.FindByIdProto;
-import com.tservice.proto.tspoon.FindByNameProto;
 
 import java.util.UUID;
 

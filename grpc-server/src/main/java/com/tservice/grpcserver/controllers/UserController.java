@@ -1,6 +1,6 @@
 package com.tservice.grpcserver.controllers;
 
-import com.tservice.grpcserver.entities.User;
+import com.tservice.grpcserver.entities.UserEntity;
 import com.tservice.grpcserver.services.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,17 +19,17 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("/create")
-    public Mono<User> createUser(@RequestBody User user) {
-        return userService.saveUser(user);
+    public Mono<UserEntity> createUser(@RequestBody UserEntity userEntity) {
+        return userService.save(userEntity);
     }
 
     @GetMapping(value = "/{uuid}", produces = "application/json")
-    public Mono<User> getUserById(@PathVariable UUID uuid) {
-        return userService.getUserByUserId(uuid);
+    public Mono<UserEntity> getUserById(@PathVariable UUID uuid) {
+        return userService.findById(uuid);
     }
 
     @GetMapping(produces = "application/json")
-    public Flux<User> getAllUsers() {
-        return userService.getAllUsers();
+    public Flux<UserEntity> getAllUsers() {
+        return userService.findAll();
     }
 }

@@ -8,7 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @SpringBootTest(classes = {UserRepository.class})
-public class UserRepositoryTests {
+public class UserEntityRepositoryTests {
     @Autowired
     private UserRepository userRepository;
 

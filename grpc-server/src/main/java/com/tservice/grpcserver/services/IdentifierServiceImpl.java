@@ -26,13 +26,13 @@ public class IdentifierServiceImpl implements IdentifierService{
     }
 
     @Override
-    public Mono<Void> delete(String id) {
-        return identifierRepository.delete(id);
+    public Mono<Void> delete(UUID uuid) {
+        return identifierRepository.delete(uuid);
     }
 
     @Override
     public Mono<IdentifierEntity> findById(UUID uuid){
-        return identifierRepository.findById(id);
+        return identifierRepository.findById(uuid);
     }
 
     @Override

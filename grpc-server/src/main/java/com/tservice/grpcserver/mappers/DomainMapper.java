@@ -1,13 +1,7 @@
 package com.tservice.grpcserver.mappers;
 
 import com.tservice.grpcserver.entities.DomainEntity;
-import com.tservice.proto.domain.DomainProto;
-import com.tservice.proto.domain.CreateProto;
-import com.tservice.proto.domain.DeleteProto;
-import com.tservice.proto.domain.UpdateProto;
-import com.tservice.proto.tspoon.FindByIdProto;
-import com.tservice.proto.tspoon.FindByNameProto;
-import com.tservice.proto.tspoon.FindByValueProto;
+import com.tservice.proto.domain.*;
 
 
 import java.util.UUID;

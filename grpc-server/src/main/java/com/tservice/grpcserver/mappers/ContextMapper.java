@@ -1,13 +1,7 @@
 package com.tservice.grpcserver.mappers;
 
 import com.tservice.grpcserver.entities.ContextEntity;
-import com.tservice.proto.context.ContextProto;
-import com.tservice.proto.context.CreateProto;
-import com.tservice.proto.context.DeleteProto;
-import com.tservice.proto.context.UpdateProto;
-import com.tservice.proto.tspoon.FindByIdProto;
-import com.tservice.proto.tspoon.FindByNameProto;
-import com.tservice.proto.tspoon.FindByValueProto;
+import com.tservice.proto.context.*;
 
 import java.util.UUID;
 

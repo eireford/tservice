@@ -11,7 +11,7 @@ import java.util.UUID;
 public interface IdentifierRepository extends ReactiveSortingRepository<IdentifierEntity, UUID> {
     Mono<IdentifierEntity> update(IdentifierEntity identifierEntity);
     
-    Mono<Void> delete(String id);
+    Mono<Void> delete(UUID uuid);
 
     Flux<IdentifierEntity> findByName(String name);
 

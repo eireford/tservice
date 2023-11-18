@@ -17,7 +17,7 @@ public class TsetPlaceEntity {
 
     @Id
     @Column(ID)
-    private String id;
+    private String uuid;
 
     @Column(TSET_ID)
     private UUID tsetId;
