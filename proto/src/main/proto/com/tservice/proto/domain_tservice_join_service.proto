@@ -6,17 +6,17 @@ option java_multiple_files = true;
 
 import "google/protobuf/empty.proto";
 
-service DomainTServiceService {
-  rpc createDomainTservice(CreateProto) returns (DomainTServiceProto);
-  rpc updateDomainTservice(UpdateProto) returns (DomainTServiceProto);
+service DomainTserviceService {
+  rpc createDomainTservice(CreateProto) returns (DomainTserviceProto);
+  rpc updateDomainTservice(UpdateProto) returns (DomainTserviceProto);
   rpc deleteDomainTservice(DeleteProto) returns (google.protobuf.Empty);
-  rpc findById(FindByIdProto) returns (DomainTServiceProto);
-  rpc findAll(FindAllProto) returns (stream DomainTServiceProto);
-  rpc findByDomainId(FindByDomainIdProto) returns (stream DomainTServiceProto);
-  rpc findByTserviceId(FindByTserviceIdProto) returns (stream DomainTServiceProto);
+  rpc findById(FindByIdProto) returns (DomainTserviceProto);
+  rpc findAll(FindAllProto) returns (stream DomainTserviceProto);
+  rpc findByDomainId(FindByDomainIdProto) returns (stream DomainTserviceProto);
+  rpc findByTserviceId(FindByTserviceIdProto) returns (stream DomainTserviceProto);
 }
 
-message DomainTServiceProto {
+message DomainTserviceProto {
   string id = 1;
   string domainId = 2;
   string tserviceId = 3;

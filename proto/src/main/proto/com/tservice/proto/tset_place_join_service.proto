@@ -12,8 +12,8 @@ service TsetPlaceService{
   rpc delete(DeleteProto) returns (google.protobuf.Empty);
   rpc findById(FindByIdProto) returns (TsetPlaceProto);
   rpc findAll(FindAllProto) returns (stream TsetPlaceProto);
-  rpc findByTsetID(FindByTsetIDProto) returns (stream TsetPlaceProto);
-  rpc findByPlaceID(FindByPlaceIDProto) returns (stream TsetPlaceProto);
+  rpc findByTsetId(FindByTsetIdProto) returns (stream TsetPlaceProto);
+  rpc findByPlaceId(FindByPlaceIdProto) returns (stream TsetPlaceProto);
 }
 
 message TsetPlaceProto{
@@ -44,10 +44,10 @@ message FindByIdProto{
 message FindAllProto{
 }
 
-message FindByTsetIDProto{
-  string tsetID = 1;
+message FindByTsetIdProto{
+  string tsetId = 1;
 }
 
-message FindByPlaceIDProto{
-  string placeID = 1;
+message FindByPlaceIdProto{
+  string placeId = 1;
 }
