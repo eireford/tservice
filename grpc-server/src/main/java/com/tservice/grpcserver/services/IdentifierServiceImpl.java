@@ -22,12 +22,12 @@ public class IdentifierServiceImpl implements IdentifierService{
 
     @Override
     public Mono<IdentifierEntity> update(IdentifierEntity identifierEntity) {
-        return identifierRepository.update(identifierEntity);
+        return identifierRepository.save(identifierEntity);
     }
 
     @Override
     public Mono<Void> delete(UUID uuid) {
-        return identifierRepository.delete(uuid);
+        return identifierRepository.delete(identifierRepository.findById(uuid).block());
     }
 
     @Override

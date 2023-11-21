@@ -11,9 +11,9 @@ import java.util.UUID;
 @Repository
 public interface DomainRepository extends ReactiveSortingRepository<DomainEntity, UUID> {
 
-    Mono<DomainEntity> update(DomainEntity domain);
+    // Mono<DomainEntity> update(DomainEntity domain);
 
-    Mono<Void> delete(UUID uuid);
+    //Mono<Void> delete(UUID uuid);
 
     Flux<DomainEntity> findByName(String name);
 

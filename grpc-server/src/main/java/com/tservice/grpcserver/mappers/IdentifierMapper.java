@@ -50,7 +50,7 @@ public class IdentifierMapper {
         return findByNameProto.getName();
     }
 
-    public static String findIdsByValueProtoToString(FindByValueProto findByValueProto){
+    public static String findByValueProtoToString(FindByValueProto findByValueProto){
         return findByValueProto.getValue();
     }
 }

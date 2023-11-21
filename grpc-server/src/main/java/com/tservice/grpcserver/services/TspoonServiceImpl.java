@@ -26,17 +26,17 @@ public class TspoonServiceImpl implements TspoonService{
 
     @Override
     public Mono<TspoonEntity> update(TspoonEntity tspoon) {
-        return tspoonRepository.updateById(tspoon.getId()).timeout(TIMEOUT);
+        return tspoonRepository.save(tspoon).timeout(TIMEOUT);
     }
 
     @Override
     public Mono<Void> delete(UUID uuid) {
-        return tspoonRepository.deleteById(id).timeout(TIMEOUT);
+        return tspoonRepository.deleteById(uuid).timeout(TIMEOUT);
     }
 
     @Override
     public Mono<TspoonEntity> findById(UUID uuid) {
-        return tspoonRepository.findById(id).timeout(TIMEOUT);
+        return tspoonRepository.findById(uuid).timeout(TIMEOUT);
     }
 
     @Override

@@ -22,17 +22,17 @@ public class TsetServiceImpl implements TsetService{
 
     @Override
     public Mono<TsetEntity> update(TsetEntity tset) {
-        return tsetRepository.updateById(tset);
+        return tsetRepository.save(tset);
     }
 
     @Override
     public Mono<Void> delete(UUID uuid) {
-        return tsetRepository.deleteById(id);
+        return tsetRepository.deleteById(uuid);
     }
 
     @Override
     public Mono<TsetEntity> findById(UUID uuid) {
-        return tsetRepository.findById(id);
+        return tsetRepository.findById(uuid);
     }
 
     @Override

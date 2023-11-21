@@ -10,9 +10,9 @@ import java.util.UUID;
 @Repository
 public interface PlaceRepository extends ReactiveSortingRepository<PlaceEntity, UUID> {
 
-    Mono<PlaceEntity> update(PlaceEntity place);
+    //Mono<PlaceEntity> update(PlaceEntity place);
 
-    Mono<Void> delete(UUID uuid);
+    //Mono<Void> delete(UUID uuid);
 
     Flux<PlaceEntity> findByName(String name);
 

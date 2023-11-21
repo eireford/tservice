@@ -1,8 +1,8 @@
 package com.tservice.grpcserver.grpc;
 
 import com.google.protobuf.Empty;
+import com.tservice.grpcserver.entities.UserEntity;
 import com.tservice.grpcserver.mappers.UserMapper;
-import com.tservice.grpcserver.services.UserService;
 import com.tservice.grpcserver.services.UserServiceImpl;
 import com.tservice.proto.user.*;
 import io.grpc.Status;
@@ -22,24 +22,26 @@ public class UserServiceGrpcServer extends UserServiceGrpc.UserServiceImplBase {
 
     @Override
     public void create(CreateProto createProto, StreamObserver<UserProto> streamObserver) {
+        log.info("Creating user: {}", createProto);
+        UserEntity userEntity = UserMapper.createProtoToEntity(createProto);
         try {
-            userService.save(UserMapper.createProtoToEntity(createProto))
+            userService.save(userEntity)
                     .map(UserMapper::entityToProto)
                     .doOnSuccess(userProto -> {
-                        log.info("User created successfully");
+                        log.info("User created: {}", userProto);
                         streamObserver.onNext(userProto);
                         streamObserver.onCompleted();
                     })
-                    .doOnError(error -> {
-                        log.error("Error while creating user: {}", error.getMessage());
+                    .doOnError(throwable -> {
+                        log.error("Error creating user: {}", throwable.getMessage());
                         streamObserver.onError(Status.INTERNAL
                                 .withDescription("Internal Server Error")
-                                .augmentDescription(error.getMessage())
-                                    .asRuntimeException());
+                                .augmentDescription(throwable.getMessage())
+                                .asRuntimeException());
                     })
                     .subscribe();
         } catch (Exception e) {
-            log.error("Error while processing create user request: {}", e.getMessage());
+            log.error("Error while create user: {}", e.getMessage());
             streamObserver.onError(Status.INTERNAL
                     .withDescription("Internal Server Error")
                     .augmentDescription(e.getMessage())
@@ -49,24 +51,26 @@ public class UserServiceGrpcServer extends UserServiceGrpc.UserServiceImplBase {
 
     @Override
     public void update(UpdateProto updateProto, StreamObserver<UserProto> streamObserver) {
+        log.info("Updating user: {}", updateProto);
+        UserEntity userEntity = UserMapper.updateProtoToEntity(updateProto);
         try {
-            userService.update(UserMapper.updateProtoToEntity(updateProto))
+            userService.update(userEntity)
                     .map(UserMapper::entityToProto)
                     .doOnSuccess(userProto -> {
-                        log.info("User updated successfully");
+                        log.info("User updated: {}", userProto);
                         streamObserver.onNext(userProto);
                         streamObserver.onCompleted();
                     })
-                    .doOnError(error -> {
-                        log.error("Error while updating user: {}", error.getMessage());
+                    .doOnError(throwable -> {
+                        log.error("Error updating user: {}", throwable.getMessage());
                         streamObserver.onError(Status.INTERNAL
                                 .withDescription("Internal Server Error")
-                                .augmentDescription(error.getMessage())
+                                .augmentDescription(throwable.getMessage())
                                 .asRuntimeException());
                     })
                     .subscribe();
         } catch (Exception e) {
-            log.error("Error while processing update user request: {}", e.getMessage());
+            log.error("Error while update user: {}", e.getMessage());
             streamObserver.onError(Status.INTERNAL
                     .withDescription("Internal Server Error")
                     .augmentDescription(e.getMessage())
@@ -76,30 +80,25 @@ public class UserServiceGrpcServer extends UserServiceGrpc.UserServiceImplBase {
 
     @Override
     public void delete(DeleteProto deleteProto, StreamObserver<Empty> streamObserver) {
+        log.info("Deleting user: {}", deleteProto);
+        UUID uuid = UserMapper.deleteProtoToUUID(deleteProto);
         try {
-
-            userService.delete(UserMapper.deleteProtoToUUID(deleteProto))
+            userService.delete(uuid)
                     .doOnSuccess(__ -> {
-                        log.info("User with Id {} deleted successfully", UserMapper.deleteProtoToUUID(deleteProto));
+                        log.info("User deleted: {}", UserMapper.deleteProtoToUUID(deleteProto));
                         streamObserver.onNext(Empty.newBuilder().build());
                         streamObserver.onCompleted();
                     })
-                    .doOnError(error -> {
-                        log.error("Error while deleting user with Id {}: {}", UserMapper.deleteProtoToUUID(deleteProto), error.getMessage());
+                    .doOnError(throwable -> {
+                        log.error("Error deleting user: {}", throwable.getMessage());
                         streamObserver.onError(Status.INTERNAL
                                 .withDescription("Internal Server Error")
-                                .augmentDescription(error.getMessage())
+                                .augmentDescription(throwable.getMessage())
                                 .asRuntimeException());
                     })
                     .subscribe();
-        } catch (IllegalArgumentException e) {
-            log.error("Invalid UUID format in deleteProto.getId(): {}", deleteProto.getId());
-            streamObserver.onError(Status.INVALID_ARGUMENT
-                    .withDescription("Invalid UUID format")
-                    .augmentDescription(e.getMessage())
-                    .asRuntimeException());
         } catch (Exception e) {
-            log.error("Error while processing delete user request: {}", e.getMessage());
+            log.error("Error while delete user: {}", e.getMessage());
             streamObserver.onError(Status.INTERNAL
                     .withDescription("Internal Server Error")
                     .augmentDescription(e.getMessage())
@@ -107,36 +106,29 @@ public class UserServiceGrpcServer extends UserServiceGrpc.UserServiceImplBase {
         }
     }
 
-
     @Override
-    public void findById(FindByIdProto findByIdProto, StreamObserver<UserProto> responseObserver) {
+    public void findById(FindByIdProto findByIdProto, StreamObserver<UserProto> streamObserver){
+        log.info("Finding user by id: {}", findByIdProto);
+        UUID uuid = UserMapper.findByIdProtoToUUID(findByIdProto);
         try {
-            UUID userId = UUID.fromString(findByIdProto.getId());
-
-            userService.findById(userId)
+            userService.findById(uuid)
                     .map(UserMapper::entityToProto)
                     .doOnSuccess(userProto -> {
-                        log.info("User with Id {} found successfully", userId);
-                        responseObserver.onNext(userProto);
-                        responseObserver.onCompleted();
+                        log.info("User found: {}", userProto);
+                        streamObserver.onNext(userProto);
+                        streamObserver.onCompleted();
                     })
-                    .doOnError(error -> {
-                        log.error("Error while getting user with Id {}: {}", userId, error.getMessage());
-                        responseObserver.onError(Status.INTERNAL
+                    .doOnError(throwable -> {
+                        log.error("Error finding user: {}", throwable.getMessage());
+                        streamObserver.onError(Status.INTERNAL
                                 .withDescription("Internal Server Error")
-                                .augmentDescription(error.getMessage())
+                                .augmentDescription(throwable.getMessage())
                                 .asRuntimeException());
                     })
                     .subscribe();
-        } catch (IllegalArgumentException e) {
-            log.error("Invalid UUID format in getByIdProto.getId(): {}", findByIdProto.getId());
-            responseObserver.onError(Status.INVALID_ARGUMENT
-                    .withDescription("Invalid UUID format")
-                    .augmentDescription(e.getMessage())
-                    .asRuntimeException());
         } catch (Exception e) {
-            log.error("Error while processing get user by user id request: {}", e.getMessage());
-            responseObserver.onError(Status.INTERNAL
+            log.error("Error while find user: {}", e.getMessage());
+            streamObserver.onError(Status.INTERNAL
                     .withDescription("Internal Server Error")
                     .augmentDescription(e.getMessage())
                     .asRuntimeException());
@@ -144,29 +136,30 @@ public class UserServiceGrpcServer extends UserServiceGrpc.UserServiceImplBase {
     }
 
     @Override
-    public void findAll(FindAllProto findAllProto, StreamObserver<UserProto> responseObserver) {
+    public void findAll(FindAllProto findAllProto, StreamObserver<UserProto> streamObserver) {
+        log.info("Finding all users: {}", findAllProto);
         try {
             userService.findAll()
                     .map(UserMapper::entityToProto)
                     .doOnNext(userProto -> {
-                        log.info("User found successfully");
-                        responseObserver.onNext(userProto);
+                        log.info("User found: {}", userProto);
+                        streamObserver.onNext(userProto);
                     })
                     .doOnComplete(() -> {
-                        log.info("All users found successfully");
-                        responseObserver.onCompleted();
+                        log.info("All users found");
+                        streamObserver.onCompleted();
                     })
-                    .doOnError(error -> {
-                        log.error("Error while getting all users: {}", error.getMessage());
-                        responseObserver.onError(Status.INTERNAL
+                    .doOnError(throwable -> {
+                        log.error("Error finding all users: {}", throwable.getMessage());
+                        streamObserver.onError(Status.INTERNAL
                                 .withDescription("Internal Server Error")
-                                .augmentDescription(error.getMessage())
+                                .augmentDescription(throwable.getMessage())
                                 .asRuntimeException());
                     })
                     .subscribe();
         } catch (Exception e) {
-            log.error("Error while processing get all users request: {}", e.getMessage());
-            responseObserver.onError(Status.INTERNAL
+            log.error("Error while find all users: {}", e.getMessage());
+            streamObserver.onError(Status.INTERNAL
                     .withDescription("Internal Server Error")
                     .augmentDescription(e.getMessage())
                     .asRuntimeException());
@@ -174,29 +167,31 @@ public class UserServiceGrpcServer extends UserServiceGrpc.UserServiceImplBase {
     }
 
     @Override
-    public void findByUsername(FindByUsernameProto findByUsernameProto, StreamObserver<UserProto> responseObserver) {
+    public void findByUsername(FindByUsernameProto findByUsernameProto, StreamObserver<UserProto> streamObserver) {
+        log.info("Finding user by username: {}", findByUsernameProto);
+        String username = UserMapper.findByUsernameProtoToString(findByUsernameProto);
         try {
-            userService.findByUsername(findByUsernameProto.getUsername())
+            userService.findByUsername(username)
                     .map(UserMapper::entityToProto)
                     .doOnNext(userProto -> {
-                        log.info("User found successfully");
-                        responseObserver.onNext(userProto);
+                        log.info("User found: {}", userProto);
+                        streamObserver.onNext(userProto);
                     })
                     .doOnComplete(() -> {
-                        log.info("All users found successfully");
-                        responseObserver.onCompleted();
+                        log.info("All users found");
+                        streamObserver.onCompleted();
                     })
-                    .doOnError(error -> {
-                        log.error("Error while getting all users: {}", error.getMessage());
-                        responseObserver.onError(Status.INTERNAL
+                    .doOnError(throwable -> {
+                        log.error("Error finding user by username: {}", throwable.getMessage());
+                        streamObserver.onError(Status.INTERNAL
                                 .withDescription("Internal Server Error")
-                                .augmentDescription(error.getMessage())
+                                .augmentDescription(throwable.getMessage())
                                 .asRuntimeException());
                     })
                     .subscribe();
         } catch (Exception e) {
-            log.error("Error while processing find users by username request: {}", e.getMessage());
-            responseObserver.onError(Status.INTERNAL
+            log.error("Error while find user by username: {}", e.getMessage());
+            streamObserver.onError(Status.INTERNAL
                     .withDescription("Internal Server Error")
                     .augmentDescription(e.getMessage())
                     .asRuntimeException());
@@ -204,29 +199,31 @@ public class UserServiceGrpcServer extends UserServiceGrpc.UserServiceImplBase {
     }
 
     @Override
-    public void findByEmail(FindByEmailProto findByEmailProto, StreamObserver<UserProto> responseObserver) {
+    public void findByEmail(FindByEmailProto findByEmailProto, StreamObserver<UserProto> streamObserver) {
+        log.info("Finding user by email: {}", findByEmailProto);
+        String email = UserMapper.findByEmailProtoToString(findByEmailProto);
         try {
-            userService.findByEmail(findByEmailProto.getEmail())
+            userService.findByEmail(email)
                     .map(UserMapper::entityToProto)
                     .doOnNext(userProto -> {
-                        log.info("User found successfully");
-                        responseObserver.onNext(userProto);
+                        log.info("User found: {}", userProto);
+                        streamObserver.onNext(userProto);
                     })
                     .doOnComplete(() -> {
-                        log.info("All users found successfully");
-                        responseObserver.onCompleted();
+                        log.info("All users found");
+                        streamObserver.onCompleted();
                     })
-                    .doOnError(error -> {
-                        log.error("Error while getting all users: {}", error.getMessage());
-                        responseObserver.onError(Status.INTERNAL
+                    .doOnError(throwable -> {
+                        log.error("Error finding user by email: {}", throwable.getMessage());
+                        streamObserver.onError(Status.INTERNAL
                                 .withDescription("Internal Server Error")
-                                .augmentDescription(error.getMessage())
+                                .augmentDescription(throwable.getMessage())
                                 .asRuntimeException());
                     })
                     .subscribe();
         } catch (Exception e) {
-            log.error("Error while processing find users by email request: {}", e.getMessage());
-            responseObserver.onError(Status.INTERNAL
+            log.error("Error while find user by email: {}", e.getMessage());
+            streamObserver.onError(Status.INTERNAL
                     .withDescription("Internal Server Error")
                     .augmentDescription(e.getMessage())
                     .asRuntimeException());
@@ -234,29 +231,31 @@ public class UserServiceGrpcServer extends UserServiceGrpc.UserServiceImplBase {
     }
 
     @Override
-    public void findByFirstName(FindByFirstNameProto findByFirstNameProto, StreamObserver<UserProto> responseObserver) {
+    public void findByFirstName(FindByFirstNameProto findByFirstNameProto, StreamObserver<UserProto> streamObserver) {
+        log.info("Finding user by first name: {}", findByFirstNameProto);
+        String firstName = UserMapper.findByFirstNameProtoToString(findByFirstNameProto);
         try {
-            userService.findByFirstName(findByFirstNameProto.getFirstName())
+            userService.findByFirstName(firstName)
                     .map(UserMapper::entityToProto)
                     .doOnNext(userProto -> {
-                        log.info("User found successfully");
-                        responseObserver.onNext(userProto);
+                        log.info("User found: {}", userProto);
+                        streamObserver.onNext(userProto);
                     })
                     .doOnComplete(() -> {
-                        log.info("All users found successfully");
-                        responseObserver.onCompleted();
+                        log.info("All users found");
+                        streamObserver.onCompleted();
                     })
-                    .doOnError(error -> {
-                        log.error("Error while getting all users: {}", error.getMessage());
-                        responseObserver.onError(Status.INTERNAL
+                    .doOnError(throwable -> {
+                        log.error("Error finding user by first name: {}", throwable.getMessage());
+                        streamObserver.onError(Status.INTERNAL
                                 .withDescription("Internal Server Error")
-                                .augmentDescription(error.getMessage())
+                                .augmentDescription(throwable.getMessage())
                                 .asRuntimeException());
                     })
                     .subscribe();
         } catch (Exception e) {
-            log.error("Error while processing find users by first name request: {}", e.getMessage());
-            responseObserver.onError(Status.INTERNAL
+            log.error("Error while find user by first name: {}", e.getMessage());
+            streamObserver.onError(Status.INTERNAL
                     .withDescription("Internal Server Error")
                     .augmentDescription(e.getMessage())
                     .asRuntimeException());
@@ -264,29 +263,31 @@ public class UserServiceGrpcServer extends UserServiceGrpc.UserServiceImplBase {
     }
 
     @Override
-    public void findByLastName(FindByLastNameProto findByLastNameProto, StreamObserver<UserProto> responseObserver) {
+    public void findByLastName(FindByLastNameProto findByLastNameProto, StreamObserver<UserProto> streamObserver) {
+        log.info("Finding user by last name: {}", findByLastNameProto);
+        String lastName = UserMapper.findByLastNameProtoToString(findByLastNameProto);
         try {
-            userService.findByLastName(findByLastNameProto.getLastName())
+            userService.findByLastName(lastName)
                     .map(UserMapper::entityToProto)
                     .doOnNext(userProto -> {
-                        log.info("User found successfully");
-                        responseObserver.onNext(userProto);
+                        log.info("User found: {}", userProto);
+                        streamObserver.onNext(userProto);
                     })
                     .doOnComplete(() -> {
-                        log.info("All users found successfully");
-                        responseObserver.onCompleted();
+                        log.info("All users found");
+                        streamObserver.onCompleted();
                     })
-                    .doOnError(error -> {
-                        log.error("Error while getting all users: {}", error.getMessage());
-                        responseObserver.onError(Status.INTERNAL
+                    .doOnError(throwable -> {
+                        log.error("Error finding user by last name: {}", throwable.getMessage());
+                        streamObserver.onError(Status.INTERNAL
                                 .withDescription("Internal Server Error")
-                                .augmentDescription(error.getMessage())
+                                .augmentDescription(throwable.getMessage())
                                 .asRuntimeException());
                     })
                     .subscribe();
         } catch (Exception e) {
-            log.error("Error while processing find users by last name request: {}", e.getMessage());
-            responseObserver.onError(Status.INTERNAL
+            log.error("Error while find user by last name: {}", e.getMessage());
+            streamObserver.onError(Status.INTERNAL
                     .withDescription("Internal Server Error")
                     .augmentDescription(e.getMessage())
                     .asRuntimeException());

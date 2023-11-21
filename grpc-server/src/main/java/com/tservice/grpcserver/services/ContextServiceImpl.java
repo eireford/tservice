@@ -22,17 +22,17 @@ public class ContextServiceImpl implements ContextService{
 
     @Override
     public Mono<ContextEntity> update(ContextEntity context) {
-        return contextRepository.update(context);
+        return contextRepository.save(context);
     }
 
     @Override
     public Mono<Void> delete(UUID uuid) {
-        return contextRepository.delete(id);
+        return contextRepository.delete(findById(uuid).block());
     }
 
     @Override
     public Mono<ContextEntity> findById(UUID uuid){
-        return contextRepository.findById(id);
+        return contextRepository.findById(uuid);
     }
 
     @Override

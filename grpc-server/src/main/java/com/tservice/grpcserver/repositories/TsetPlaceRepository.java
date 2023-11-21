@@ -9,9 +9,9 @@ import reactor.core.publisher.Mono;
 import java.util.UUID;
 @Repository
 public interface TsetPlaceRepository extends ReactiveSortingRepository<TsetPlaceEntity, UUID> {
-    Mono<TsetPlaceEntity> update(TsetPlaceEntity tsetPlace);
+    //Mono<TsetPlaceEntity> update(TsetPlaceEntity tsetPlace);
 
-    Mono<Void> delete(UUID uuid);
+    //Mono<Void> delete(UUID uuid);
 
     Flux<TsetPlaceEntity> findByTsetId(UUID tsetId);
 

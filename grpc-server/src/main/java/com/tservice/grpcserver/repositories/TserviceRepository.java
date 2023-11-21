@@ -11,9 +11,9 @@ import java.util.UUID;
 @Repository
 public interface TserviceRepository extends ReactiveSortingRepository<TserviceEntity, UUID> {
 
-    Mono<TserviceEntity> update(TserviceEntity tservice);
+    //Mono<TserviceEntity> update(TserviceEntity tservice);
 
-    Mono<Void> delete(UUID uuid);
+    //Mono<Void> delete(UUID uuid);
 
     Flux<TserviceEntity> findByName(String name);
 

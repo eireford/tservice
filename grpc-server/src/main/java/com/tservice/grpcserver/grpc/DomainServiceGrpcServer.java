@@ -1,6 +1,7 @@
 package com.tservice.grpcserver.grpc;
 
 import com.google.protobuf.Empty;
+import com.tservice.grpcserver.entities.DomainEntity;
 import com.tservice.grpcserver.mappers.DomainMapper;
 import com.tservice.grpcserver.services.DomainServiceImpl;
 import com.tservice.proto.domain.*;
@@ -21,19 +22,21 @@ public class DomainServiceGrpcServer extends DomainServiceGrpc.DomainServiceImpl
 
     @Override
     public void create(CreateProto createProto, StreamObserver<DomainProto> streamObserver){
+        log.info("Creating domain: {}", createProto);
+        DomainEntity domainEntity = DomainMapper.createProtoToEntity(createProto);
         try{
-            domainService.save(DomainMapper.createProtoToEntity(createProto))
+            domainService.save(domainEntity)
                     .map(DomainMapper::entityToProto)
                     .doOnSuccess(domainProto -> {
                         log.info("Domain created: {}", domainProto);
                         streamObserver.onNext(domainProto);
                         streamObserver.onCompleted();
                     })
-                    .doOnError(error -> {
-                        log.error("Error creating domain: {}", error.getMessage());
+                    .doOnError(throwable -> {
+                        log.error("Error creating domain: {}", throwable.getMessage());
                         streamObserver.onError(Status.INTERNAL
                                 .withDescription("Internal Server Error")
-                                .augmentDescription(error.getMessage())
+                                .augmentDescription(throwable.getMessage())
                                     .asRuntimeException());
                     })
                     .subscribe();
@@ -48,19 +51,21 @@ public class DomainServiceGrpcServer extends DomainServiceGrpc.DomainServiceImpl
 
     @Override
     public void update(UpdateProto updateProto, StreamObserver<DomainProto> streamObserver){
+        log.info("Updating domain: {}", updateProto);
+        DomainEntity domainEntity = DomainMapper.updateProtoToEntity(updateProto);
         try{
-            domainService.update(DomainMapper.updateProtoToEntity(updateProto))
+            domainService.update(domainEntity)
                     .map(DomainMapper::entityToProto)
                     .doOnSuccess(domainProto -> {
                         log.info("Domain updated: {}", domainProto);
                         streamObserver.onNext(domainProto);
                         streamObserver.onCompleted();
                     })
-                    .doOnError(error -> {
-                        log.error("Error updating domain: {}", error.getMessage());
+                    .doOnError(throwable -> {
+                        log.error("Error updating domain: {}", throwable.getMessage());
                         streamObserver.onError(Status.INTERNAL
                                 .withDescription("Internal Server Error")
-                                .augmentDescription(error.getMessage())
+                                .augmentDescription(throwable.getMessage())
                                     .asRuntimeException());
                     })
                     .subscribe();
@@ -75,18 +80,20 @@ public class DomainServiceGrpcServer extends DomainServiceGrpc.DomainServiceImpl
 
     @Override
     public void delete(DeleteProto deleteProto, StreamObserver<Empty> streamObserver){
+        log.info("Deleting domain: {}", deleteProto);
+        UUID uuid = DomainMapper.deleteProtoToUUID(deleteProto);
         try{
-            domainService.delete(DomainMapper.deleteProtoToUUID(deleteProto))
+            domainService.delete(uuid)
                     .doOnSuccess(domainProto -> {
                         log.info("Domain deleted: {}", domainProto);
                         streamObserver.onNext(Empty.newBuilder().build());
                         streamObserver.onCompleted();
                     })
-                    .doOnError(error -> {
-                        log.error("Error deleting domain: {}", error.getMessage());
+                    .doOnError(throwable -> {
+                        log.error("Error deleting domain: {}", throwable.getMessage());
                         streamObserver.onError(Status.INTERNAL
                                 .withDescription("Internal Server Error")
-                                .augmentDescription(error.getMessage())
+                                .augmentDescription(throwable.getMessage())
                                     .asRuntimeException());
                     })
                     .subscribe();
@@ -101,19 +108,21 @@ public class DomainServiceGrpcServer extends DomainServiceGrpc.DomainServiceImpl
 
     @Override
     public void findById(FindByIdProto findByIdProto, StreamObserver<DomainProto> streamObserver){
+        log.info("Finding domain: {}", findByIdProto);
+        UUID uuid = DomainMapper.findByIdProtoToUUID(findByIdProto);
         try{
-            domainService.findById(DomainMapper.findByIdProtoToUUID(findByIdProto))
+            domainService.findById(uuid)
                     .map(DomainMapper::entityToProto)
                     .doOnSuccess(domainProto -> {
                         log.info("Domain found: {}", domainProto);
                         streamObserver.onNext(domainProto);
                         streamObserver.onCompleted();
                     })
-                    .doOnError(error -> {
-                        log.error("Error finding domain: {}", error.getMessage());
+                    .doOnError(throwable -> {
+                        log.error("Error finding domain: {}", throwable.getMessage());
                         streamObserver.onError(Status.INTERNAL
                                 .withDescription("Internal Server Error")
-                                .augmentDescription(error.getMessage())
+                                .augmentDescription(throwable.getMessage())
                                     .asRuntimeException());
                     })
                     .subscribe();
@@ -128,6 +137,7 @@ public class DomainServiceGrpcServer extends DomainServiceGrpc.DomainServiceImpl
 
     @Override
     public void findAll(FindAllProto findAllProto, StreamObserver<DomainProto> streamObserver){
+        log.info("Finding domains");
         try{
             domainService.findAll()
                     .map(DomainMapper::entityToProto)
@@ -139,11 +149,11 @@ public class DomainServiceGrpcServer extends DomainServiceGrpc.DomainServiceImpl
                         log.info("Domains found");
                         streamObserver.onCompleted();
                     })
-                    .doOnError(error -> {
-                        log.error("Error finding domains: {}", error.getMessage());
+                    .doOnError(throwable -> {
+                        log.error("Error finding domains: {}", throwable.getMessage());
                         streamObserver.onError(Status.INTERNAL
                                 .withDescription("Internal Server Error")
-                                .augmentDescription(error.getMessage())
+                                .augmentDescription(throwable.getMessage())
                                     .asRuntimeException());
                     })
                     .subscribe();
@@ -158,19 +168,21 @@ public class DomainServiceGrpcServer extends DomainServiceGrpc.DomainServiceImpl
 
     @Override
     public void findByName(FindByNameProto findByNameProto, StreamObserver<DomainProto> streamObserver){
+        log.info("Finding domain: {}", findByNameProto);
+        String name = DomainMapper.findByNameProtoToString(findByNameProto);
         try{
-            domainService.findByName(DomainMapper.findByNameProtoToString(findByNameProto))
+            domainService.findByName(name)
                     .map(DomainMapper::entityToProto)
                     .doOnNext(domainProto -> {
                         log.info("Domain found: {}", domainProto);
                         streamObserver.onNext(domainProto);
                         streamObserver.onCompleted();
                     })
-                    .doOnError(error -> {
-                        log.error("Error finding domain: {}", error.getMessage());
+                    .doOnError(throwable -> {
+                        log.error("Error finding domain: {}", throwable.getMessage());
                         streamObserver.onError(Status.INTERNAL
                                 .withDescription("Internal Server Error")
-                                .augmentDescription(error.getMessage())
+                                .augmentDescription(throwable.getMessage())
                                     .asRuntimeException());
                     })
                     .subscribe();
@@ -185,19 +197,21 @@ public class DomainServiceGrpcServer extends DomainServiceGrpc.DomainServiceImpl
 
     @Override
     public void findByValue(FindByValueProto findByValueProto, StreamObserver<DomainProto> streamObserver){
+        log.info("Finding domain: {}", findByValueProto);
+        String value = DomainMapper.findByValueProtoToString(findByValueProto);
         try{
-            domainService.findByValue(DomainMapper.findByValueProtoToString(findByValueProto))
+            domainService.findByValue(value)
                     .map(DomainMapper::entityToProto)
                     .doOnNext(domainProto -> {
                         log.info("Domain found: {}", domainProto);
                         streamObserver.onNext(domainProto);
                         streamObserver.onCompleted();
                     })
-                    .doOnError(error -> {
-                        log.error("Error finding domain: {}", error.getMessage());
+                    .doOnError(throwable -> {
+                        log.error("Error finding domain: {}", throwable.getMessage());
                         streamObserver.onError(Status.INTERNAL
                                 .withDescription("Internal Server Error")
-                                .augmentDescription(error.getMessage())
+                                .augmentDescription(throwable.getMessage())
                                     .asRuntimeException());
                     })
                     .subscribe();

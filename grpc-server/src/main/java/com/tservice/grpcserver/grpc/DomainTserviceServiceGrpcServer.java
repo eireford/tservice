@@ -1,39 +1,39 @@
 package com.tservice.grpcserver.grpc;
 
 import com.google.protobuf.Empty;
-import com.tservice.grpcserver.entities.IdentifierEntity;
-import com.tservice.grpcserver.mappers.IdentifierMapper;
-import com.tservice.grpcserver.services.IdentifierServiceImpl;
-import com.tservice.proto.identifier.*;
+import com.tservice.grpcserver.entities.DomainTserviceEntity;
+import com.tservice.grpcserver.mappers.DomainTserviceMapper;
+import com.tservice.grpcserver.services.DomainTserviceServiceImpl;
+import com.tservice.proto.domaintservice.*;
 import io.grpc.Status;
 import io.grpc.stub.StreamObserver;
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.devh.boot.grpc.server.service.GrpcService;
 
 import java.util.UUID;
 
 @Slf4j
-@RequiredArgsConstructor
+@AllArgsConstructor
 @GrpcService
-public class IdentifierServiceGrpcServer extends IdentifierServiceGrpc.IdentifierServiceImplBase{
+public class DomainTserviceServiceGrpcServer extends DomainTserviceServiceGrpc.DomainTserviceServiceImplBase {
 
-    private final IdentifierServiceImpl identifierService;
+    private final DomainTserviceServiceImpl domainTserviceService;
 
     @Override
-    public void create(CreateProto createProto, StreamObserver<IdentifierProto> streamObserver){
-        log.info("Creating identifier: {}", createProto);
-        IdentifierEntity identifierEntity = IdentifierMapper.createProtoToEntity(createProto);
+    public void create(CreateProto createProto, StreamObserver<DomainTserviceProto> streamObserver){
+        log.info("Creating DomainTservice: {}", createProto);
+        DomainTserviceEntity domainTserviceEntity = DomainTserviceMapper.createProtoToEntity(createProto);
         try{
-            identifierService.save(identifierEntity)
-                    .map(IdentifierMapper::entityToProto)
-                    .doOnSuccess(identifierProto -> {
-                        log.info("Identifier created: {}", identifierProto);
-                        streamObserver.onNext(identifierProto);
+            domainTserviceService.save(domainTserviceEntity)
+                    .map(DomainTserviceMapper::entityToProto)
+                    .doOnSuccess(domainTserviceProto -> {
+                        log.info("DomainTservice created: {}", domainTserviceProto);
+                        streamObserver.onNext(domainTserviceProto);
                         streamObserver.onCompleted();
                     })
                     .doOnError(throwable -> {
-                        log.error("Error creating identifier: {}", throwable.getMessage());
+                        log.error("Error creating domainTservice: {}", throwable.getMessage());
                         streamObserver.onError(Status.INTERNAL
                                 .withDescription("Internal Server Error")
                                 .augmentDescription(throwable.getMessage())
@@ -41,7 +41,7 @@ public class IdentifierServiceGrpcServer extends IdentifierServiceGrpc.Identifie
                     })
                     .subscribe();
         } catch (Exception e){
-            log.error("Error creating identifier: {}", e.getMessage());
+            log.error("Error creating domainTservice: {}", e.getMessage());
             streamObserver.onError(Status.INTERNAL
                     .withDescription("Internal Server Error")
                     .augmentDescription(e.getMessage())
@@ -50,19 +50,19 @@ public class IdentifierServiceGrpcServer extends IdentifierServiceGrpc.Identifie
     }
 
     @Override
-    public void update(UpdateProto updateProto, StreamObserver<IdentifierProto> streamObserver){
-        log.info("Updating identifier: {}", updateProto);
-        IdentifierEntity identifierEntity = IdentifierMapper.updateProtoToEntity(updateProto);
+    public void update(UpdateProto updateProto, StreamObserver<DomainTserviceProto> streamObserver){
+        log.info("Updating DomainTservice: {}", updateProto);
+        DomainTserviceEntity domainTserviceEntity = DomainTserviceMapper.updateProtoToEntity(updateProto);
         try{
-            identifierService.update(identifierEntity)
-                    .map(IdentifierMapper::entityToProto)
-                    .doOnSuccess(identifierProto -> {
-                        log.info("Identifier updated: {}", identifierProto);
-                        streamObserver.onNext(identifierProto);
+            domainTserviceService.update(domainTserviceEntity)
+                    .map(DomainTserviceMapper::entityToProto)
+                    .doOnSuccess(domainTserviceProto -> {
+                        log.info("DomainTservice updated: {}", domainTserviceProto);
+                        streamObserver.onNext(domainTserviceProto);
                         streamObserver.onCompleted();
                     })
                     .doOnError(throwable -> {
-                        log.error("Error updating identifier: {}", throwable.getMessage());
+                        log.error("Error updating domainTservice: {}", throwable.getMessage());
                         streamObserver.onError(Status.INTERNAL
                                 .withDescription("Internal Server Error")
                                 .augmentDescription(throwable.getMessage())
@@ -70,7 +70,7 @@ public class IdentifierServiceGrpcServer extends IdentifierServiceGrpc.Identifie
                     })
                     .subscribe();
         } catch (Exception e){
-            log.error("Error updating identifier: {}", e.getMessage());
+            log.error("Error updating domainTservice: {}", e.getMessage());
             streamObserver.onError(Status.INTERNAL
                     .withDescription("Internal Server Error")
                     .augmentDescription(e.getMessage())
@@ -80,17 +80,17 @@ public class IdentifierServiceGrpcServer extends IdentifierServiceGrpc.Identifie
 
     @Override
     public void delete(DeleteProto deleteProto, StreamObserver<Empty> streamObserver){
-        log.info("Deleting identifier: {}", deleteProto);
-        UUID uuid = IdentifierMapper.deleteProtoToUUID(deleteProto);
+        log.info("Deleting DomainTservice: {}", deleteProto);
+        UUID uuid = DomainTserviceMapper.deleteProtoToUUID(deleteProto);
         try{
-            identifierService.delete(uuid)
-                    .doOnSuccess(identifierProto -> {
-                        log.info("Identifier deleted: {}", identifierProto);
+            domainTserviceService.delete(uuid)
+                    .doOnSuccess(aVoid -> {
+                        log.info("DomainTservice deleted: {}", deleteProto);
                         streamObserver.onNext(Empty.newBuilder().build());
                         streamObserver.onCompleted();
                     })
                     .doOnError(throwable -> {
-                        log.error("Error deleting identifier: {}", throwable.getMessage());
+                        log.error("Error deleting domainTservice: {}", throwable.getMessage());
                         streamObserver.onError(Status.INTERNAL
                                 .withDescription("Internal Server Error")
                                 .augmentDescription(throwable.getMessage())
@@ -98,7 +98,7 @@ public class IdentifierServiceGrpcServer extends IdentifierServiceGrpc.Identifie
                     })
                     .subscribe();
         } catch (Exception e){
-            log.error("Error deleting identifier: {}", e.getMessage());
+            log.error("Error deleting domainTservice: {}", e.getMessage());
             streamObserver.onError(Status.INTERNAL
                     .withDescription("Internal Server Error")
                     .augmentDescription(e.getMessage())
@@ -107,19 +107,19 @@ public class IdentifierServiceGrpcServer extends IdentifierServiceGrpc.Identifie
     }
 
     @Override
-    public void findById(FindByIdProto findByIdProto, StreamObserver<IdentifierProto> streamObserver){
-        log.info("Finding identifier: {}", findByIdProto);
-        UUID uuid = IdentifierMapper.findByIdProtoToUUID(findByIdProto);
+    public void findById(FindByIdProto findByIdProto, StreamObserver<DomainTserviceProto> streamObserver){
+        log.info("Finding DomainTservice: {}", findByIdProto);
+        UUID uuid = DomainTserviceMapper.findByIdProtoToUUID(findByIdProto);
         try{
-            identifierService.findById(uuid)
-                    .map(IdentifierMapper::entityToProto)
-                    .doOnSuccess(identifierProto -> {
-                        log.info("Identifier found: {}", identifierProto);
-                        streamObserver.onNext(identifierProto);
+            domainTserviceService.findById(uuid)
+                    .map(DomainTserviceMapper::entityToProto)
+                    .doOnSuccess(domainTserviceProto -> {
+                        log.info("DomainTservice found: {}", domainTserviceProto);
+                        streamObserver.onNext(domainTserviceProto);
                         streamObserver.onCompleted();
                     })
                     .doOnError(throwable -> {
-                        log.error("Error finding identifier: {}", throwable.getMessage());
+                        log.error("Error finding domainTservice: {}", throwable.getMessage());
                         streamObserver.onError(Status.INTERNAL
                                 .withDescription("Internal Server Error")
                                 .augmentDescription(throwable.getMessage())
@@ -127,7 +127,7 @@ public class IdentifierServiceGrpcServer extends IdentifierServiceGrpc.Identifie
                     })
                     .subscribe();
         } catch (Exception e){
-            log.error("Error finding identifier: {}", e.getMessage());
+            log.error("Error finding domainTservice: {}", e.getMessage());
             streamObserver.onError(Status.INTERNAL
                     .withDescription("Internal Server Error")
                     .augmentDescription(e.getMessage())
@@ -136,21 +136,21 @@ public class IdentifierServiceGrpcServer extends IdentifierServiceGrpc.Identifie
     }
 
     @Override
-    public void findAll(FindAllProto findAllProto, StreamObserver<IdentifierProto> streamObserver){
-        log.info("Finding all identifiers");
-        try {
-            identifierService.findAll()
-                    .map(IdentifierMapper::entityToProto)
-                    .doOnNext(identifierProto -> {
-                        log.info("Identifier found: {}", identifierProto);
-                        streamObserver.onNext(identifierProto);
+    public void findAll(FindAllProto findAllProto, StreamObserver<DomainTserviceProto> streamObserver){
+        log.info("Finding DomainTservice: {}", findAllProto);
+        try{
+            domainTserviceService.findAll()
+                    .map(DomainTserviceMapper::entityToProto)
+                    .doOnNext(domainTserviceProto -> {
+                        log.info("DomainTservice found: {}", domainTserviceProto);
+                        streamObserver.onNext(domainTserviceProto);
                     })
                     .doOnComplete(() -> {
-                        log.info("All identifiers found");
+                        log.info("All DomainTservices found");
                         streamObserver.onCompleted();
                     })
                     .doOnError(throwable -> {
-                        log.error("Error finding identifiers: {}", throwable.getMessage());
+                        log.error("Error finding domainTservice: {}", throwable.getMessage());
                         streamObserver.onError(Status.INTERNAL
                                 .withDescription("Internal Server Error")
                                 .augmentDescription(throwable.getMessage())
@@ -158,7 +158,7 @@ public class IdentifierServiceGrpcServer extends IdentifierServiceGrpc.Identifie
                     })
                     .subscribe();
         } catch (Exception e){
-            log.error("Error finding identifiers: {}", e.getMessage());
+            log.error("Error finding domainTservice: {}", e.getMessage());
             streamObserver.onError(Status.INTERNAL
                     .withDescription("Internal Server Error")
                     .augmentDescription(e.getMessage())
@@ -167,22 +167,22 @@ public class IdentifierServiceGrpcServer extends IdentifierServiceGrpc.Identifie
     }
 
     @Override
-    public void findByName(FindByNameProto findByNameProto, StreamObserver<IdentifierProto> streamObserver){
-        log.info("Finding identifier by name: {}", findByNameProto);
-        String name = IdentifierMapper.findByNameProtoToString(findByNameProto);
+    public void findByDomainId(FindByDomainIdProto findByDomainIdProto, StreamObserver<DomainTserviceProto> streamObserver){
+        log.info("Finding DomainTservice by domain id: {}", findByDomainIdProto);
+        UUID uuid = DomainTserviceMapper.findByDomainIdProtoToUUID(findByDomainIdProto);
         try{
-            identifierService.findByName(name)
-                    .map(IdentifierMapper::entityToProto)
-                    .doOnNext(identifierProto -> {
-                        log.info("Identifier found: {}", identifierProto);
-                        streamObserver.onNext(identifierProto);
+            domainTserviceService.findByDomainId(uuid)
+                    .map(DomainTserviceMapper::entityToProto)
+                    .doOnNext(domainTserviceProto -> {
+                        log.info("DomainTservice found: {}", domainTserviceProto);
+                        streamObserver.onNext(domainTserviceProto);
                     })
                     .doOnComplete(() -> {
-                        log.info("All identifiers found");
+                        log.info("All DomainTservices found");
                         streamObserver.onCompleted();
                     })
                     .doOnError(throwable -> {
-                        log.error("Error finding identifiers: {}", throwable.getMessage());
+                        log.error("Error finding domainTservice: {}", throwable.getMessage());
                         streamObserver.onError(Status.INTERNAL
                                 .withDescription("Internal Server Error")
                                 .augmentDescription(throwable.getMessage())
@@ -190,7 +190,7 @@ public class IdentifierServiceGrpcServer extends IdentifierServiceGrpc.Identifie
                     })
                     .subscribe();
         } catch (Exception e){
-            log.error("Error finding identifiers: {}", e.getMessage());
+            log.error("Error finding domainTservice: {}", e.getMessage());
             streamObserver.onError(Status.INTERNAL
                     .withDescription("Internal Server Error")
                     .augmentDescription(e.getMessage())
@@ -199,22 +199,22 @@ public class IdentifierServiceGrpcServer extends IdentifierServiceGrpc.Identifie
     }
 
     @Override
-    public void findByValue(FindByValueProto findByValueProto, StreamObserver<IdentifierProto> streamObserver){
-        log.info("Finding identifier by value: {}", findByValueProto);
-        String value = IdentifierMapper.findByValueProtoToString(findByValueProto);
+    public void findByTserviceId(FindByTserviceIdProto findByTserviceIdProto, StreamObserver<DomainTserviceProto> streamObserver){
+        log.info("Finding DomainTservice by tservice id: {}", findByTserviceIdProto);
+        UUID uuid = DomainTserviceMapper.findByTserviceIdProtoToUUID(findByTserviceIdProto);
         try{
-            identifierService.findByValue(value)
-                    .map(IdentifierMapper::entityToProto)
-                    .doOnNext(identifierProto -> {
-                        log.info("Identifier found: {}", identifierProto);
-                        streamObserver.onNext(identifierProto);
+            domainTserviceService.findByTserviceId(uuid)
+                    .map(DomainTserviceMapper::entityToProto)
+                    .doOnNext(domainTserviceProto -> {
+                        log.info("DomainTservice found: {}", domainTserviceProto);
+                        streamObserver.onNext(domainTserviceProto);
                     })
                     .doOnComplete(() -> {
-                        log.info("All identifiers found");
+                        log.info("All DomainTservices found");
                         streamObserver.onCompleted();
                     })
                     .doOnError(throwable -> {
-                        log.error("Error finding identifiers: {}", throwable.getMessage());
+                        log.error("Error finding domainTservice: {}", throwable.getMessage());
                         streamObserver.onError(Status.INTERNAL
                                 .withDescription("Internal Server Error")
                                 .augmentDescription(throwable.getMessage())
@@ -222,7 +222,7 @@ public class IdentifierServiceGrpcServer extends IdentifierServiceGrpc.Identifie
                     })
                     .subscribe();
         } catch (Exception e){
-            log.error("Error finding identifiers: {}", e.getMessage());
+            log.error("Error finding domainTservice: {}", e.getMessage());
             streamObserver.onError(Status.INTERNAL
                     .withDescription("Internal Server Error")
                     .augmentDescription(e.getMessage())

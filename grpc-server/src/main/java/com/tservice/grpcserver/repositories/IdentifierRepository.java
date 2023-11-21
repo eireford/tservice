@@ -9,9 +9,9 @@ import reactor.core.publisher.Mono;
 import java.util.UUID;
 @Repository
 public interface IdentifierRepository extends ReactiveSortingRepository<IdentifierEntity, UUID> {
-    Mono<IdentifierEntity> update(IdentifierEntity identifierEntity);
+    // Mono<IdentifierEntity> update(IdentifierEntity identifierEntity);
     
-    Mono<Void> delete(UUID uuid);
+    //Mono<Void> delete(UUID uuid);
 
     Flux<IdentifierEntity> findByName(String name);
 

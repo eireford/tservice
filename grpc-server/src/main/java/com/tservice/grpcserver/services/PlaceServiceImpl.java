@@ -22,17 +22,17 @@ public class PlaceServiceImpl implements PlaceService{
 
     @Override
     public Mono<PlaceEntity> update(PlaceEntity place) {
-        return placeRepository.update(place);
+        return placeRepository.save(place);
     }
 
     @Override
     public Mono<Void> delete(UUID uuid) {
-        return placeRepository.delete(id);
+        return placeRepository.deleteById(uuid);
     }
 
     @Override
     public Mono<PlaceEntity> findById(UUID uuid) {
-        return placeRepository.findById(id);
+        return placeRepository.findById(uuid);
     }
 
     @Override

@@ -12,7 +12,7 @@ import java.util.UUID;
 
 @AllArgsConstructor
 @Service
-public class TsetPlaceImpl implements TsetPlaceService{
+public class TsetPlaceServiceImpl implements TsetPlaceService{
 
     private final Duration TIMEOUT = Duration.ofSeconds(5);
 

@@ -23,7 +23,7 @@ public class TsetMapper {
                 .build();
     }
 
-    public static TsetEntity createTsetProtoToEntity(CreateProto createProto){
+    public static TsetEntity createProtoToEntity(CreateProto createProto){
         return TsetEntity.builder()
                 .name(createProto.getName())
                 .value(createProto.getValue())

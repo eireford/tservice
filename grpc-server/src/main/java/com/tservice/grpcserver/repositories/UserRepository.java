@@ -12,9 +12,9 @@ import java.util.UUID;
 @Repository
 public interface UserRepository extends ReactiveSortingRepository<UserEntity, UUID> {
 
-    Mono<UserEntity> update(UserEntity user);
+    //Mono<UserEntity> save(UserEntity user);
 
-    Mono<Void> delete(UUID uuid);
+    //Mono<Void> delete(UUID uuid);
 
     Flux<UserEntity> findByUsername(String username);
 

@@ -12,7 +12,7 @@ import java.util.UUID;
 
 @AllArgsConstructor
 @Service
-public class DomainTserviceImpl implements DomainTserviceService{
+public class DomainTserviceServiceImpl implements DomainTserviceService{
 
     private final Duration TIMEOUT = Duration.ofSeconds(5);
 
