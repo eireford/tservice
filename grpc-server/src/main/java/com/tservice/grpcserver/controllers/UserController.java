@@ -23,9 +23,9 @@ public class UserController {
         return userService.save(userEntity);
     }
 
-    @GetMapping(value = "/{uuid}", produces = "application/json")
-    public Mono<UserEntity> getUserById(@PathVariable UUID uuid) {
-        return userService.findById(uuid);
+    @GetMapping(value = "/{id}", produces = "application/json")
+    public Mono<UserEntity> getUserById(@PathVariable UUID id) {
+        return userService.getById(id);
     }
 
     @GetMapping(produces = "application/json")

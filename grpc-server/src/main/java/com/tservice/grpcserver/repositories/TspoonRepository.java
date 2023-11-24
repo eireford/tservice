@@ -11,9 +11,13 @@ import java.util.UUID;
 @Repository
 public interface TspoonRepository extends ReactiveSortingRepository<TspoonEntity, UUID> {
 
-    //Mono<TspoonEntity> updateById(UUID tspoonId);
+    Mono<TspoonEntity> save(TspoonEntity tspoon);
 
-    //Mono<Void> delete(String tspoonId);
+    Flux<TspoonEntity> saveAll(Flux<TspoonEntity> tspoons);
+
+    Mono<Void> deleteById(UUID id);
+
+    Mono<TspoonEntity> getById(UUID id);
 
     Flux<TspoonEntity> findByName(String tspoonName);
 

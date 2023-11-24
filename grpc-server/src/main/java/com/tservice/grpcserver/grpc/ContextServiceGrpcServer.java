@@ -81,9 +81,9 @@ public class ContextServiceGrpcServer extends ContextServiceGrpc.ContextServiceI
     @Override
     public void delete(DeleteProto deleteProto, StreamObserver<Empty> streamObserver){
         log.info("Deleting context: {}", deleteProto);
-        UUID uuid = ContextMapper.deleteProtoToUUID(deleteProto);
+        UUID id = ContextMapper.deleteProtoToUUID(deleteProto);
         try{
-            contextService.delete(uuid)
+            contextService.deleteById(id)
                     .doOnSuccess(context -> {
                         log.info("Context deleted: {}", context);
                         streamObserver.onNext(Empty.newBuilder().build());
@@ -108,11 +108,11 @@ public class ContextServiceGrpcServer extends ContextServiceGrpc.ContextServiceI
 
 
     @Override
-    public void findById(FindByIdProto findByIdProto, StreamObserver<ContextProto> streamObserver){
-        log.info("Finding context: {}", findByIdProto);
-        UUID uuid = ContextMapper.findByIdProtoToUUID(findByIdProto);
+    public void getById(GetByIdProto getByIdProto, StreamObserver<ContextProto> streamObserver){
+        log.info("Finding context: {}", getByIdProto);
+        UUID id = ContextMapper.getByIdProtoToUUID(getByIdProto);
         try{
-            contextService.findById(uuid)
+            contextService.getById(id)
                     .map(ContextMapper::entityToProto)
                     .doOnSuccess(contextProto -> {
                         log.info("Context found: {}", contextProto);

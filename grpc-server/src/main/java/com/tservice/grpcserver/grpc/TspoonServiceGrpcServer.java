@@ -81,9 +81,9 @@ public class TspoonServiceGrpcServer extends TspoonServiceGrpc.TspoonServiceImpl
     @Override
     public void delete(DeleteProto deleteProto, StreamObserver<Empty> streamObserver){
         log.info("Tspoon delete: {}", deleteProto);
-        UUID uuid = TspoonMapper.deleteProtoToUUID(deleteProto);
+        UUID id = TspoonMapper.deleteProtoToUUID(deleteProto);
         try{
-            tspoonService.delete(uuid)
+            tspoonService.deleteById(id)
                     .doOnSuccess(__ -> {
                         log.info("Tspoon deleted: {}", TspoonMapper.deleteProtoToUUID(deleteProto));
                         streamObserver.onNext(Empty.newBuilder().build());
@@ -107,11 +107,11 @@ public class TspoonServiceGrpcServer extends TspoonServiceGrpc.TspoonServiceImpl
     }
 
     @Override
-    public void findById(FindByIdProto findByIdProto, StreamObserver<TspoonProto> streamObserver){
-        log.info("Tspoon get: {}", findByIdProto);
-        UUID uuid = TspoonMapper.findByIdProtoToUUID(findByIdProto);
+    public void getById(GetByIdProto getByIdProto, StreamObserver<TspoonProto> streamObserver){
+        log.info("Tspoon get: {}", getByIdProto);
+        UUID id = TspoonMapper.getByIdProtoToUUID(getByIdProto);
         try{
-            tspoonService.findById(uuid)
+            tspoonService.getById(id)
                     .doOnSuccess(tspoonEntity -> {
                         log.info("Tspoon get: {}", tspoonEntity);
                         streamObserver.onNext(TspoonMapper.entityToProto(tspoonEntity));

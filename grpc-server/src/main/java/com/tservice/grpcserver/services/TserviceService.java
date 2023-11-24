@@ -12,9 +12,9 @@ public interface TserviceService {
 
     Mono<TserviceEntity> update(TserviceEntity tservice);
 
-    Mono<Void> delete(UUID uuid);
+    Mono<Void> deleteById(UUID id);
 
-    Mono<TserviceEntity> findById(UUID uuid);
+    Mono<TserviceEntity> getById(UUID id);
 
     Flux<TserviceEntity> findAll();
 

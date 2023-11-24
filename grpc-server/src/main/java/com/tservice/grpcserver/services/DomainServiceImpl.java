@@ -12,7 +12,7 @@ import java.util.UUID;
 
 @AllArgsConstructor
 @Service
-public class DomainServiceImpl implements DomainService{
+public class DomainServiceImpl implements DomainService {
 
     private final Duration TIMEOUT = Duration.ofSeconds(5);
 
@@ -29,18 +29,18 @@ public class DomainServiceImpl implements DomainService{
     }
 
     @Override
-    public Mono<Void> delete(UUID uuid) {
-        return domainRepository.deleteById(uuid).timeout(TIMEOUT);
+    public Mono<Void> deleteById(UUID id) {
+        return domainRepository.deleteById(id).timeout(TIMEOUT);
     }
 
     @Override
-    public Mono<DomainEntity> findById(UUID uuid) {
-        return domainRepository.findById(uuid).timeout(TIMEOUT);
+    public Mono<DomainEntity> getById(UUID id) {
+        return domainRepository.getById(id).timeout(TIMEOUT);
     }
 
     @Override
     public Flux<DomainEntity> findAll() {
-        return domainRepository.findAll().timeout(TIMEOUT);
+        return domainRepository.findAll(null).timeout(TIMEOUT);
     }
 
     @Override

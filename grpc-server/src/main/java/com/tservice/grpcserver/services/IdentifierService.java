@@ -12,9 +12,9 @@ public interface IdentifierService {
 
     Mono<IdentifierEntity> update(IdentifierEntity identifierEntity);
 
-    Mono<Void> delete(UUID uuid);
+    Mono<Void> deleteById(UUID id);
 
-    Mono<IdentifierEntity> findById(UUID uuid);
+    Mono<IdentifierEntity> getById(UUID id);
 
     Flux<IdentifierEntity> findAll();
 

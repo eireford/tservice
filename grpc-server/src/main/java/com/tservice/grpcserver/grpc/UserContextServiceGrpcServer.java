@@ -3,10 +3,7 @@ package com.tservice.grpcserver.grpc;
 import com.tservice.grpcserver.entities.UserContextEntity;
 import com.tservice.grpcserver.mappers.UserContextMapper;
 import com.tservice.grpcserver.services.UserContextServiceImpl;
-import com.tservice.proto.usercontext.CreateProto;
-import com.tservice.proto.usercontext.UpdateProto;
-import com.tservice.proto.usercontext.UserContextProto;
-import com.tservice.proto.usercontext.UserContextServiceGrpc;
+import com.tservice.proto.usercontext.*;
 import io.grpc.Status;
 import io.grpc.stub.StreamObserver;
 import lombok.RequiredArgsConstructor;
@@ -79,9 +76,9 @@ public class UserContextServiceGrpcServer extends UserContextServiceGrpc.UserCon
     @Override
     public void delete(com.tservice.proto.usercontext.DeleteProto deleteProto, StreamObserver<com.google.protobuf.Empty> streamObserver) {
         log.info("Deleting UserContext: {}", deleteProto);
-        UUID uuid = UserContextMapper.deleteProtoToUUID(deleteProto);
+        UUID id = UserContextMapper.deleteProtoToUUID(deleteProto);
         try {
-            userContextService.delete(uuid)
+            userContextService.deleteById(id)
                     .doOnSuccess(aVoid -> {
                         log.info("UserContext deleted: {}", deleteProto.getId());
                         streamObserver.onNext(com.google.protobuf.Empty.newBuilder().build());
@@ -103,11 +100,11 @@ public class UserContextServiceGrpcServer extends UserContextServiceGrpc.UserCon
     }
 
     @Override
-    public void findById(com.tservice.proto.usercontext.FindByIdProto findByIdProto, StreamObserver<UserContextProto> streamObserver) {
-        log.info("Finding UserContext by id: {}", findByIdProto);
-        UUID uuid = UserContextMapper.findByIdProtoToUUID(findByIdProto);
+    public void getById(GetByIdProto getByIdProto, StreamObserver<UserContextProto> streamObserver) {
+        log.info("Finding UserContext by id: {}", getByIdProto);
+        UUID id = UserContextMapper.getByIdProtoToUUID(getByIdProto);
         try {
-            userContextService.findById(uuid)
+            userContextService.getById(id)
                     .map(UserContextMapper::entityToProto)
                     .doOnSuccess(userContextProto -> {
                         log.info("UserContext found: {}", userContextProto);
@@ -161,9 +158,9 @@ public class UserContextServiceGrpcServer extends UserContextServiceGrpc.UserCon
     @Override
     public void findByUserId(com.tservice.proto.usercontext.FindByUserIdProto findByUserIdProto, StreamObserver<UserContextProto> streamObserver) {
         log.info("Finding UserContext by userId: {}", findByUserIdProto);
-        UUID uuid = UserContextMapper.findByUserIdProtoToUUID(findByUserIdProto);
+        UUID id = UserContextMapper.findByUserIdProtoToUUID(findByUserIdProto);
         try {
-            userContextService.findByUserId(uuid)
+            userContextService.findByUserId(id)
                     .map(UserContextMapper::entityToProto)
                     .doOnNext(userContextProto -> {
                         log.info("UserContext found: {}", userContextProto);
@@ -187,9 +184,9 @@ public class UserContextServiceGrpcServer extends UserContextServiceGrpc.UserCon
     @Override
     public void findByContextId(com.tservice.proto.usercontext.FindByContextIdProto findByContextIdProto, StreamObserver<UserContextProto> streamObserver) {
         log.info("Finding UserContext by contextId: {}", findByContextIdProto);
-        UUID uuid = UserContextMapper.findByContextIdProtoToUUID(findByContextIdProto);
+        UUID id = UserContextMapper.findByContextIdProtoToUUID(findByContextIdProto);
         try {
-            userContextService.findByContextId(uuid)
+            userContextService.findByContextId(id)
                     .map(UserContextMapper::entityToProto)
                     .doOnNext(userContextProto -> {
                         log.info("UserContext found: {}", userContextProto);

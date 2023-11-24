@@ -12,9 +12,9 @@ public interface TsetPlaceService {
 
     Mono<TsetPlaceEntity> update(TsetPlaceEntity tsetPlace);
 
-    Mono<Void> delete(UUID uuid);
+    Mono<Void> deleteById(UUID id);
 
-    Mono<TsetPlaceEntity> findById(UUID uuid);
+    Mono<TsetPlaceEntity> getById(UUID id);
 
     Flux<TsetPlaceEntity> findAll();
 

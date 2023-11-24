@@ -12,9 +12,9 @@ public interface UserContextService {
 
     Mono<UserContextEntity> update(UserContextEntity userContext);
 
-    Mono<Void> delete(UUID uuid);
+    Mono<Void> deleteById(UUID id);
 
-    Mono<UserContextEntity> findById(UUID uuid);
+    Mono<UserContextEntity> getById(UUID id);
 
     Flux<UserContextEntity> findAll();
 

@@ -11,9 +11,9 @@ public interface ContextService {
 
     Mono<ContextEntity> update(ContextEntity context);
 
-    Mono<Void> delete(UUID uuid);
+    Mono<Void> deleteById(UUID id);
 
-    Mono<ContextEntity> findById(UUID uuid);
+    Mono<ContextEntity> getById(UUID id);
 
     Flux<ContextEntity> findAll();
 

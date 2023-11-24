@@ -9,7 +9,7 @@ public class IdentifierMapper {
 
     public static IdentifierEntity protoToEntity(IdentifierProto identifierProto){
         return IdentifierEntity.builder()
-                .uuid(UUID.fromString(identifierProto.getId()))
+                .id(UUID.fromString(identifierProto.getId()))
                 .name(identifierProto.getName())
                 .value(identifierProto.getValue())
                 .build();
@@ -17,7 +17,7 @@ public class IdentifierMapper {
 
     public static IdentifierProto entityToProto(IdentifierEntity identifierEntity){
         return IdentifierProto.newBuilder()
-                .setId(identifierEntity.getUuid().toString())
+                .setId(identifierEntity.getId().toString())
                 .setName(identifierEntity.getName())
                 .setValue(identifierEntity.getValue())
                 .build();
@@ -32,7 +32,7 @@ public class IdentifierMapper {
 
     public static IdentifierEntity updateProtoToEntity(UpdateProto updateProto){
         return IdentifierEntity.builder()
-                .uuid(UUID.fromString(updateProto.getId()))
+                .id(UUID.fromString(updateProto.getId()))
                 .name(updateProto.getName())
                 .value(updateProto.getValue())
                 .build();
@@ -42,8 +42,8 @@ public class IdentifierMapper {
         return UUID.fromString(deleteProto.getId());
     }
 
-    public static UUID findByIdProtoToUUID(FindByIdProto findByIdProto){
-        return UUID.fromString(findByIdProto.getId());
+    public static UUID getByIdProtoToUUID(GetByIdProto getByIdProto){
+        return UUID.fromString(getByIdProto.getId());
     }
 
     public static String findByNameProtoToString(FindByNameProto findByNameProto){

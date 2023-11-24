@@ -10,7 +10,7 @@ public class DomainMapper {
 
     public static DomainEntity protoToEntity(DomainProto domainProto){
         return DomainEntity.builder()
-                .uuid(UUID.fromString(domainProto.getId()))
+                .id(UUID.fromString(domainProto.getId()))
                 .name(domainProto.getName())
                 .value(domainProto.getValue())
                 .build();
@@ -18,7 +18,7 @@ public class DomainMapper {
 
     public static DomainProto entityToProto(DomainEntity domainEntity){
         return DomainProto.newBuilder()
-                .setId(domainEntity.getUuid().toString())
+                .setId(domainEntity.getId().toString())
                 .setName(domainEntity.getName())
                 .setValue(domainEntity.getValue())
                 .build();
@@ -33,7 +33,7 @@ public class DomainMapper {
 
     public static DomainEntity updateProtoToEntity(UpdateProto updateProto){
         return DomainEntity.builder()
-                .uuid(UUID.fromString(updateProto.getId()))
+                .id(UUID.fromString(updateProto.getId()))
                 .name(updateProto.getName())
                 .value(updateProto.getValue())
                 .build();
@@ -43,8 +43,8 @@ public class DomainMapper {
         return UUID.fromString(deleteProto.getId());
     }
 
-    public static UUID findByIdProtoToUUID(FindByIdProto findByIdProto){
-        return UUID.fromString(findByIdProto.getId());
+    public static UUID getByIdProtoToUUID(GetByIdProto getByIdProto){
+        return UUID.fromString(getByIdProto.getId());
     }
 
     public static String findByNameProtoToString(FindByNameProto findByNameProto){

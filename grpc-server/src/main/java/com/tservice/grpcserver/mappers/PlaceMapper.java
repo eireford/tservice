@@ -9,7 +9,7 @@ public class PlaceMapper {
 
     public static PlaceEntity protoToEntity(PlaceProto placeProto){
         return PlaceEntity.builder()
-                .uuid(UUID.fromString(placeProto.getId()))
+                .id(UUID.fromString(placeProto.getId()))
                 .name(placeProto.getName())
                 .value(placeProto.getValue())
                 .build();
@@ -17,7 +17,7 @@ public class PlaceMapper {
 
     public static PlaceProto entityToProto(PlaceEntity placeEntity){
         return PlaceProto.newBuilder()
-                .setId(placeEntity.getUuid().toString())
+                .setId(placeEntity.getId().toString())
                 .setName(placeEntity.getName())
                 .setValue(placeEntity.getValue())
                 .build();
@@ -32,7 +32,7 @@ public class PlaceMapper {
 
     public static PlaceEntity updateProtoToEntity(UpdateProto updateProto){
         return PlaceEntity.builder()
-                .uuid(UUID.fromString(updateProto.getId()))
+                .id(UUID.fromString(updateProto.getId()))
                 .name(updateProto.getName())
                 .value(updateProto.getValue())
                 .build();
@@ -42,8 +42,8 @@ public class PlaceMapper {
         return UUID.fromString(deleteProto.getId());
     }
 
-    public static UUID findByIdProtoToUUID(FindByIdProto findByIdProto){
-        return UUID.fromString(findByIdProto.getId());
+    public static UUID getByIdProtoToUUID(GetByIdProto getByIdProto){
+        return UUID.fromString(getByIdProto.getId());
     }
 
     public static String findByNameProtoToString(FindByNameProto findByNameProto){

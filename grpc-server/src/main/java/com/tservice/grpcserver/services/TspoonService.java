@@ -8,18 +8,20 @@ import java.util.UUID;
 
 public interface TspoonService {
 
-        Mono<TspoonEntity> save(TspoonEntity tspoon);
+    Mono<TspoonEntity> save(TspoonEntity tspoon);
 
-        Mono<TspoonEntity> update(TspoonEntity tspoon);
+    Flux<TspoonEntity> saveAll(Flux<TspoonEntity> tspoons);
 
-        Mono<Void> delete(UUID uuid);
+    Mono<TspoonEntity> update(TspoonEntity tspoon);
 
-        Mono<TspoonEntity> findById(UUID uuid);
+    Mono<Void> deleteById(UUID id);
 
-        Flux<TspoonEntity> findAll();
+    Mono<TspoonEntity> getById(UUID id);
 
-        Flux<TspoonEntity> findByName(String name);
+    Flux<TspoonEntity> findAll();
 
-        Flux<TspoonEntity> findByValue(String value);
+    Flux<TspoonEntity> findByName(String name);
+
+    Flux<TspoonEntity> findByValue(String value);
 
 }

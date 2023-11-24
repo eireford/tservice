@@ -81,9 +81,9 @@ public class UserServiceGrpcServer extends UserServiceGrpc.UserServiceImplBase {
     @Override
     public void delete(DeleteProto deleteProto, StreamObserver<Empty> streamObserver) {
         log.info("Deleting user: {}", deleteProto);
-        UUID uuid = UserMapper.deleteProtoToUUID(deleteProto);
+        UUID id = UserMapper.deleteProtoToUUID(deleteProto);
         try {
-            userService.delete(uuid)
+            userService.deleteById(id)
                     .doOnSuccess(__ -> {
                         log.info("User deleted: {}", UserMapper.deleteProtoToUUID(deleteProto));
                         streamObserver.onNext(Empty.newBuilder().build());
@@ -107,11 +107,11 @@ public class UserServiceGrpcServer extends UserServiceGrpc.UserServiceImplBase {
     }
 
     @Override
-    public void findById(FindByIdProto findByIdProto, StreamObserver<UserProto> streamObserver){
-        log.info("Finding user by id: {}", findByIdProto);
-        UUID uuid = UserMapper.findByIdProtoToUUID(findByIdProto);
+    public void getById(GetByIdProto getByIdProto, StreamObserver<UserProto> streamObserver){
+        log.info("Finding user by id: {}", getByIdProto);
+        UUID id = UserMapper.getByIdProtoToUUID(getByIdProto);
         try {
-            userService.findById(uuid)
+            userService.getById(id)
                     .map(UserMapper::entityToProto)
                     .doOnSuccess(userProto -> {
                         log.info("User found: {}", userProto);

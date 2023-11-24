@@ -13,9 +13,9 @@ public interface UserService {
 
     Mono<UserEntity> update(UserEntity user);
 
-    Mono<Void> delete(UUID uuid);
+    Mono<Void> deleteById(UUID id);
 
-    Mono<UserEntity> findById(UUID uuid);
+    Mono<UserEntity> getById(UUID id);
 
     Flux<UserEntity> findAll();
 

@@ -9,7 +9,7 @@ public class UserContextMapper {
 
     public static UserContextEntity protoToEntity(UserContextProto userContextProto){
         return UserContextEntity.builder()
-                .uuid(UUID.fromString(userContextProto.getId()))
+                .id(UUID.fromString(userContextProto.getId()))
                 .userId(UUID.fromString(userContextProto.getUserId()))
                 .contextId(UUID.fromString(userContextProto.getContextId()))
                 .build();
@@ -17,7 +17,7 @@ public class UserContextMapper {
 
     public static UserContextProto entityToProto(UserContextEntity userContextEntity) {
         return UserContextProto.newBuilder()
-                .setId(userContextEntity.getUuid().toString())
+                .setId(userContextEntity.getId().toString())
                 .setUserId(userContextEntity.getUserId().toString())
                 .setContextId(userContextEntity.getContextId().toString())
                 .build();
@@ -32,7 +32,7 @@ public class UserContextMapper {
 
     public static UserContextEntity updateProtoToEntity(UpdateProto updateProto){
         return UserContextEntity.builder()
-                .uuid(UUID.fromString(updateProto.getId()))
+                .id(UUID.fromString(updateProto.getId()))
                 .userId(UUID.fromString(updateProto.getUserId()))
                 .contextId(UUID.fromString(updateProto.getContextId()))
                 .build();
@@ -42,8 +42,8 @@ public class UserContextMapper {
         return UUID.fromString(deleteProto.getId());
     }
 
-    public static UUID findByIdProtoToUUID(FindByIdProto findByIdProto){
-        return UUID.fromString(findByIdProto.getId());
+    public static UUID getByIdProtoToUUID(GetByIdProto getByIdProto){
+        return UUID.fromString(getByIdProto.getId());
     }
 
     public static UUID findByUserIdProtoToUUID(FindByUserIdProto findByUserIdProto){

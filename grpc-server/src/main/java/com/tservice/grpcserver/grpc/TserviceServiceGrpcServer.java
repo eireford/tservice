@@ -68,9 +68,9 @@ public class TserviceServiceGrpcServer extends TserviceServiceGrpc.TserviceServi
     @Override
     public void delete(DeleteProto deleteProto, StreamObserver<Empty> streamObserver) {
         log.info("Deleting Tservice: {}", deleteProto);
-        UUID uuid = UUID.fromString(deleteProto.getId());
+        UUID id = UUID.fromString(deleteProto.getId());
         try {
-            tserviceService.delete(uuid)
+            tserviceService.deleteById(id)
                     .doOnSuccess(tserviceProto -> {
                         log.info("Tservice deleted: {}", tserviceProto);
                         streamObserver.onNext(Empty.newBuilder().build());
@@ -88,11 +88,11 @@ public class TserviceServiceGrpcServer extends TserviceServiceGrpc.TserviceServi
     }
 
     @Override
-    public void findById(FindByIdProto findByIdProto, StreamObserver<TserviceProto> streamObserver) {
-        log.info("Finding Tservice by id: {}", findByIdProto);
-        UUID uuid = UUID.fromString(findByIdProto.getId());
+    public void getById(GetByIdProto getByIdProto, StreamObserver<TserviceProto> streamObserver) {
+        log.info("Finding Tservice by id: {}", getByIdProto);
+        UUID id = UUID.fromString(getByIdProto.getId());
         try {
-            tserviceService.findById(uuid)
+            tserviceService.getById(id)
                     .map(TserviceMapper::entityToProto)
                     .doOnSuccess(tserviceProto -> {
                         log.info("Tservice found: {}", tserviceProto);

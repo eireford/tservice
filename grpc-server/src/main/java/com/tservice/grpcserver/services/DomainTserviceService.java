@@ -12,9 +12,9 @@ public interface DomainTserviceService {
 
     Mono<DomainTserviceEntity> update(DomainTserviceEntity domainTservice);
 
-    Mono<Void> delete(UUID uuid);
+    Mono<Void> deleteById(UUID id);
 
-    Mono<DomainTserviceEntity> findById(UUID uuid);
+    Mono<DomainTserviceEntity> getById(UUID id);
 
     Flux<DomainTserviceEntity> findAll();
 

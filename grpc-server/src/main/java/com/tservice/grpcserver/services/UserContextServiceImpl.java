@@ -12,7 +12,7 @@ import java.util.UUID;
 
 @AllArgsConstructor
 @Service
-public class UserContextServiceImpl implements UserContextService{
+public class UserContextServiceImpl implements UserContextService {
 
     private final Duration TIMEOUT = Duration.ofSeconds(5);
 
@@ -29,18 +29,18 @@ public class UserContextServiceImpl implements UserContextService{
     }
 
     @Override
-    public Mono<Void> delete(UUID uuid) {
-        return userContextRepository.deleteById(uuid).timeout(TIMEOUT);
+    public Mono<Void> deleteById(UUID id) {
+        return userContextRepository.deleteById(id).timeout(TIMEOUT);
     }
 
     @Override
-    public Mono<UserContextEntity> findById(UUID uuid) {
-        return userContextRepository.findById(uuid).timeout(TIMEOUT);
+    public Mono<UserContextEntity> getById(UUID id) {
+        return userContextRepository.getById(id).timeout(TIMEOUT);
     }
 
     @Override
     public Flux<UserContextEntity> findAll() {
-        return userContextRepository.findAll().timeout(TIMEOUT);
+        return userContextRepository.findAll(null).timeout(TIMEOUT);
     }
 
     @Override

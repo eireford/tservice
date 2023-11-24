@@ -81,9 +81,9 @@ public class IdentifierServiceGrpcServer extends IdentifierServiceGrpc.Identifie
     @Override
     public void delete(DeleteProto deleteProto, StreamObserver<Empty> streamObserver){
         log.info("Deleting identifier: {}", deleteProto);
-        UUID uuid = IdentifierMapper.deleteProtoToUUID(deleteProto);
+        UUID id = IdentifierMapper.deleteProtoToUUID(deleteProto);
         try{
-            identifierService.delete(uuid)
+            identifierService.deleteById(id)
                     .doOnSuccess(identifierProto -> {
                         log.info("Identifier deleted: {}", identifierProto);
                         streamObserver.onNext(Empty.newBuilder().build());
@@ -107,11 +107,11 @@ public class IdentifierServiceGrpcServer extends IdentifierServiceGrpc.Identifie
     }
 
     @Override
-    public void findById(FindByIdProto findByIdProto, StreamObserver<IdentifierProto> streamObserver){
-        log.info("Finding identifier: {}", findByIdProto);
-        UUID uuid = IdentifierMapper.findByIdProtoToUUID(findByIdProto);
+    public void getById(GetByIdProto getByIdProto, StreamObserver<IdentifierProto> streamObserver){
+        log.info("Finding identifier: {}", getByIdProto);
+        UUID id = IdentifierMapper.getByIdProtoToUUID(getByIdProto);
         try{
-            identifierService.findById(uuid)
+            identifierService.getById(id)
                     .map(IdentifierMapper::entityToProto)
                     .doOnSuccess(identifierProto -> {
                         log.info("Identifier found: {}", identifierProto);

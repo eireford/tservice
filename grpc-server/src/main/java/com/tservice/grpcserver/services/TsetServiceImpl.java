@@ -11,7 +11,7 @@ import java.util.UUID;
 
 @AllArgsConstructor
 @Service
-public class TsetServiceImpl implements TsetService{
+public class TsetServiceImpl implements TsetService {
 
     private TsetRepository tsetRepository;
 
@@ -26,18 +26,18 @@ public class TsetServiceImpl implements TsetService{
     }
 
     @Override
-    public Mono<Void> delete(UUID uuid) {
-        return tsetRepository.deleteById(uuid);
+    public Mono<Void> deleteById(UUID id) {
+        return tsetRepository.deleteById(id);
     }
 
     @Override
-    public Mono<TsetEntity> findById(UUID uuid) {
-        return tsetRepository.findById(uuid);
+    public Mono<TsetEntity> getById(UUID id) {
+        return tsetRepository.getById(id);
     }
 
     @Override
     public Flux<TsetEntity> findAll() {
-        return tsetRepository.findAll();
+        return tsetRepository.findAll(null);
     }
 
     @Override

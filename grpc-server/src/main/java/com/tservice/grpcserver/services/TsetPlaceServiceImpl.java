@@ -12,7 +12,7 @@ import java.util.UUID;
 
 @AllArgsConstructor
 @Service
-public class TsetPlaceServiceImpl implements TsetPlaceService{
+public class TsetPlaceServiceImpl implements TsetPlaceService {
 
     private final Duration TIMEOUT = Duration.ofSeconds(5);
 
@@ -29,18 +29,18 @@ public class TsetPlaceServiceImpl implements TsetPlaceService{
     }
 
     @Override
-    public Mono<Void> delete(UUID uuid) {
-        return tsetPlaceRepository.deleteById(uuid).timeout(TIMEOUT);
+    public Mono<Void> deleteById(UUID id) {
+        return tsetPlaceRepository.deleteById(id).timeout(TIMEOUT);
     }
 
     @Override
-    public Mono<TsetPlaceEntity> findById(UUID uuid) {
-        return tsetPlaceRepository.findById(uuid).timeout(TIMEOUT);
+    public Mono<TsetPlaceEntity> getById(UUID id) {
+        return tsetPlaceRepository.getById(id).timeout(TIMEOUT);
     }
 
     @Override
     public Flux<TsetPlaceEntity> findAll() {
-        return tsetPlaceRepository.findAll().timeout(TIMEOUT);
+        return tsetPlaceRepository.findAll(null).timeout(TIMEOUT);
     }
 
     @Override

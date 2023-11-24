@@ -12,9 +12,9 @@ public interface TsetService {
 
     Mono<TsetEntity> update(TsetEntity tset);
 
-    Mono<Void> delete(UUID uuid);
+    Mono<Void> deleteById(UUID id);
 
-    Mono<TsetEntity> findById(UUID uuid);
+    Mono<TsetEntity> getById(UUID id);
 
     Flux<TsetEntity> findAll();
 

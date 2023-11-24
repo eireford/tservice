@@ -10,7 +10,7 @@ public class UserMapper {
 
     public static UserEntity protoToEntity(UserProto userProto) {
         return UserEntity.builder()
-                .uuid(UUID.fromString(userProto.getId()))
+                .id(UUID.fromString(userProto.getId()))
                 .username(userProto.getUsername())
                 .email(userProto.getEmail())
                 .firstName(userProto.getFirstName())
@@ -19,7 +19,7 @@ public class UserMapper {
     }
     public static UserProto entityToProto(UserEntity userEntity) {
         return UserProto.newBuilder()
-                .setId(userEntity.getUuid().toString())
+                .setId(userEntity.getId().toString())
                 .setUsername(userEntity.getUsername())
                 .setEmail(userEntity.getEmail())
                 .setFirstName(userEntity.getFirstName())
@@ -38,7 +38,7 @@ public class UserMapper {
 
     public static UserEntity updateProtoToEntity(UpdateProto updateUserProto) {
         return UserEntity.builder()
-                .uuid(UUID.fromString(updateUserProto.getId()))
+                .id(UUID.fromString(updateUserProto.getId()))
                 .username(updateUserProto.getUsername())
                 .email(updateUserProto.getEmail())
                 .firstName(updateUserProto.getFirstName())
@@ -50,8 +50,8 @@ public class UserMapper {
         return UUID.fromString(deleteUserProto.getId());
     }
 
-    public static UUID findByIdProtoToUUID(FindByIdProto findByIdProto) {
-        return UUID.fromString(findByIdProto.getId());
+    public static UUID getByIdProtoToUUID(GetByIdProto getByIdProto) {
+        return UUID.fromString(getByIdProto.getId());
     }
 
     public static String findByUsernameProtoToString(FindByUsernameProto findByUsernameProto) {

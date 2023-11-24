@@ -12,12 +12,12 @@ import java.util.UUID;
 @AllArgsConstructor
 @Builder
 @Data
-@Table(schema = "public", name = "user_identifier")
+@Table(schema = "public", name = "users_identifiers")
 public class UserIdentifierEntity {
 
     @Id
     @Column(ID)
-    private UUID uuid;
+    private UUID id;
 
     @Column(USER_ID)
     private UUID userId;
@@ -25,7 +25,7 @@ public class UserIdentifierEntity {
     @Column(IDENTIFIER_ID)
     private UUID identifierId;
 
-    public static final String ID = "id";
+    public static final String ID = "user_identifier_id";
     public static final String USER_ID = "user_id";
     public static final String IDENTIFIER_ID = "identifier_id";
 }

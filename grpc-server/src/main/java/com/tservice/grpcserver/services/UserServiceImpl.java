@@ -29,18 +29,18 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Mono<Void> delete(UUID userId) {
-        return userRepository.deleteById(userId).timeout(TIMEOUT);
+    public Mono<Void> deleteById(UUID userId) {
+        return userRepository.deleteById(userId);
     }
 
     @Override
-    public Mono<UserEntity> findById(UUID userId) {
-        return userRepository.findById(userId).timeout(TIMEOUT);
+    public Mono<UserEntity> getById(UUID userId) {
+        return userRepository.getById(userId).timeout(TIMEOUT);
     }
 
     @Override
     public Flux<UserEntity> findAll() {
-        return userRepository.findAll().timeout(TIMEOUT);
+        return userRepository.findAll(null).timeout(TIMEOUT);
     }
 
     @Override

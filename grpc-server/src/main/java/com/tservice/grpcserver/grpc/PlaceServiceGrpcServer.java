@@ -68,9 +68,9 @@ public class PlaceServiceGrpcServer extends PlaceServiceGrpc.PlaceServiceImplBas
     @Override
     public void delete(DeleteProto deleteProto, StreamObserver<Empty> streamObserver) {
         log.info("Deleting place: {}", deleteProto);
-        UUID uuid = PlaceMapper.deleteProtoToUUID(deleteProto);
+        UUID id = PlaceMapper.deleteProtoToUUID(deleteProto);
         try {
-            placeService.delete(uuid)
+            placeService.deleteById(id)
                     .doOnSuccess(aVoid -> {
                         log.info("Place deleted: {}", deleteProto.getId());
                         streamObserver.onNext(Empty.newBuilder().build());
@@ -88,11 +88,11 @@ public class PlaceServiceGrpcServer extends PlaceServiceGrpc.PlaceServiceImplBas
     }
 
     @Override
-    public void findById(FindByIdProto findByIdProto, StreamObserver<PlaceProto> streamObserver) {
-        log.info("Finding place: {}", findByIdProto);
-        UUID uuid = PlaceMapper.findByIdProtoToUUID(findByIdProto);
+    public void getById(GetByIdProto getByIdProto, StreamObserver<PlaceProto> streamObserver) {
+        log.info("Finding place: {}", getByIdProto);
+        UUID id = PlaceMapper.getByIdProtoToUUID(getByIdProto);
         try {
-            placeService.findById(uuid)
+            placeService.getById(id)
                     .map(PlaceMapper::entityToProto)
                     .doOnSuccess(placeProto -> {
                         log.info("Place found: {}", placeProto);

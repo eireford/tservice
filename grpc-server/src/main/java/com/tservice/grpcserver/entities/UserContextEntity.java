@@ -12,12 +12,12 @@ import java.util.UUID;
 @AllArgsConstructor
 @Builder
 @Data
-@Table(schema = "public", name = "user_context")
+@Table(schema = "public", name = "users_contexts")
 public class UserContextEntity {
 
     @Id
     @Column(ID)
-    private UUID uuid;
+    private UUID id;
 
     @Column(USER_ID)
     private UUID userId;
@@ -25,7 +25,7 @@ public class UserContextEntity {
     @Column(CONTEXT_ID)
     private UUID contextId;
 
-    public static final String ID = "id";
+    public static final String ID = "user_context_id";
     public static final String USER_ID = "user_id";
     public static final String CONTEXT_ID = "context_id";
 }

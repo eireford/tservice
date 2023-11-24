@@ -9,7 +9,7 @@ public class TspoonMapper {
     
     public static TspoonEntity protoToEntity(TspoonProto tspoonProto){
         return TspoonEntity.builder()
-                .uuid(UUID.fromString(tspoonProto.getId()))
+                .id(UUID.fromString(tspoonProto.getId()))
                 .name(tspoonProto.getName())
                 .value(tspoonProto.getValue())
                 .build();
@@ -17,7 +17,7 @@ public class TspoonMapper {
 
     public static TspoonProto entityToProto(TspoonEntity tspoonEntity){
         return TspoonProto.newBuilder()
-                .setId(tspoonEntity.getUuid().toString())
+                .setId(tspoonEntity.getId().toString())
                 .setName(tspoonEntity.getName())
                 .setValue(tspoonEntity.getValue())
                 .build();
@@ -32,7 +32,7 @@ public class TspoonMapper {
 
     public static TspoonEntity updateProtoToEntity(UpdateProto updateProto){
         return TspoonEntity.builder()
-                .uuid(UUID.fromString(updateProto.getId()))
+                .id(UUID.fromString(updateProto.getId()))
                 .name(updateProto.getName())
                 .value(updateProto.getValue())
                 .build();
@@ -42,8 +42,8 @@ public class TspoonMapper {
         return UUID.fromString(deleteProto.getId());
     }
 
-    public static UUID findByIdProtoToUUID(FindByIdProto findByIdProto){
-        return UUID.fromString(findByIdProto.getId());
+    public static UUID getByIdProtoToUUID(GetByIdProto getByIdProto){
+        return UUID.fromString(getByIdProto.getId());
     }
 
     public static String findByNameProtoToString(FindByNameProto findByNameProto){

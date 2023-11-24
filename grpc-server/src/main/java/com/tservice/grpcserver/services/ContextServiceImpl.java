@@ -4,14 +4,14 @@ import com.tservice.grpcserver.entities.ContextEntity;
 import com.tservice.grpcserver.repositories.ContextRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import reactor.core.publisher.Mono;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 import java.util.UUID;
 
 @AllArgsConstructor
 @Service
-public class ContextServiceImpl implements ContextService{
+public class ContextServiceImpl implements ContextService {
 
     private ContextRepository contextRepository;
 
@@ -26,18 +26,18 @@ public class ContextServiceImpl implements ContextService{
     }
 
     @Override
-    public Mono<Void> delete(UUID uuid) {
-        return contextRepository.delete(findById(uuid).block());
+    public Mono<Void> deleteById(UUID id) {
+        return contextRepository.deleteById(id);
     }
 
     @Override
-    public Mono<ContextEntity> findById(UUID uuid){
-        return contextRepository.findById(uuid);
+    public Mono<ContextEntity> getById(UUID id) {
+        return contextRepository.getById(id);
     }
 
     @Override
     public Flux<ContextEntity> findAll() {
-        return contextRepository.findAll();
+        return contextRepository.findAll(null);
     }
 
     @Override

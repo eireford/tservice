@@ -12,12 +12,12 @@ import java.util.UUID;
 @AllArgsConstructor
 @Builder
 @Data
-@Table(schema = "public", name = "tset_place")
+@Table(schema = "public", name = "tsets_places")
 public class TsetPlaceEntity {
 
     @Id
     @Column(ID)
-    private String uuid;
+    private UUID id;
 
     @Column(TSET_ID)
     private UUID tsetId;
@@ -25,7 +25,7 @@ public class TsetPlaceEntity {
     @Column(PLACE_ID)
     private UUID placeId;
 
-    public static final String ID = "id";
+    public static final String ID = "tset_place_id";
     public static final String TSET_ID = "tset_id";
     public static final String PLACE_ID = "place_id";
 }

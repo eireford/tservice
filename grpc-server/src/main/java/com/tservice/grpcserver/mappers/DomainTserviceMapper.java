@@ -9,7 +9,7 @@ public class DomainTserviceMapper {
 
     public static DomainTserviceEntity protoToEntity(DomainTserviceProto domainTserviceProto){
         return DomainTserviceEntity.builder()
-                .uuid(UUID.fromString(domainTserviceProto.getId()))
+                .id(UUID.fromString(domainTserviceProto.getId()))
                 .domainId(UUID.fromString(domainTserviceProto.getDomainId()))
                 .tserviceId(UUID.fromString(domainTserviceProto.getTserviceId()))
                 .build();
@@ -17,7 +17,7 @@ public class DomainTserviceMapper {
 
     public static DomainTserviceProto entityToProto(DomainTserviceEntity domainTserviceEntity){
         return DomainTserviceProto.newBuilder()
-                .setId(domainTserviceEntity.getUuid().toString())
+                .setId(domainTserviceEntity.getId().toString())
                 .setDomainId(domainTserviceEntity.getDomainId().toString())
                 .setTserviceId(domainTserviceEntity.getTserviceId().toString())
                 .build();
@@ -32,7 +32,7 @@ public class DomainTserviceMapper {
 
     public static DomainTserviceEntity updateProtoToEntity(UpdateProto updateProto){
         return DomainTserviceEntity.builder()
-                .uuid(UUID.fromString(updateProto.getId()))
+                .id(UUID.fromString(updateProto.getId()))
                 .domainId(UUID.fromString(updateProto.getDomainId()))
                 .tserviceId(UUID.fromString(updateProto.getTserviceId()))
                 .build();
@@ -42,8 +42,8 @@ public class DomainTserviceMapper {
         return UUID.fromString(deleteProto.getId());
     }
 
-    public static UUID findByIdProtoToUUID(FindByIdProto findByIdProto){
-        return UUID.fromString(findByIdProto.getId());
+    public static UUID getByIdProtoToUUID(GetByIdProto getByIdProto){
+        return UUID.fromString(getByIdProto.getId());
     }
 
     public static UUID findByDomainIdProtoToUUID(FindByDomainIdProto findByDomainIdProto){

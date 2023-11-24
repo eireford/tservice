@@ -16,12 +16,10 @@ spring:
     repositories:
       enabled: true
   liquibase:
-    url: jdbc:postgresql://localhost:5432/tservice
-    user: postgres
-    password: postgres
-    driver-class-name: org.postgresql.Driver
+    change-log: classpath:db/changelog-master.xml
     enabled: true
-    change-log: classpath:changelog.yaml
+    contexts: dev
+
 grpc:
   server:
     port: 8989

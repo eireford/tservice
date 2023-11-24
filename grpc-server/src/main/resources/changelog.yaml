@@ -4,73 +4,146 @@ databaseChangeLog:
       author: eireford
       changes:
         - sql:
-          - CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+            - CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
   - changeSet:
-      id: create-bank-accounts-table
+      id: create-contexts-table
       author: eireford
       changes:
         - createTable:
             columns:
               - column:
                   defaultValueComputed: uuid_generate_v4()
-                  name: bank_account_id
+                  name: context_id
                   type: UUID
-              - column:
                   constraints:
-                    nullable: false
-                  name: first_name
-                  type: VARCHAR(60)
+                    primaryKey: true
               - column:
-                  constraints:
-                    nullable: false
-                  name: last_name
-                  type: VARCHAR(60)
+                  name: name
+                  type: VARCHAR(256)
               - column:
-                  constraints:
-                    nullable: false
-                  name: email
-                  type: VARCHAR(60)
-              - column:
-                  constraints:
-                    nullable: false
-                  name: address
-                  type: VARCHAR(500)
-              - column:
-                  constraints:
-                    nullable: false
-                  name: phone
-                  type: VARCHAR(20)
-              - column:
-                  constraints:
-                    nullable: false
-                  defaultValueComputed: '0.00'
-                  name: balance
-                  type: numeric(16, 2)
-              - column:
-                  constraints:
-                    nullable: false
-                  defaultValue: USD
-                  name: currency
-                  type: VARCHAR(3)
-              - column:
-                  defaultValueComputed: CURRENT_TIMESTAMP
-                  name: created_at
-                  type: TIMESTAMP WITH TIME ZONE
-              - column:
-                  defaultValueComputed: CURRENT_TIMESTAMP
-                  name: updated_at
-                  type: TIMESTAMP WITH TIME ZONE
-            tableName: bank_accounts
+                  name: value
+                  type: VARCHAR(256)
+            tableName: contexts
   - changeSet:
-      id: create-bank-account-email-index
+      id: create-domains-table
       author: eireford
       changes:
-        - createIndex:
+        - createTable:
             columns:
               - column:
-                  name: email
-            indexName: bank_account_email_idx
-            tableName: bank_accounts
+                  defaultValueComputed: uuid_generate_v4()
+                  name: domain_id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: name
+                  type: VARCHAR(256)
+              - column:
+                  name: value
+                  type: VARCHAR(256)
+            tableName: domains
+  - changeSet:
+      id: create-identifiers-table
+      author: eireford
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  defaultValueComputed: uuid_generate_v4()
+                  name: identifier_id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: name
+                  type: VARCHAR(256)
+              - column:
+                  name: value
+                  type: VARCHAR(256)
+            tableName: identifiers
+  - changeSet:
+      id: create-places-table
+      author: eireford
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  defaultValueComputed: uuid_generate_v4()
+                  name: place_id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: name
+                  type: VARCHAR(256)
+              - column:
+                  name: value
+                  type: VARCHAR(256)
+              - column:
+                  name: row
+                  type: INTEGER
+              - column:
+                  name: col
+                  type: INTEGER
+            tableName: places
+  - changeSet:
+      id: create-tservices-table
+      author: eireford
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  defaultValueComputed: uuid_generate_v4()
+                  name: tservice_id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: name
+                  type: VARCHAR(256)
+              - column:
+                  name: value
+                  type: VARCHAR(256)
+            tableName: tservices
+  - changeSet:
+      id: create-tsets-table
+      author: eireford
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  defaultValueComputed: uuid_generate_v4()
+                  name: tset_id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: name
+                  type: VARCHAR(256)
+              - column:
+                  name: value
+                  type: VARCHAR(256)
+            tableName: tsets
+  - changeSet:
+      id: create-tspoons-table
+      author: eireford
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  defaultValueComputed: uuid_generate_v4()
+                  name: tspoon_id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: name
+                  type: VARCHAR(256)
+              - column:
+                  name: value
+                  type: VARCHAR(256)
+            tableName: tspoons
   - changeSet:
       id: create-users-table
       author: eireford
@@ -81,6 +154,8 @@ databaseChangeLog:
                   defaultValueComputed: uuid_generate_v4()
                   name: user_id
                   type: UUID
+                  constraints:
+                    primaryKey: true
               - column:
                   name: username
                   type: VARCHAR(256)
@@ -94,62 +169,143 @@ databaseChangeLog:
                   name: last_name
                   type: VARCHAR(256)
             tableName: users
+
   - changeSet:
-      id: create-user-email-index
-      author: eireford
-      changes:
-        - createIndex:
-            columns:
-              - column:
-                  name: email
-            indexName: user_email_idx
-            tableName: users
-  - changeSet:
-      id: create-tspoons-table
+      id: create-tsets-places-table
       author: eireford
       changes:
         - createTable:
             columns:
               - column:
                   defaultValueComputed: uuid_generate_v4()
-                  name: tspoon_id
+                  name: tset_place_id
                   type: UUID
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: tset_id
+                  type: UUID
+                  constraints:
+                    foreignKeyName: fk_tsetsplaces_tsets
+                    references:
+                      tableName: tsets
+                      columnName: tset_id
+                      onDelete: CASCADE
+              - column:
+                  name: place_id
+                  type: UUID
+                  constraints:
+                    foreignKeyName: fk_tsetsplaces_places
+                    references:
+                      tableName: places
+                      columnName: place_id
+                      onDelete: CASCADE
+            tableName: tsets_places
+        - addForeignKeyConstraint:
+            baseTableName: tsets_places
+            baseColumnNames: tset_id
+            referencedTableName: tsets
+            referencedColumnNames: tset_id
+            constraintName: fk_tsetsplaces_tsets
+        - addForeignKeyConstraint:
+            baseTableName: tsets_places
+            baseColumnNames: place_id
+            referencedTableName: places
+            referencedColumnNames: place_id
+            constraintName: fk_tsetsplaces_places
+
+  - changeSet:
+      id: create-domains-tservices-table
+      author: eireford
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  defaultValueComputed: uuid_generate_v4()
+                  name: domain_tservice_id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: domain_id
+                  type: UUID
+              - column:
+                  name: tservice_id
+                  type: UUID
+            tableName: domains_tservices
+        - addForeignKeyConstraint:
+            baseTableName: domains_tservices
+            baseColumnNames: domain_id
+            referencedTableName: domains
+            referencedColumnNames: domain_id
+            constraintName: fk_domainstservices_domains
+        - addForeignKeyConstraint:
+            baseTableName: domains_tservices
+            baseColumnNames: tservice_id
+            referencedTableName: tservices
+            referencedColumnNames: tservice_id
+            constraintName: fk_domainstservices_tservices
+
+  - changeSet:
+      id: create-users-contexts-table
+      author: eireford
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  defaultValueComputed: uuid_generate_v4()
+                  name: user_context_id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
               - column:
                   name: user_id
                   type: UUID
               - column:
-                  name: name
-                  type: VARCHAR(256)
-              - column:
-                  name: value
-                  type: VARCHAR(256)
-            tableName: tspoons
+                  name: context_id
+                  type: UUID
+            tableName: users_contexts
+        - addForeignKeyConstraint:
+            baseTableName: users_contexts
+            baseColumnNames: user_id
+            referencedTableName: users
+            referencedColumnNames: user_id
+            constraintName: fk_userscontexts_users
+        - addForeignKeyConstraint:
+            baseTableName: users_contexts
+            baseColumnNames: context_id
+            referencedTableName: contexts
+            referencedColumnNames: context_id
+            constraintName: fk_userscontexts_contexts
   - changeSet:
-      id: create-tset-table
+      id: create-users-identifiers-table
       author: eireford
       changes:
         - createTable:
             columns:
               - column:
                   defaultValueComputed: uuid_generate_v4()
+                  name: user_identifier_id
+                  type: UUID
                   constraints:
-                    nullable: false
-                  name: tset_id
+                    primaryKey: true
+              - column:
+                  name: user_id
                   type: UUID
               - column:
-                  name: tspoon_id
+                  name: identifier_id
                   type: UUID
-              - column:
-                  name: setting_id
-                  type: UUID
-              - column:
-                  name: context_id
-                  type: UUID
-              - column:
-                  name: name
-                  type: VARCHAR(256)
-              - column:
-                  name: value
-                  type: VARCHAR(256)
-            tableName: tset
+            tableName: users_identifiers
+        - addForeignKeyConstraint:
+            baseTableName: users_identifiers
+            baseColumnNames: user_id
+            referencedTableName: users
+            referencedColumnNames: user_id
+            constraintName: fk_usersidentifiers_users
+        - addForeignKeyConstraint:
+            baseTableName: users_identifiers
+            baseColumnNames: identifier_id
+            referencedTableName: identifiers
+            referencedColumnNames: identifier_id
+            constraintName: fk_usersidentifiers_identifiers
 

@@ -12,7 +12,7 @@ import java.util.UUID;
 
 @AllArgsConstructor
 @Service
-public class UserIdentifierServiceImpl implements UserIdentifierService{
+public class UserIdentifierServiceImpl implements UserIdentifierService {
 
     private final Duration TIMEOUT = Duration.ofSeconds(5);
 
@@ -29,18 +29,18 @@ public class UserIdentifierServiceImpl implements UserIdentifierService{
     }
 
     @Override
-    public Mono<Void> delete(UUID uuid) {
-        return userIdentifierRepository.deleteById(uuid).timeout(TIMEOUT);
+    public Mono<Void> deleteById(UUID id) {
+        return userIdentifierRepository.deleteById(id).timeout(TIMEOUT);
     }
 
     @Override
-    public Mono<UserIdentifierEntity> findById(UUID uuid) {
-        return userIdentifierRepository.findById(uuid).timeout(TIMEOUT);
+    public Mono<UserIdentifierEntity> getById(UUID id) {
+        return userIdentifierRepository.getById(id).timeout(TIMEOUT);
     }
 
     @Override
     public Flux<UserIdentifierEntity> findAll() {
-        return userIdentifierRepository.findAll().timeout(TIMEOUT);
+        return userIdentifierRepository.findAll(null).timeout(TIMEOUT);
     }
 
     @Override

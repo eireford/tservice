@@ -8,32 +8,32 @@ public class TsetPlaceMapper {
 
     public static TsetPlaceEntity protoToEntity(TsetPlaceProto tsetPlaceProto){
         return TsetPlaceEntity.builder()
-                .uuid(tsetPlaceProto.getId())
-                .tsetId(UUID.fromString(tsetPlaceProto.getTsetID()))
-                .placeId(UUID.fromString(tsetPlaceProto.getPlaceID()))
+                .id(UUID.fromString(tsetPlaceProto.getId()))
+                .tsetId(UUID.fromString(tsetPlaceProto.getTsetId()))
+                .placeId(UUID.fromString(tsetPlaceProto.getPlaceId()))
                 .build();
     }
 
     public static TsetPlaceProto entityToProto(TsetPlaceEntity tsetPlaceEntity){
         return TsetPlaceProto.newBuilder()
-                .setId(tsetPlaceEntity.getUuid())
-                .setTsetID(tsetPlaceEntity.getTsetId().toString())
-                .setPlaceID(tsetPlaceEntity.getPlaceId().toString())
+                .setId(tsetPlaceEntity.getId().toString())
+                .setTsetId(tsetPlaceEntity.getTsetId().toString())
+                .setPlaceId(tsetPlaceEntity.getPlaceId().toString())
                 .build();
     }
 
     public static TsetPlaceEntity createProtoToEntity(CreateProto createProto){
         return TsetPlaceEntity.builder()
-                .tsetId(UUID.fromString(createProto.getTsetID()))
-                .placeId(UUID.fromString(createProto.getPlaceID()))
+                .tsetId(UUID.fromString(createProto.getTsetId()))
+                .placeId(UUID.fromString(createProto.getPlaceId()))
                 .build();
     }
 
     public static TsetPlaceEntity updateProtoToEntity(UpdateProto updateProto){
         return TsetPlaceEntity.builder()
-                .uuid(updateProto.getId())
-                .tsetId(UUID.fromString(updateProto.getTsetID()))
-                .placeId(UUID.fromString(updateProto.getPlaceID()))
+                .id(UUID.fromString(updateProto.getId()))
+                .tsetId(UUID.fromString(updateProto.getTsetId()))
+                .placeId(UUID.fromString(updateProto.getPlaceId()))
                 .build();
     }
 
@@ -41,8 +41,8 @@ public class TsetPlaceMapper {
         return UUID.fromString(deleteProto.getId());
     }
 
-    public static UUID findByIdProtoToUUID(FindByIdProto findByIdProto){
-        return UUID.fromString(findByIdProto.getId());
+    public static UUID getByIdProtoToUUID(GetByIdProto getByIdProto){
+        return UUID.fromString(getByIdProto.getId());
     }
 
     public static UUID findByTsetIdProtoToUUID(FindByTsetIdProto findByTsetIdProto){

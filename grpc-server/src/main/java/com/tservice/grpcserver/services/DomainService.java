@@ -7,14 +7,14 @@ import reactor.core.publisher.Mono;
 import java.util.UUID;
 
 public interface DomainService {
-    
-    Mono<DomainEntity> save(DomainEntity domain);
-    
-    Mono<DomainEntity> update(DomainEntity domain);
-    
-    Mono<Void> delete(UUID uuid);
 
-    Mono<DomainEntity> findById(UUID uuid);
+    Mono<DomainEntity> save(DomainEntity domain);
+
+    Mono<DomainEntity> update(DomainEntity domain);
+
+    Mono<Void> deleteById(UUID id);
+
+    Mono<DomainEntity> getById(UUID id);
 
     Flux<DomainEntity> findAll();
 

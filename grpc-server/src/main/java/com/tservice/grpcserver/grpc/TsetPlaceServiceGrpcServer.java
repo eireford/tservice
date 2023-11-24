@@ -76,9 +76,9 @@ public class TsetPlaceServiceGrpcServer extends TsetPlaceServiceGrpc.TsetPlaceSe
     @Override
     public void delete(DeleteProto deleteProto, StreamObserver<com.google.protobuf.Empty> streamObserver) {
         log.info("Deleting TsetPlace: {}", deleteProto);
-        UUID uuid = TsetPlaceMapper.deleteProtoToUUID(deleteProto);
+        UUID id = TsetPlaceMapper.deleteProtoToUUID(deleteProto);
         try {
-            tsetPlaceService.delete(uuid)
+            tsetPlaceService.deleteById(id)
                     .doOnSuccess(__ -> {
                         log.info("TsetPlace deleted: {}", deleteProto.getId());
                         streamObserver.onNext(com.google.protobuf.Empty.newBuilder().build());
@@ -100,11 +100,11 @@ public class TsetPlaceServiceGrpcServer extends TsetPlaceServiceGrpc.TsetPlaceSe
     }
 
     @Override
-    public void findById(FindByIdProto findByIdProto, StreamObserver<TsetPlaceProto> streamObserver) {
-        log.info("Finding TsetPlace by id: {}", findByIdProto);
-        UUID uuid = TsetPlaceMapper.findByIdProtoToUUID(findByIdProto);
+    public void getById(GetByIdProto getByIdProto, StreamObserver<TsetPlaceProto> streamObserver) {
+        log.info("Finding TsetPlace by id: {}", getByIdProto);
+        UUID id = TsetPlaceMapper.getByIdProtoToUUID(getByIdProto);
         try {
-            tsetPlaceService.findById(uuid)
+            tsetPlaceService.getById(id)
                     .map(TsetPlaceMapper::entityToProto)
                     .doOnSuccess(tsetPlaceProto -> {
                         log.info("TsetPlace found: {}", tsetPlaceProto);
@@ -158,9 +158,9 @@ public class TsetPlaceServiceGrpcServer extends TsetPlaceServiceGrpc.TsetPlaceSe
     @Override
     public void findByTsetId(FindByTsetIdProto findByTsetIdProto, StreamObserver<TsetPlaceProto> streamObserver){
         log.info("Finding TsetPlace by Tset id: {}", findByTsetIdProto);
-        UUID uuid = TsetPlaceMapper.findByTsetIdProtoToUUID(findByTsetIdProto);
+        UUID id = TsetPlaceMapper.findByTsetIdProtoToUUID(findByTsetIdProto);
         try {
-            tsetPlaceService.findByTsetId(uuid)
+            tsetPlaceService.findByTsetId(id)
                     .map(TsetPlaceMapper::entityToProto)
                     .doOnNext(tsetPlaceProto -> {
                         log.info("TsetPlace found: {}", tsetPlaceProto);
@@ -187,9 +187,9 @@ public class TsetPlaceServiceGrpcServer extends TsetPlaceServiceGrpc.TsetPlaceSe
 
     public void findByPlaceId(FindByPlaceIdProto findByPlaceIdProto, StreamObserver<TsetPlaceProto> streamObserver){
         log.info("Finding TsetPlace by Place id: {}", findByPlaceIdProto);
-        UUID uuid = TsetPlaceMapper.findByPlaceIdProtoToUUID(findByPlaceIdProto);
+        UUID id = TsetPlaceMapper.findByPlaceIdProtoToUUID(findByPlaceIdProto);
         try {
-            tsetPlaceService.findByPlaceId(uuid)
+            tsetPlaceService.findByPlaceId(id)
                     .map(TsetPlaceMapper::entityToProto)
                     .doOnNext(tsetPlaceProto -> {
                         log.info("TsetPlace found: {}", tsetPlaceProto);

@@ -8,17 +8,17 @@ import java.util.UUID;
 
 public interface PlaceService {
 
-        Mono<PlaceEntity> save(PlaceEntity place);
+    Mono<PlaceEntity> save(PlaceEntity place);
 
-        Mono<PlaceEntity> update(PlaceEntity place);
+    Mono<PlaceEntity> update(PlaceEntity place);
 
-        Mono<Void> delete(UUID uuid);
+    Mono<Void> deleteById(UUID id);
 
-        Mono<PlaceEntity> findById(UUID uuid);
+    Mono<PlaceEntity> getById(UUID id);
 
-        Flux<PlaceEntity> findAll();
+    Flux<PlaceEntity> findAll();
 
-        Flux<PlaceEntity> findByName(String name);
+    Flux<PlaceEntity> findByName(String name);
 
-        Flux<PlaceEntity> findByValue(String value);
+    Flux<PlaceEntity> findByValue(String value);
 }

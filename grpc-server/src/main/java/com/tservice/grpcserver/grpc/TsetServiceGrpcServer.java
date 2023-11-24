@@ -77,9 +77,9 @@ public class TsetServiceGrpcServer extends TsetServiceGrpc.TsetServiceImplBase{
     @Override
     public void delete(DeleteProto deleteProto, StreamObserver<Empty> streamObserver) {
         log.info("Deleting Tset: {}", deleteProto);
-        UUID uuid = TsetMapper.deleteProtoToUUID(deleteProto);
+        UUID id = TsetMapper.deleteProtoToUUID(deleteProto);
         try {
-            tsetService.delete(uuid)
+            tsetService.deleteById(id)
                     .doOnSuccess(__ -> {
                         log.info("Tset deleted: {}", deleteProto);
                         streamObserver.onNext(Empty.newBuilder().build());
@@ -101,11 +101,11 @@ public class TsetServiceGrpcServer extends TsetServiceGrpc.TsetServiceImplBase{
     }
 
     @Override
-    public void findById(FindByIdProto findByIdProto, StreamObserver<TsetProto> streamObserver) {
-        log.info("Finding Tset by id: {}", findByIdProto);
-        UUID uuid = TsetMapper.findByIdProtoToUUID(findByIdProto);
+    public void getById(GetByIdProto getByIdProto, StreamObserver<TsetProto> streamObserver) {
+        log.info("Finding Tset by id: {}", getByIdProto);
+        UUID id = TsetMapper.getByIdProtoToUUID(getByIdProto);
         try {
-            tsetService.findById(uuid)
+            tsetService.getById(id)
                     .map(TsetMapper::entityToProto)
                     .doOnSuccess(tsetProto -> {
                         log.info("Tset found: {}", tsetProto);

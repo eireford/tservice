@@ -7,11 +7,15 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.util.UUID;
+
 @Repository
 public interface UserContextRepository extends ReactiveSortingRepository<UserContextEntity, UUID> {
-    //Mono<UserContextEntity> update(UserContextEntity userContext);
 
-   // Mono<Void> delete(UUID uuid);
+    Mono<UserContextEntity> save(UserContextEntity userContext);
+
+    Mono<Void> deleteById(UUID id);
+
+    Mono<UserContextEntity> getById(UUID id);
 
     Flux<UserContextEntity> findByUserId(UUID userId);
 

@@ -69,9 +69,9 @@ public class UserIdentifierServiceGrpcServer extends UserIdentifierServiceGrpc.U
     @Override
     public void delete(DeleteProto deleteProto, StreamObserver<Empty> streamObserver) {
         log.info("Deleting UserIdentifier: {}", deleteProto);
-        UUID uuid = UserIdentifierMapper.deleteProtoToUUID(deleteProto);
+        UUID id = UserIdentifierMapper.deleteProtoToUUID(deleteProto);
         try {
-            userIdentifierService.delete(uuid)
+            userIdentifierService.deleteById(id)
                     .doOnSuccess(empty -> {
                         log.info("UserIdentifier deleted: {}", deleteProto.getId());
                         streamObserver.onNext(Empty.newBuilder().build());
@@ -89,11 +89,11 @@ public class UserIdentifierServiceGrpcServer extends UserIdentifierServiceGrpc.U
     }
 
     @Override
-    public void findById(FindByIdProto findByIdProto, StreamObserver<UserIdentifierProto> streamObserver) {
-        log.info("Finding UserIdentifier by id: {}", findByIdProto);
-        UUID uuid = UserIdentifierMapper.findByIdProtoToUUID(findByIdProto);
+    public void getById(GetByIdProto getByIdProto, StreamObserver<UserIdentifierProto> streamObserver) {
+        log.info("Finding UserIdentifier by id: {}", getByIdProto);
+        UUID id = UserIdentifierMapper.getByIdProtoToUUID(getByIdProto);
         try {
-            userIdentifierService.findById(uuid)
+            userIdentifierService.getById(id)
                     .map(UserIdentifierMapper::entityToProto)
                     .doOnSuccess(userIdentifierProto -> {
                         log.info("UserIdentifier found: {}", userIdentifierProto);
@@ -114,9 +114,9 @@ public class UserIdentifierServiceGrpcServer extends UserIdentifierServiceGrpc.U
     @Override
     public void findByUserId(FindByUserIdProto findByUserIdProto, StreamObserver<UserIdentifierProto> streamObserver) {
         log.info("Finding UserIdentifier by user id: {}", findByUserIdProto);
-        UUID uuid = UserIdentifierMapper.findByUserIdProtoToUUID(findByUserIdProto);
+        UUID id = UserIdentifierMapper.findByUserIdProtoToUUID(findByUserIdProto);
         try {
-            userIdentifierService.findByUserId(uuid)
+            userIdentifierService.findByUserId(id)
                     .map(UserIdentifierMapper::entityToProto)
                     .doOnNext(userIdentifierProto -> {
                         log.info("UserIdentifier found: {}", userIdentifierProto);
@@ -136,9 +136,9 @@ public class UserIdentifierServiceGrpcServer extends UserIdentifierServiceGrpc.U
     @Override
     public void findByIdentifierId(FindByIdentifierIdProto findByIdentifierProto, StreamObserver<UserIdentifierProto> streamObserver) {
         log.info("Finding UserIdentifier by id: {}", findByIdentifierProto);
-        UUID uuid = UserIdentifierMapper.findByIdentifierIdProtoToUUID(findByIdentifierProto);
+        UUID id = UserIdentifierMapper.findByIdentifierIdProtoToUUID(findByIdentifierProto);
         try {
-            userIdentifierService.findByIdentifierId(uuid)
+            userIdentifierService.findByIdentifierId(id)
                     .map(UserIdentifierMapper::entityToProto)
                     .doOnNext(userIdentifierProto -> {
                         log.info("UserIdentifier found: {}", userIdentifierProto);

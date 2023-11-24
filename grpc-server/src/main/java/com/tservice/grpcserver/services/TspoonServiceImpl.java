@@ -1,6 +1,5 @@
 package com.tservice.grpcserver.services;
 
-import com.google.common.io.Files;
 import com.tservice.grpcserver.entities.TspoonEntity;
 import com.tservice.grpcserver.repositories.TspoonRepository;
 import lombok.AllArgsConstructor;
@@ -13,7 +12,7 @@ import java.util.UUID;
 
 @AllArgsConstructor
 @Service
-public class TspoonServiceImpl implements TspoonService{
+public class TspoonServiceImpl implements TspoonService {
 
     private final Duration TIMEOUT = Duration.ofSeconds(5);
 
@@ -25,23 +24,28 @@ public class TspoonServiceImpl implements TspoonService{
     }
 
     @Override
+    public Flux<TspoonEntity> saveAll(Flux<TspoonEntity> tspoons) {
+        return tspoonRepository.saveAll(tspoons).timeout(TIMEOUT);
+    }
+
+    @Override
     public Mono<TspoonEntity> update(TspoonEntity tspoon) {
         return tspoonRepository.save(tspoon).timeout(TIMEOUT);
     }
 
     @Override
-    public Mono<Void> delete(UUID uuid) {
-        return tspoonRepository.deleteById(uuid).timeout(TIMEOUT);
+    public Mono<Void> deleteById(UUID id) {
+        return tspoonRepository.deleteById(id).timeout(TIMEOUT);
     }
 
     @Override
-    public Mono<TspoonEntity> findById(UUID uuid) {
-        return tspoonRepository.findById(uuid).timeout(TIMEOUT);
+    public Mono<TspoonEntity> getById(UUID id) {
+        return tspoonRepository.getById(id).timeout(TIMEOUT);
     }
 
     @Override
     public Flux<TspoonEntity> findAll() {
-        return tspoonRepository.findAll().timeout(TIMEOUT);
+        return tspoonRepository.findAll(null).timeout(TIMEOUT);
     }
 
     @Override

@@ -81,9 +81,9 @@ public class DomainServiceGrpcServer extends DomainServiceGrpc.DomainServiceImpl
     @Override
     public void delete(DeleteProto deleteProto, StreamObserver<Empty> streamObserver){
         log.info("Deleting domain: {}", deleteProto);
-        UUID uuid = DomainMapper.deleteProtoToUUID(deleteProto);
+        UUID id = DomainMapper.deleteProtoToUUID(deleteProto);
         try{
-            domainService.delete(uuid)
+            domainService.deleteById(id)
                     .doOnSuccess(domainProto -> {
                         log.info("Domain deleted: {}", domainProto);
                         streamObserver.onNext(Empty.newBuilder().build());
@@ -107,11 +107,11 @@ public class DomainServiceGrpcServer extends DomainServiceGrpc.DomainServiceImpl
     }
 
     @Override
-    public void findById(FindByIdProto findByIdProto, StreamObserver<DomainProto> streamObserver){
-        log.info("Finding domain: {}", findByIdProto);
-        UUID uuid = DomainMapper.findByIdProtoToUUID(findByIdProto);
+    public void getById(GetByIdProto getByIdProto, StreamObserver<DomainProto> streamObserver){
+        log.info("Finding domain: {}", getByIdProto);
+        UUID id = DomainMapper.getByIdProtoToUUID(getByIdProto);
         try{
-            domainService.findById(uuid)
+            domainService.getById(id)
                     .map(DomainMapper::entityToProto)
                     .doOnSuccess(domainProto -> {
                         log.info("Domain found: {}", domainProto);

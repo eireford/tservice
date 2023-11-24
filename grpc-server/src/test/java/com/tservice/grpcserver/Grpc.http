@@ -1,0 +1,23 @@
+### create user
+GRPC localhost:8989/com.tservice.proto.user.UserService/create
+
+{"username":{{$random.alphabetic(10)}},
+ "email":{{$random.email}},
+ "firstName":{{$random.alphabetic(10)}},
+ "lastName":{{$random.alphabetic(10)}}
+}
+
+### update user
+GRPC localhost:8989/com.tservice.proto.user.UserService/update
+
+{"id":"12345678-1234-1234-1234-123456789012",
+ "username":{{$random.alphabetic(10)}},
+ "email":{{$random.email}},
+ "firstName":{{$random.alphabetic(10)}},
+ "lastName":{{$random.alphabetic(10)}}
+}
+
+
+
+### find all
+GRPC localhost:8989/com.tservice.proto.user.UserService/findAll

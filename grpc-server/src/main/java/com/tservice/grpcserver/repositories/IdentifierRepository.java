@@ -7,11 +7,15 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.util.UUID;
+
 @Repository
 public interface IdentifierRepository extends ReactiveSortingRepository<IdentifierEntity, UUID> {
-    // Mono<IdentifierEntity> update(IdentifierEntity identifierEntity);
-    
-    //Mono<Void> delete(UUID uuid);
+
+    Mono<IdentifierEntity> save(IdentifierEntity identifierEntity);
+
+    Mono<Void> deleteById(UUID id);
+
+    Mono<IdentifierEntity> getById(UUID id);
 
     Flux<IdentifierEntity> findByName(String name);
 

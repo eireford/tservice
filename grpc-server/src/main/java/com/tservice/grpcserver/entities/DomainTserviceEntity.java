@@ -12,12 +12,12 @@ import java.util.UUID;
 @AllArgsConstructor
 @Builder
 @Data
-@Table(schema = "public", name = "domain_tservice")
+@Table(schema = "public", name = "domains_tservices")
 public class DomainTserviceEntity {
 
     @Id
     @Column(ID)
-    private UUID uuid;
+    private UUID id;
 
     @Column(DOMAIN_ID)
     private UUID domainId;
@@ -25,7 +25,7 @@ public class DomainTserviceEntity {
     @Column(TSERVICE_ID)
     private UUID tserviceId;
 
-    public static final String ID = "id";
+    public static final String ID = "domain_tservice_id";
     public static final String DOMAIN_ID = "domain_id";
     public static final String TSERVICE_ID = "tservice_id";
 }

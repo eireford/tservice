@@ -81,9 +81,9 @@ public class DomainTserviceServiceGrpcServer extends DomainTserviceServiceGrpc.D
     @Override
     public void delete(DeleteProto deleteProto, StreamObserver<Empty> streamObserver){
         log.info("Deleting DomainTservice: {}", deleteProto);
-        UUID uuid = DomainTserviceMapper.deleteProtoToUUID(deleteProto);
+        UUID id = DomainTserviceMapper.deleteProtoToUUID(deleteProto);
         try{
-            domainTserviceService.delete(uuid)
+            domainTserviceService.deleteById(id)
                     .doOnSuccess(aVoid -> {
                         log.info("DomainTservice deleted: {}", deleteProto);
                         streamObserver.onNext(Empty.newBuilder().build());
@@ -107,11 +107,11 @@ public class DomainTserviceServiceGrpcServer extends DomainTserviceServiceGrpc.D
     }
 
     @Override
-    public void findById(FindByIdProto findByIdProto, StreamObserver<DomainTserviceProto> streamObserver){
-        log.info("Finding DomainTservice: {}", findByIdProto);
-        UUID uuid = DomainTserviceMapper.findByIdProtoToUUID(findByIdProto);
+    public void getById(GetByIdProto getByIdProto, StreamObserver<DomainTserviceProto> streamObserver){
+        log.info("Finding DomainTservice: {}", getByIdProto);
+        UUID id = DomainTserviceMapper.getByIdProtoToUUID(getByIdProto);
         try{
-            domainTserviceService.findById(uuid)
+            domainTserviceService.getById(id)
                     .map(DomainTserviceMapper::entityToProto)
                     .doOnSuccess(domainTserviceProto -> {
                         log.info("DomainTservice found: {}", domainTserviceProto);
@@ -169,9 +169,9 @@ public class DomainTserviceServiceGrpcServer extends DomainTserviceServiceGrpc.D
     @Override
     public void findByDomainId(FindByDomainIdProto findByDomainIdProto, StreamObserver<DomainTserviceProto> streamObserver){
         log.info("Finding DomainTservice by domain id: {}", findByDomainIdProto);
-        UUID uuid = DomainTserviceMapper.findByDomainIdProtoToUUID(findByDomainIdProto);
+        UUID id = DomainTserviceMapper.findByDomainIdProtoToUUID(findByDomainIdProto);
         try{
-            domainTserviceService.findByDomainId(uuid)
+            domainTserviceService.findByDomainId(id)
                     .map(DomainTserviceMapper::entityToProto)
                     .doOnNext(domainTserviceProto -> {
                         log.info("DomainTservice found: {}", domainTserviceProto);
@@ -201,9 +201,9 @@ public class DomainTserviceServiceGrpcServer extends DomainTserviceServiceGrpc.D
     @Override
     public void findByTserviceId(FindByTserviceIdProto findByTserviceIdProto, StreamObserver<DomainTserviceProto> streamObserver){
         log.info("Finding DomainTservice by tservice id: {}", findByTserviceIdProto);
-        UUID uuid = DomainTserviceMapper.findByTserviceIdProtoToUUID(findByTserviceIdProto);
+        UUID id = DomainTserviceMapper.findByTserviceIdProtoToUUID(findByTserviceIdProto);
         try{
-            domainTserviceService.findByTserviceId(uuid)
+            domainTserviceService.findByTserviceId(id)
                     .map(DomainTserviceMapper::entityToProto)
                     .doOnNext(domainTserviceProto -> {
                         log.info("DomainTservice found: {}", domainTserviceProto);
