@@ -11,7 +11,6 @@
     <description>Demo Project of gRPC in Spring boot</description>
     <modules>
         <module>proto</module>
-        <module>http-server</module>
         <module>grpc-server</module>
     </modules>
 

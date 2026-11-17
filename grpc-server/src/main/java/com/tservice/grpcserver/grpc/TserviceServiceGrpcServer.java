@@ -88,9 +88,9 @@ public class TserviceServiceGrpcServer extends TserviceServiceGrpc.TserviceServi
     }
 
     @Override
-    public void getById(GetByIdProto getByIdProto, StreamObserver<TserviceProto> streamObserver) {
-        log.info("Finding Tservice by id: {}", getByIdProto);
-        UUID id = UUID.fromString(getByIdProto.getId());
+    public void findById(FindByIdProto findByIdProto, StreamObserver<TserviceProto> streamObserver) {
+        log.info("Finding Tservice by id: {}", findByIdProto);
+        UUID id = UUID.fromString(findByIdProto.getId());
         try {
             tserviceService.getById(id)
                     .map(TserviceMapper::entityToProto)

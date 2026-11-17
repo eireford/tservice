@@ -50,8 +50,8 @@ public class UserMapper {
         return UUID.fromString(deleteUserProto.getId());
     }
 
-    public static UUID getByIdProtoToUUID(GetByIdProto getByIdProto) {
-        return UUID.fromString(getByIdProto.getId());
+    public static UUID findByIdProtoToUUID(FindByIdProto findByIdProto) {
+        return UUID.fromString(findByIdProto.getId());
     }
 
     public static String findByUsernameProtoToString(FindByUsernameProto findByUsernameProto) {

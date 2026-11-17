@@ -88,9 +88,9 @@ public class PlaceServiceGrpcServer extends PlaceServiceGrpc.PlaceServiceImplBas
     }
 
     @Override
-    public void getById(GetByIdProto getByIdProto, StreamObserver<PlaceProto> streamObserver) {
-        log.info("Finding place: {}", getByIdProto);
-        UUID id = PlaceMapper.getByIdProtoToUUID(getByIdProto);
+    public void findById(FindByIdProto findByIdProto, StreamObserver<PlaceProto> streamObserver) {
+        log.info("Finding place: {}", findByIdProto);
+        UUID id = PlaceMapper.findByIdProtoToUUID(findByIdProto);
         try {
             placeService.getById(id)
                     .map(PlaceMapper::entityToProto)

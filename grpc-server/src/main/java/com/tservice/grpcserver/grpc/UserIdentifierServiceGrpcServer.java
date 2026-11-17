@@ -89,9 +89,9 @@ public class UserIdentifierServiceGrpcServer extends UserIdentifierServiceGrpc.U
     }
 
     @Override
-    public void getById(GetByIdProto getByIdProto, StreamObserver<UserIdentifierProto> streamObserver) {
-        log.info("Finding UserIdentifier by id: {}", getByIdProto);
-        UUID id = UserIdentifierMapper.getByIdProtoToUUID(getByIdProto);
+    public void findById(FindByIdProto findByIdProto, StreamObserver<UserIdentifierProto> streamObserver) {
+        log.info("Finding UserIdentifier by id: {}", findByIdProto);
+        UUID id = UserIdentifierMapper.findByIdProtoToUUID(findByIdProto);
         try {
             userIdentifierService.getById(id)
                     .map(UserIdentifierMapper::entityToProto)

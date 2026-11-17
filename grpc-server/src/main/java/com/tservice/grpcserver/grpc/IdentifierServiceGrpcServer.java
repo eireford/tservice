@@ -107,9 +107,9 @@ public class IdentifierServiceGrpcServer extends IdentifierServiceGrpc.Identifie
     }
 
     @Override
-    public void getById(GetByIdProto getByIdProto, StreamObserver<IdentifierProto> streamObserver){
-        log.info("Finding identifier: {}", getByIdProto);
-        UUID id = IdentifierMapper.getByIdProtoToUUID(getByIdProto);
+    public void findById(FindByIdProto findByIdProto, StreamObserver<IdentifierProto> streamObserver){
+        log.info("Finding identifier: {}", findByIdProto);
+        UUID id = IdentifierMapper.findByIdProtoToUUID(findByIdProto);
         try{
             identifierService.getById(id)
                     .map(IdentifierMapper::entityToProto)

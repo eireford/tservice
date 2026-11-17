@@ -101,9 +101,9 @@ public class TsetServiceGrpcServer extends TsetServiceGrpc.TsetServiceImplBase{
     }
 
     @Override
-    public void getById(GetByIdProto getByIdProto, StreamObserver<TsetProto> streamObserver) {
-        log.info("Finding Tset by id: {}", getByIdProto);
-        UUID id = TsetMapper.getByIdProtoToUUID(getByIdProto);
+    public void findById(FindByIdProto findByIdProto, StreamObserver<TsetProto> streamObserver) {
+        log.info("Finding Tset by id: {}", findByIdProto);
+        UUID id = TsetMapper.findByIdProtoToUUID(findByIdProto);
         try {
             tsetService.getById(id)
                     .map(TsetMapper::entityToProto)

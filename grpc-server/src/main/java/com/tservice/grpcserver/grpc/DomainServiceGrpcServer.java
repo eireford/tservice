@@ -107,9 +107,9 @@ public class DomainServiceGrpcServer extends DomainServiceGrpc.DomainServiceImpl
     }
 
     @Override
-    public void getById(GetByIdProto getByIdProto, StreamObserver<DomainProto> streamObserver){
-        log.info("Finding domain: {}", getByIdProto);
-        UUID id = DomainMapper.getByIdProtoToUUID(getByIdProto);
+    public void findById(FindByIdProto findByIdProto, StreamObserver<DomainProto> streamObserver){
+        log.info("Finding domain: {}", findByIdProto);
+        UUID id = DomainMapper.findByIdProtoToUUID(findByIdProto);
         try{
             domainService.getById(id)
                     .map(DomainMapper::entityToProto)

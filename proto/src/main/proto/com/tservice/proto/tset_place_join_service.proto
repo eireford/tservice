@@ -18,19 +18,19 @@ service TsetPlaceService{
 
 message TsetPlaceProto{
   string id = 1;
-  string tsetID = 2;
-  string placeID = 3;
+  string tset_id = 2;
+  string place_id = 3;
 }
 
 message CreateProto{
-  string tsetID = 1;
-  string placeID = 2;
+  string tset_id = 1;
+  string place_id = 2;
 }
 
 message UpdateProto{
   string id = 1;
-  string tsetID = 2;
-  string placeID = 3;
+  string tset_id = 2;
+  string place_id = 3;
 }
 
 message DeleteProto{

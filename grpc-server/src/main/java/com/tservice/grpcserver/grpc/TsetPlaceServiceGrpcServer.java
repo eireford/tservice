@@ -100,9 +100,9 @@ public class TsetPlaceServiceGrpcServer extends TsetPlaceServiceGrpc.TsetPlaceSe
     }
 
     @Override
-    public void getById(GetByIdProto getByIdProto, StreamObserver<TsetPlaceProto> streamObserver) {
-        log.info("Finding TsetPlace by id: {}", getByIdProto);
-        UUID id = TsetPlaceMapper.getByIdProtoToUUID(getByIdProto);
+    public void findById(FindByIdProto findByIdProto, StreamObserver<TsetPlaceProto> streamObserver) {
+        log.info("Finding TsetPlace by id: {}", findByIdProto);
+        UUID id = TsetPlaceMapper.findByIdProtoToUUID(findByIdProto);
         try {
             tsetPlaceService.getById(id)
                     .map(TsetPlaceMapper::entityToProto)
