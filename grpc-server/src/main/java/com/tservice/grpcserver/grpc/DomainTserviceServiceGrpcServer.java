@@ -107,9 +107,9 @@ public class DomainTserviceServiceGrpcServer extends DomainTserviceServiceGrpc.D
     }
 
     @Override
-    public void getById(GetByIdProto getByIdProto, StreamObserver<DomainTserviceProto> streamObserver){
-        log.info("Finding DomainTservice: {}", getByIdProto);
-        UUID id = DomainTserviceMapper.getByIdProtoToUUID(getByIdProto);
+    public void findById(FindByIdProto findByIdProto, StreamObserver<DomainTserviceProto> streamObserver){
+        log.info("Finding DomainTservice: {}", findByIdProto);
+        UUID id = DomainTserviceMapper.findByIdProtoToUUID(findByIdProto);
         try{
             domainTserviceService.getById(id)
                     .map(DomainTserviceMapper::entityToProto)

@@ -107,9 +107,9 @@ public class UserServiceGrpcServer extends UserServiceGrpc.UserServiceImplBase {
     }
 
     @Override
-    public void getById(GetByIdProto getByIdProto, StreamObserver<UserProto> streamObserver){
-        log.info("Finding user by id: {}", getByIdProto);
-        UUID id = UserMapper.getByIdProtoToUUID(getByIdProto);
+    public void findById(FindByIdProto findByIdProto, StreamObserver<UserProto> streamObserver){
+        log.info("Finding user by id: {}", findByIdProto);
+        UUID id = UserMapper.findByIdProtoToUUID(findByIdProto);
         try {
             userService.getById(id)
                     .map(UserMapper::entityToProto)

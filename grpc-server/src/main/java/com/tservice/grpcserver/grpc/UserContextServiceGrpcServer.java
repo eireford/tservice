@@ -100,9 +100,9 @@ public class UserContextServiceGrpcServer extends UserContextServiceGrpc.UserCon
     }
 
     @Override
-    public void getById(GetByIdProto getByIdProto, StreamObserver<UserContextProto> streamObserver) {
-        log.info("Finding UserContext by id: {}", getByIdProto);
-        UUID id = UserContextMapper.getByIdProtoToUUID(getByIdProto);
+    public void findById(FindByIdProto findByIdProto, StreamObserver<UserContextProto> streamObserver) {
+        log.info("Finding UserContext by id: {}", findByIdProto);
+        UUID id = UserContextMapper.findByIdProtoToUUID(findByIdProto);
         try {
             userContextService.getById(id)
                     .map(UserContextMapper::entityToProto)

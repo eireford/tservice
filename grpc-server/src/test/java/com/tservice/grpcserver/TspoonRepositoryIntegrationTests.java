@@ -62,7 +62,7 @@ class TspoonRepositoryIntegrationTests {
 
     private void insertTspoons(TspoonEntity... tspoons) {
 
-        tspoonRepository.saveAll(Flux.just(Arrays.asList(tspoons)) //
+        tspoonRepository.saveAll(Flux.fromArray(tspoons)).collectList() //
                 .as(StepVerifier::create) //
                 .expectNextMatches(actual -> {
                     System.out.println(actual);

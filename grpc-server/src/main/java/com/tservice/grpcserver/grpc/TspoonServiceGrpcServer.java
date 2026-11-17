@@ -107,9 +107,9 @@ public class TspoonServiceGrpcServer extends TspoonServiceGrpc.TspoonServiceImpl
     }
 
     @Override
-    public void getById(GetByIdProto getByIdProto, StreamObserver<TspoonProto> streamObserver){
-        log.info("Tspoon get: {}", getByIdProto);
-        UUID id = TspoonMapper.getByIdProtoToUUID(getByIdProto);
+    public void findById(FindByIdProto findByIdProto, StreamObserver<TspoonProto> streamObserver){
+        log.info("Tspoon get: {}", findByIdProto);
+        UUID id = TspoonMapper.findByIdProtoToUUID(findByIdProto);
         try{
             tspoonService.getById(id)
                     .doOnSuccess(tspoonEntity -> {

@@ -108,9 +108,9 @@ public class ContextServiceGrpcServer extends ContextServiceGrpc.ContextServiceI
 
 
     @Override
-    public void getById(GetByIdProto getByIdProto, StreamObserver<ContextProto> streamObserver){
-        log.info("Finding context: {}", getByIdProto);
-        UUID id = ContextMapper.getByIdProtoToUUID(getByIdProto);
+    public void findById(FindByIdProto findByIdProto, StreamObserver<ContextProto> streamObserver){
+        log.info("Finding context: {}", findByIdProto);
+        UUID id = ContextMapper.findByIdProtoToUUID(findByIdProto);
         try{
             contextService.getById(id)
                     .map(ContextMapper::entityToProto)
